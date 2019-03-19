@@ -17,8 +17,8 @@
                     <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">
                 </div>
                 <div class="user-info">
-                    <span class="user-name"><?=ucwords($data["nama"])?>
-                    </span>
+                    <span class="user-name"><?=ucwords($data["nama"])?></span>
+                    <span class="user-id"><?=$data["nisn"]?></span>
                     <span class="user-role"><?=$data["level"]?></span>
                 </div>
             </div>

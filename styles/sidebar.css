@@ -184,6 +184,10 @@ body {
     font-size: 12px;
 }
 
+.sidebar-wrapper .sidebar-header .user-info .user-id {
+    font-size: 12px;
+}
+
 .sidebar-wrapper .sidebar-header .user-info .user-status {
     font-size: 11px;
     margin-top: 4px;

@@ -6,7 +6,8 @@ function rupiah($angka)
 }
 
 $data = array(
-    "nama" => "Ardiva Tri Akbar", 
+    "nama" => "Ardiva Tri Akbar",
+    "nisn" => "0021413121",
     "level" => "siswa",
     "saldo" => "110000",
 );
