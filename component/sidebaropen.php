@@ -30,31 +30,31 @@
                         <span>Menu</span>
                     </li>
                     <li>
-                        <a href="/siswa/dashboard.php">
+                        <a href="dashboard.php">
                             <i class="fa fa-book"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/siswa/spp.php">
+                        <a href="spp.php">
                             <i class="fa fa-book"></i>
                             <span>Pembayaran SPP</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/siswa/kirim.php">
+                        <a href="kirim.php">
                             <i class="fa fa-calendar"></i>
                             <span>Kirim Uang</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/siswa/donasi.php">
+                        <a href="donasi.php">
                             <i class="fa fa-calendar"></i>
                             <span>Donasi</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/siswa/history.php">
+                        <a href="history.php">
                             <i class="fa fa-folder"></i>
                             <span>History</span>
                         </a>

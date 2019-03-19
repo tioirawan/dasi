@@ -51,7 +51,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><i class="fas fa-hand-holding-usd"></i> Donasi</h5>
                             <p class="card-text">Donasikan sedikit uang sakumu untuk yang membutuhkan</p>
-                            <a href="/siswa/donasi.php" class="btn btn-primary">Sumbang!</a>
+                            <a href="donasi.php" class="btn btn-primary">Sumbang!</a>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><i class="fas fa-file-invoice"></i> SPP</h5>
                             <p class="card-text">Bayar SPP dengan cepat dan mudah tanpa antri</p>
-                            <a href="/siswa/spp.php" class="btn btn-primary">Bayar</a>
+                            <a href="spp.php" class="btn btn-primary">Bayar</a>
                         </div>
                     </div>
                 </div>
