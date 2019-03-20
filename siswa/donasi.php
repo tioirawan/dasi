@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <?php include "../process/getUserData.php" ?>    
+    <?php include "../process/getLoginData.php" ?>    
     <?php include "../component/siswa/sidebaropen.php" ?>
 
     tidak ada donasi yang dibuka

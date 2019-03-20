@@ -27,6 +27,74 @@ class Database {
         return $this->cont;
     }
 
+    public function registerAdmin($nama, $email, $password) {
+        try {
+            $query = $this->cont->prepare(
+                "INSERT INTO admin(nama, email, password) 
+                VALUES (:nama,:email,:password)"
+            );
+
+            $enc_password = hash('sha256', $password);
+            
+            $query->bindParam("nama", $nama, PDO::PARAM_STR);
+            $query->bindParam("email", $email, PDO::PARAM_STR);
+            $query->bindParam("password", $enc_password, PDO::PARAM_STR);
+
+            $query->execute();
+
+            return $this->cont->lastInsertId();
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    
+    public function loginAdmin($email, $password) {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT id FROM admin 
+                WHERE email=:email
+                AND password=:password"
+            );
+
+            $query->bindParam("email", $email, PDO::PARAM_STR);
+            $enc_password = hash('sha256', $password);
+            $query->bindParam("password", $enc_password, PDO::PARAM_STR);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                $result = $query->fetch(PDO::FETCH_OBJ);
+                return $result->id;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    
+    public function getAdminById($id, $rettype)
+    {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT id, nama, email, level
+                FROM admin WHERE id=:id"
+            );
+
+            $query->bindParam("id", $id, PDO::PARAM_STR);
+            
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return $query->fetch($rettype);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
     public function getAllUsers() {
         $stmt = $this->cont->prepare("SELECT * FROM users"); 
 
@@ -35,11 +103,11 @@ class Database {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);     
     }
 
-    public function register($nama, $email, $level, $nisn, $saldo, $password) {
+    public function register($nama, $email, $level, $tingkatan, $kelas, $jurusan, $nisn, $saldo, $password) {
         try {
             $query = $this->cont->prepare(
-                "INSERT INTO users(nama, email, level, nisn, saldo, password) 
-                VALUES (:nama,:email,:level,:nisn,:saldo,:password)"
+                "INSERT INTO users(nama, email, level, tingkatan, kelas, jurusan, nisn, saldo, password) 
+                VALUES (:nama,:email,:level,:tingkatan,:kelas,:jurusan,:nisn,:saldo,:password)"
             );
 
             $enc_password = hash('sha256', $password);
@@ -47,6 +115,9 @@ class Database {
             $query->bindParam("nama", $nama, PDO::PARAM_STR);
             $query->bindParam("email", $email, PDO::PARAM_STR);
             $query->bindParam("level", $level, PDO::PARAM_STR);
+            $query->bindParam("tingkatan", $tingkatan, PDO::PARAM_STR);
+            $query->bindParam("kelas", $kelas, PDO::PARAM_STR);
+            $query->bindParam("jurusan", $jurusan, PDO::PARAM_STR);
             $query->bindParam("nisn", $nisn, PDO::PARAM_STR);
             $query->bindParam("saldo", $saldo, PDO::PARAM_INT);
             $query->bindParam("password", $enc_password, PDO::PARAM_STR);
@@ -73,9 +144,11 @@ class Database {
 
             $query->execute();
 
+            // print_r($query->fetchAll(PDO::FETCH_ASSOC));
+
             if ($query->rowCount() > 0) {
                 $result = $query->fetch(PDO::FETCH_OBJ);
-                return $result->user_id;
+                return $result->id;
             } else {
                 return false;
             }
@@ -88,7 +161,7 @@ class Database {
     {
         try {
             $query = $this->cont->prepare(
-                "SELECT id, nama, email, level, nisn, saldo
+                "SELECT id, nama, email, level, tingkatan, kelas, jurusan, nisn, saldo
                 FROM users WHERE name LIKE '%:query%' OR email=':query' OR nisn=':query'"
             );
 
@@ -98,6 +171,26 @@ class Database {
 
             if ($query->rowCount() > 0) {
                 return $query->fetch(PDO::FETCH_OBJ);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function getUserById($id, $rettype)
+    {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT id, nama, email, level, tingkatan, kelas, jurusan, nisn, saldo
+                FROM users WHERE id=:id"
+            );
+
+            $query->bindParam("id", $id, PDO::PARAM_STR);
+            
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return $query->fetch($rettype);
             }
         } catch (PDOException $e) {
             exit($e->getMessage());

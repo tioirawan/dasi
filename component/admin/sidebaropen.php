@@ -26,8 +26,6 @@
                 </div>
                 <div class="user-info">
                     <span class="user-name"><?=ucwords($data["nama"])?></span>
-                    <span class="user-id"><?=$data["nisn"]?></span>
-                    <span class="user-role"><?=$data["level"]?></span>
                 </div>
             </div>
             
@@ -54,7 +52,7 @@
                 <i class="fa fa-cog"></i>
                 <span class="badge-sonar"></span>
             </a>
-            <a href="/logout.php">
+            <a href="../actions/logout.php">
                 <i class="fa fa-power-off"></i>
             </a>
         </div>

@@ -3,5 +3,5 @@
 
      $pdo = new Database();
 
-     print_r($pdo->getAllUsers());
+     print_r($pdo->registerAdmin("admin", "admin@mail.com", "admin123"));
 ?>

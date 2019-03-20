@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <?php include "../process/getUserData.php" ?>    
+    <?php include "../process/getAdminLoginData.php" ?>    
     <?php include "../component/admin/sidebaropen.php" ?>
 
     Dashboard admin

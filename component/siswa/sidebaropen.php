@@ -77,7 +77,7 @@
                 <i class="fa fa-cog"></i>
                 <span class="badge-sonar"></span>
             </a>
-            <a href="/logout.php">
+            <a href="../actions/logout.php">
                 <i class="fa fa-power-off"></i>
             </a>
         </div>
