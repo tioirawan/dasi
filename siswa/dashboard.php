@@ -9,7 +9,7 @@
 <body>
     <?php include "../process/getUserData.php" ?>
 
-    <?php include "../component/sidebaropen.php" ?>
+    <?php include "../component/siswa/sidebaropen.php" ?>
 
     <?php
     $saldo = (int)$data["saldo"];
@@ -42,7 +42,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><i class="fas fa-qrcode" aria-hidden="true"></i> QR Code</h5>
                             <p class="card-text">Bayar barang atau makanan di kantin dengan QR Code yang tersedia</p>
-                            <a href="#" class="btn btn-primary">Buka Pemindai</a>
+                            <a href="scan.php" class="btn btn-primary">Buka Pemindai</a>
                         </div>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
 
     <!-- Content End -->
 
-    <?php include "../component/sidebarclose.php" ?>
+    <?php include "../component/siswa/sidebarclose.php" ?>
 
 
     <?php include "../component/scripts.php" ?>

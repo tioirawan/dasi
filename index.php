@@ -10,7 +10,7 @@
 <body>
     <header>
         <h1>DASI</h1>
-        <a href="login.php">login</a>
+        <a href="siswa/login.php">login siswa</a>
     </header>
 </body>
 </html>

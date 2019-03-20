@@ -1,4 +1,7 @@
 <?php 
-    $url = $_SERVER['REQUEST_URI']; 
-    print_r(explode('/', $url));
+     require '../db/database.php';
+
+     $pdo = new Database();
+
+     print_r($pdo->getAllUsers());
 ?>

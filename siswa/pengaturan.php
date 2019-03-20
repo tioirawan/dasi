@@ -8,11 +8,11 @@
 
 <body>
     <?php include "../process/getUserData.php" ?>
-    <?php include "../component/sidebaropen.php" ?>
+    <?php include "../component/siswa/sidebaropen.php" ?>
 
     ini pengaturan
 
-    <?php include "../component/sidebarclose.php" ?>
+    <?php include "../component/siswa/sidebarclose.php" ?>
     <?php include "../component/scripts.php" ?>
 </body>
 
