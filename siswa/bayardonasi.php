@@ -3,18 +3,32 @@
 
 <head>
     <?php include "../component/helmet.php" ?>
-    <title>Dashboard</title>
-</head>
-
-<body>
     <?php include "../process/getLoginData.php" ?>
-    <?php include "../component/siswa/sidebaropen.php" ?>
 
     <?php
     $donationid = $_GET['id_donasi'];
 
     $res = $db->getDonation($donationid, PDO::FETCH_OBJ);
+    ?>
 
+    <style>
+        .table-scroll-v {
+            position: relative;
+            overflow: auto;
+        }
+
+        .table-wrapper-scroll-y {
+            display: block;
+        }
+    </style>
+
+    <title><?= ucwords($res->judul) ?></title>
+</head>
+
+<body>
+    <?php include "../component/siswa/sidebaropen.php" ?>
+
+    <?php
     if (!$res) {
         echo "<h1>Tidak dapat menemukan donasi 404</h1>";
     }
@@ -39,10 +53,8 @@
                     <p class="lead">Ayo, bantu berdonasi! sedekah tidaklah mengurangi harta <i class="fas fa-smile-wink"></i></p>
                 </div>
             </div>
-        </div>
 
-        <div class="col-sm-5">
-            <div class="card">
+            <div class="card mb-3">
                 <div class="card-body">
                     <h3 class="card-title">Form Donasi</h3>
 
@@ -75,8 +87,10 @@
 
                 </div>
             </div>
+        </div>
 
-            <div class="card mt-3">
+        <div class="col-sm-5 mb-3">
+            <div class="card h-100" id="card-wrapper">
                 <div class="card-body">
                     <h3 class="card-title">Donatur</h3>
 
@@ -86,28 +100,30 @@
                     if ($donatur) {
                         ?>
 
-                    <table class="table">
-                        <tr>
-                            <th>Nama</th>
-                            <th>Kelas</th>
-                            <th>Jumlah Donasi</th>
-                        </tr>
+                    <div class="table-wrapper-scroll-y table-scroll-v">
+                        <table class="table">
+                            <tr>
+                                <th>Nama</th>
+                                <th>Kelas</th>
+                                <th>Jumlah Donasi</th>
+                            </tr>
 
-                        <?php
-                        foreach ($donatur as $d) {
-                            ?>
+                            <?php
+                            foreach ($donatur as $d) {
+                                ?>
 
-                        <tr>
-                            <td><?= $d->private ? "-" : $d->nama ?></td>
-                            <td><?= $d->private ? "-" : "$d->tingkatan $d->jurusan $d->kelas" ?></td>
-                            <td><?= rupiah($d->jumlah) ?></td>
-                        </tr>
+                            <tr>
+                                <td><?= $d->private ? "-" : $d->nama ?></td>
+                                <td><?= $d->private ? "-" : "$d->tingkatan $d->jurusan $d->kelas" ?></td>
+                                <td><?= rupiah($d->jumlah) ?></td>
+                            </tr>
 
-                        <?php
+                            <?php
 
-                    }
-                    ?>
-                    </table>
+                        }
+                        ?>
+                        </table>
+                    </div>
 
                     <?php
 
@@ -140,6 +156,8 @@
 
             return true;
         });
+
+        $(".table-scroll-v").height($("#card-wrapper").height() - 200 + "px");
     </script>
 </body>
 
