@@ -21,9 +21,6 @@
                 </div>
             </div>
             <div class="sidebar-header">
-                <div class="user-pic">
-                    <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">
-                </div>
                 <div class="user-info">
                     <span class="user-name"><?=ucwords($data["nama"])?></span>
                     <span class="user-id"><?=$data["nisn"]?></span>
@@ -74,8 +71,7 @@
         <!-- sidebar-content  -->
         <div class="sidebar-footer">
             <a href="pengaturan.php">
-                <i class="fa fa-cog"></i>
-                <span class="badge-sonar"></span>
+                <i class="fa fa-cog"></i>                
             </a>
             <a href="../actions/logout.php">
                 <i class="fa fa-power-off"></i>

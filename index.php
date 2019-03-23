@@ -11,6 +11,7 @@
     <header>
         <h1>DASI</h1>
         <a href="siswa/login.php">login siswa</a>
+        <a href="admin/login.php">login admin</a>
     </header>
 </body>
 </html>

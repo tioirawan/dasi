@@ -21,9 +21,6 @@
                 </div>
             </div>
             <div class="sidebar-header">
-                <div class="user-pic">
-                    <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">
-                </div>
                 <div class="user-info">
                     <span class="user-name"><?=ucwords($data["nama"])?></span>
                 </div>
@@ -37,8 +34,22 @@
                     </li>
                     <li>
                         <a href="dashboard.php">
-                            <i class="fa fa-book"></i>
+                            <i class="fas fa-book"></i>
                             <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="siswa_baru.php">
+                            <i class="fas fa-book"></i>
+                            <span>Siswa Baru</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="buka_donasi.php">
+                            <i class="fas fa-book"></i>
+                            <span>Buka Donasi</span>
                         </a>
                     </li>
                      
@@ -50,7 +61,6 @@
         <div class="sidebar-footer">
             <a href="pengaturan.php">
                 <i class="fa fa-cog"></i>
-                <span class="badge-sonar"></span>
             </a>
             <a href="../actions/logout.php">
                 <i class="fa fa-power-off"></i>

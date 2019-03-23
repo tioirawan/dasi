@@ -1,6 +1,7 @@
 <?php
 
-class Database {
+class Database
+{
     private $contHost = 'localhost';
     private $contnama = 'dasi';
     private $contUsernama = 'root';
@@ -8,14 +9,15 @@ class Database {
 
     private $cont  = null;
 
-	public function __construct() {
+    public function __construct()
+    {
         if ($this->cont == null) {
 
             try {
                 $this->cont =  new PDO(
-                    "mysql:host=" . $this->contHost . 
-                    ";" . "dbname=" . $this->contnama, 
-                    $this->contUsernama,  
+                    "mysql:host=" . $this->contHost .
+                        ";" . "dbname=" . $this->contnama,
+                    $this->contUsernama,
                     $this->contUserPassword
                 );
                 $this->cont->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -23,19 +25,20 @@ class Database {
                 die($e->getMessage());
             }
         }
-        
+
         return $this->cont;
     }
 
-    public function registerAdmin($nama, $email, $password) {
+    public function registerAdmin($nama, $email, $password)
+    {
         try {
             $query = $this->cont->prepare(
-                "INSERT INTO admin(nama, email, password) 
-                VALUES (:nama,:email,:password)"
+                "INSERT INTO admin(nama, email, level, password) 
+                VALUES (:nama,:email,'admin',:password)"
             );
 
             $enc_password = hash('sha256', $password);
-            
+
             $query->bindParam("nama", $nama, PDO::PARAM_STR);
             $query->bindParam("email", $email, PDO::PARAM_STR);
             $query->bindParam("password", $enc_password, PDO::PARAM_STR);
@@ -48,8 +51,9 @@ class Database {
         }
     }
 
-    
-    public function loginAdmin($email, $password) {
+
+    public function loginAdmin($email, $password)
+    {
         try {
             $query = $this->cont->prepare(
                 "SELECT id FROM admin 
@@ -74,7 +78,7 @@ class Database {
         }
     }
 
-    
+
     public function getAdminById($id, $rettype)
     {
         try {
@@ -84,7 +88,7 @@ class Database {
             );
 
             $query->bindParam("id", $id, PDO::PARAM_STR);
-            
+
             $query->execute();
 
             if ($query->rowCount() > 0) {
@@ -95,15 +99,17 @@ class Database {
         }
     }
 
-    public function getAllUsers() {
-        $stmt = $this->cont->prepare("SELECT * FROM users"); 
+    public function getAllUsers()
+    {
+        $stmt = $this->cont->prepare("SELECT * FROM users");
 
         $stmt->execute();
-   
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);     
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function register($nama, $email, $level, $tingkatan, $kelas, $jurusan, $nisn, $saldo, $password) {
+    public function register($nama, $email, $level, $tingkatan, $kelas, $jurusan, $nisn, $saldo, $password)
+    {
         try {
             $query = $this->cont->prepare(
                 "INSERT INTO users(nama, email, level, tingkatan, kelas, jurusan, nisn, saldo, password) 
@@ -111,7 +117,7 @@ class Database {
             );
 
             $enc_password = hash('sha256', $password);
-            
+
             $query->bindParam("nama", $nama, PDO::PARAM_STR);
             $query->bindParam("email", $email, PDO::PARAM_STR);
             $query->bindParam("level", $level, PDO::PARAM_STR);
@@ -130,7 +136,8 @@ class Database {
         }
     }
 
-    public function login($email, $password) {
+    public function login($email, $password)
+    {
         try {
             $query = $this->cont->prepare(
                 "SELECT id FROM users 
@@ -166,11 +173,13 @@ class Database {
             );
 
             $query->bindParam("query", $query, PDO::PARAM_STR);
-            
+
             $query->execute();
 
             if ($query->rowCount() > 0) {
-                return $query->fetch(PDO::FETCH_OBJ);
+                return $query->fetchAll(PDO::FETCH_OBJ);
+            } else {
+                return false;
             }
         } catch (PDOException $e) {
             exit($e->getMessage());
@@ -186,11 +195,48 @@ class Database {
             );
 
             $query->bindParam("id", $id, PDO::PARAM_STR);
-            
+
             $query->execute();
 
             if ($query->rowCount() > 0) {
                 return $query->fetch($rettype);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function createDonation($judul, $deskripsi, $target, $idposter)
+    {
+        try {
+            $query = $this->cont->prepare(
+                "INSERT INTO donasi(judul, deskripsi, posted_by, target_donasi) 
+                VALUES (:judul,:deskripsi,:idposter,:tgt)"
+            );
+
+            $query->bindParam("judul", $judul, PDO::PARAM_STR);
+            $query->bindParam("deskripsi", $deskripsi, PDO::PARAM_STR);
+            $query->bindParam("tgt", $target, PDO::PARAM_INT);
+            $query->bindParam("idposter", $idposter, PDO::PARAM_STR);            
+
+            $query->execute();
+
+            return $this->cont->lastInsertId();
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function getAllDonations($rettype) {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT * FROM donasi"
+            );
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return $query->fetchAll($rettype);
             }
         } catch (PDOException $e) {
             exit($e->getMessage());
