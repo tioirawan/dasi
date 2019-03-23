@@ -28,7 +28,7 @@
                     <p class='card-text'><?= substr($r->deskripsi, 0, 150) ?>...</p>
 
 
-                    <div class="table-responsive mb-2">
+                    <div class="table-responsive mb-1">
                         <table class='table'>
                             <tr>
                                 <th>Terkumpul</th>
