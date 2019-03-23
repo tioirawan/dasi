@@ -20,6 +20,11 @@
         .table-wrapper-scroll-y {
             display: block;
         }
+
+        .right-left div:nth-child(1) {
+            float: left;
+            margin-left: 0;
+        }
     </style>
 
     <title><?= ucwords($res->judul) ?></title>
@@ -34,6 +39,7 @@
     }
 
     $mindonation = $data["saldo"] >= 1000 ? 1000 : $data["saldo"];
+    $percentage = number_format(($res->terkumpul / $res->target_donasi) * 100, 2, '.', '')
     ?>
 
     <div class="row">
@@ -46,10 +52,15 @@
             </div>
 
             <div class="card mt-3 mb-3">
-                <div class="card-body mt-4 mb-4">
+                <div class="card-body mt-2">
                     <!-- <h1 class="display-4">Terkumpul <?= rupiah($res->terkumpul) ?></h1> -->
 
                     <h3 class="card-title">Saat ini, sudah terkumpul <?= rupiah($res->terkumpul) ?> dari target <?= rupiah($res->target_donasi) ?></h3>
+
+                    <div class="progress mb-3" style="height: 25px;">
+                        <div class="progress-bar" role="progressbar" style="width: <?= $percentage ?>%;"><?= $percentage ?>%</div>
+                    </div>
+
                     <p class="lead">Ayo, bantu berdonasi! sedekah tidaklah mengurangi harta <i class="fas fa-smile-wink"></i></p>
                 </div>
             </div>
@@ -82,7 +93,15 @@
                         <input type="hidden" name="donationname" value="<?= ucwords($res->judul) ?>">
                         <input type="hidden" name="userid" value="<?= $data["id"] ?>">
 
-                        <input type="submit" class="btn btn-primary" value="Donasikan!">
+                        <div class="right-left">
+                            <div>
+                                <a href="donasi.php" role="button" class="btn btn-primary">Kembagi Ke List Donasi</a>
+                            </div>
+
+                            <div>
+                                <input type="submit" class="btn btn-primary" value="Donasikan!">
+                            </div>
+                        </div>
                     </form>
 
                 </div>

@@ -44,7 +44,7 @@
                     </div>
 
                     <?php
-                    echo "<a href='bayardonasi.php?id_donasi=$r->id' class='btn btn-primary'>Donasi</a>";
+                    echo "<a href='bayardonasi.php?id_donasi=$r->id' class='btn btn-primary'>Pelajari Lebih Lanjut!</a>";
 
                     echo "</div></div></div>";
                 }
