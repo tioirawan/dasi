@@ -95,7 +95,7 @@
 
                         <div class="right-left">
                             <div>
-                                <a href="donasi.php" role="button" class="btn btn-primary">Kembagi Ke List Donasi</a>
+                                <a href="donasi.php" role="button" class="btn btn-primary">List Donasi</a>
                             </div>
 
                             <div>
