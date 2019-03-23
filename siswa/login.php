@@ -7,6 +7,8 @@
 </head>
 
 <body>
+
+    <?php include "../process/redirectLoggedUser.php" ?>
     <center>
         <div class="container">
             <h1>Masuk</h1>
@@ -16,8 +18,8 @@
                     <div class="form-group">
                         <label for="useremail">Email</label>
                         <input type="email" name="useremail" class="form-control" id="useremail" placeholder="Email">
-
                     </div>
+                    
                     <div class="form-group">
                         <label for="userpass">Kata Sandi</label>
                         <input type="password" name="userpass" class="form-control" id="userpass" placeholder="Kata Sandi">

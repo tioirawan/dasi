@@ -1,7 +1,7 @@
-<?php 
-     require '../db/database.php';
+<?php
 
-     $pdo = new Database();
+include "../process/utils.php";
 
-     print_r($pdo->registerAdmin("admin", "admin@mail.com", "admin123"));
+sendMail("tioirawan063@gmail.com", "dasi", "selamat bergabung di dasi!");
+
 ?>

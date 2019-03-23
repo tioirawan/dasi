@@ -1,5 +1,7 @@
 <?php
 
+require __DIR__."/../process/utils.php";
+
 class Database
 {
     private $contHost = 'localhost';
@@ -108,19 +110,25 @@ class Database
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function register($nama, $email, $level, $tingkatan, $kelas, $jurusan, $nisn, $saldo, $password)
+    public function register($nama, $kelamin, $email, $tingkatan, $kelas, $jurusan, $nisn, $saldo)
     {
         try {
             $query = $this->cont->prepare(
-                "INSERT INTO users(nama, email, level, tingkatan, kelas, jurusan, nisn, saldo, password) 
-                VALUES (:nama,:email,:level,:tingkatan,:kelas,:jurusan,:nisn,:saldo,:password)"
+                "INSERT INTO users(nama, kelamin, email, level, tingkatan, kelas, jurusan, nisn, saldo, password) 
+                VALUES (:nama,:kelamin,:email,'siswa',:tingkatan,:kelas,:jurusan,:nisn,:saldo,:password)"
             );
 
+            $password = generateRandom();
+
+            
             $enc_password = hash('sha256', $password);
 
+            echo $password."<br>";
+            echo $enc_password."<br>";
+            
             $query->bindParam("nama", $nama, PDO::PARAM_STR);
+            $query->bindParam("kelamin", $kelamin, PDO::PARAM_STR);
             $query->bindParam("email", $email, PDO::PARAM_STR);
-            $query->bindParam("level", $level, PDO::PARAM_STR);
             $query->bindParam("tingkatan", $tingkatan, PDO::PARAM_STR);
             $query->bindParam("kelas", $kelas, PDO::PARAM_STR);
             $query->bindParam("jurusan", $jurusan, PDO::PARAM_STR);
@@ -130,7 +138,7 @@ class Database
 
             $query->execute();
 
-            return $this->cont->lastInsertId();
+            return Array($this->cont->lastInsertId(), $password);
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
@@ -145,8 +153,9 @@ class Database
                 AND password=:password"
             );
 
-            $query->bindParam("email", $email, PDO::PARAM_STR);
             $enc_password = hash('sha256', $password);
+
+            $query->bindParam("email", $email, PDO::PARAM_STR);
             $query->bindParam("password", $enc_password, PDO::PARAM_STR);
 
             $query->execute();
@@ -156,6 +165,32 @@ class Database
             if ($query->rowCount() > 0) {
                 $result = $query->fetch(PDO::FETCH_OBJ);
                 return $result->id;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function validatePassword($id, $password)
+    {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT id FROM users 
+                WHERE id=:id
+                AND password=:password"
+            );
+
+            $enc_password = hash('sha256', $password);
+
+            $query->bindParam("id", $id, PDO::PARAM_STR);
+            $query->bindParam("password", $enc_password, PDO::PARAM_STR);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return true;
             } else {
                 return false;
             }
@@ -206,11 +241,32 @@ class Database
         }
     }
 
+    public function getUserTransactionHistory($id, $rettype) {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT *
+                 FROM users_transaction
+                 WHERE user_id=:id
+                 ORDER BY tanggal DESC"
+            );
+
+            $query->bindParam("id", $id, PDO::PARAM_STR);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return $query->fetchAll($rettype);
+            }
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
     public function createDonation($judul, $deskripsi, $target, $idposter)
     {
         try {
             $query = $this->cont->prepare(
-                "INSERT INTO donasi(judul, deskripsi, posted_by, target_donasi) 
+                "INSERT INTO donation(judul, deskripsi, posted_by, target_donasi) 
                 VALUES (:judul,:deskripsi,:idposter,:tgt)"
             );
 
@@ -227,10 +283,51 @@ class Database
         }
     }
 
+    public function getDonation($id, $rettype) {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT * FROM donation WHERE id=:id"
+            );
+
+            $query->bindParam("id", $id, PDO::PARAM_STR);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return $query->fetch($rettype);
+            }
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    public function getDonatur($id, $rettype) {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT users.nama, users.tingkatan, users.kelas,
+                 users.jurusan, users_donation.jumlah, users_donation.private
+                 FROM users_donation INNER JOIN users
+                 ON users_donation.user_id = users.id
+                 WHERE users_donation.donation_id=:id
+                 ORDER BY tanggal DESC"
+            );
+
+            $query->bindParam("id", $id, PDO::PARAM_STR);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return $query->fetchAll($rettype);
+            }
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
     public function getAllDonations($rettype) {
         try {
             $query = $this->cont->prepare(
-                "SELECT * FROM donasi"
+                "SELECT * FROM donation"
             );
 
             $query->execute();
@@ -238,6 +335,80 @@ class Database
             if ($query->rowCount() > 0) {
                 return $query->fetchAll($rettype);
             }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function fundDonation($donation_id, $user_id, $amount, $isprivate) {
+        try {
+            $query = $this->cont->prepare(
+                "UPDATE donation
+                SET terkumpul = terkumpul + :amount
+                WHERE id=:donationid"
+            );
+
+            $query->bindParam("donationid", $donation_id, PDO::PARAM_STR);
+            $query->bindParam("amount", $amount, PDO::PARAM_INT);
+
+            $query->execute();
+
+            if ($query->rowCount() < 0) {
+                return false;
+            } 
+
+            $query = $this->cont->prepare(
+                "UPDATE users
+                SET saldo = saldo - :amount
+                WHERE id=:userid"
+            );
+
+            $query->bindParam("userid", $user_id, PDO::PARAM_STR);
+            $query->bindParam("amount", $amount, PDO::PARAM_INT);
+
+
+            $query->execute();
+
+            if ($query->rowCount() < 0) {
+                return false;
+            } 
+
+            $query = $this->cont->prepare(
+                "INSERT INTO users_donation(donation_id, user_id, jumlah, private) 
+                VALUES (:donationid,:userid,:amount,:isprivate)"
+            );
+
+            $query->bindParam("donationid", $donation_id, PDO::PARAM_INT);
+            $query->bindParam("userid", $user_id, PDO::PARAM_INT);
+            $query->bindParam("amount", $amount, PDO::PARAM_INT);
+            $query->bindParam("isprivate", $isprivate, PDO::PARAM_BOOL);
+
+            $query->execute();
+
+            return $this->cont->lastInsertId();
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function addTransaction($amount, $type, $userid, $method, $description)
+    {
+        try {
+            $query = $this->cont->prepare(
+                "INSERT INTO users_transaction(jumlah, tipe, user_id, metode, deskripsi) 
+                VALUES (:jumlah,:tipe,:userid,:metode,:deskripsi)"
+            );
+
+
+            $query->bindParam("jumlah", $amount, PDO::PARAM_INT);
+            $query->bindParam("tipe", $type, PDO::PARAM_STR);
+            $query->bindParam("userid", $userid, PDO::PARAM_STR);
+            $query->bindParam("metode", $method, PDO::PARAM_STR);
+            $query->bindParam("deskripsi", $description, PDO::PARAM_STR);
+
+            $query->execute();
+
+            return $this->cont->lastInsertId();
         } catch (PDOException $e) {
             exit($e->getMessage());
         }

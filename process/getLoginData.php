@@ -2,7 +2,6 @@
 session_start();
 
 require '../db/database.php';
-require 'utils.php';
 
 if(!isset($_SESSION['userid'])) {
     header("Location: ../siswa/login.php");

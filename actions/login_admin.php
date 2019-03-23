@@ -8,7 +8,7 @@ $db = new Database();
 $res = $db->loginAdmin($_POST["useremail"], $_POST["userpass"], "*");
 
 if($res) {
-    $_SESSION['userid'] = $res;
+    $_SESSION['adminid'] = $res;
     $_SESSION['level'] = "admin";
 
     header("Location: ../admin/dashboard.php");

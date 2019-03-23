@@ -7,6 +7,8 @@
 </head>
 
 <body>
+    <?php include "../process/redirectLoggedUser.php" ?>
+    
     <center>
         <div class="container">
             <h1>Masuk Admin</h1>
@@ -24,14 +26,14 @@
                     </div>
 
                     <!-- <div class="right-left"> -->
-                        <!-- <div class="form-check">
+                    <!-- <div class="form-check">
                             <input type="checkbox" name="rememberme" class="form-check-input" id="rememberme">
                             <label class="form-check-label" for="rememberme">Ingat Saya</label>
                         </div> -->
 
-                        <div>
-                            <button type="submit" class="btn btn-primary">Masuk</button>
-                        </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Masuk</button>
+                    </div>
                     <!-- </div> -->
                 </form>
             </div>

@@ -3,14 +3,15 @@ require "../db/database.php";
 
 $db = new Database();
 
-$db->register(
+$pass = $db->register(
     $_POST["nama"],
+    $_POST["kelamin"],
     $_POST["email"],
-    "siswa",
     $_POST["tingkatan"],
     $_POST["kelas"],
     $_POST["jurusan"],
     $_POST["nisn"],
-    $_POST["saldo"],
-    $_POST["password"]
-);
+    $_POST["saldo"]
+)[1];
+
+echo "Password: $pass";
