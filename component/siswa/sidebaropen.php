@@ -25,6 +25,21 @@
                     <span class="user-role"><?=$data["level"]?></span>
                 </div>
             </div>
+            <div class="sidebar-menu">
+                    <ul>
+                        <li class="header-menu">
+                            <span>Saldo Sekarang</span>
+                        </li>
+                        <li>
+                            <a><span><?=rupiah($data["saldo"])?></span></a>
+                        </li>
+                        <!--<li class="topup">
+                            <div class="bgtopup">
+                                <span>Top Up</span>
+                            </div>
+                        </li>-->
+                    </ul>
+            </div>
             
             <!-- sidebar-search  -->
             <div class="sidebar-menu">
