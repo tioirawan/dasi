@@ -25,22 +25,22 @@
                     <span class="user-role"><?=$data["level"]?></span>
                 </div>
             </div>
-            <!--<div class="sidebar-header">
+            <div class="sidebar-header">
                 <div class="list">
                     <ul>
                         <li class="money">
                             <div class="bgmoney">
-                                <span>--><?#=rupiah($data["saldo"])?><!--</span>
+                                <span><?=rupiah($data["saldo"])?></span>
                             </div>
                         </li>
-                        <li class="topup">
+                        <!--<li class="topup">
                             <div class="bgtopup">
                                 <span>Top Up</span>
                             </div>
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
-            </div>-->
+            </div>
             
             <!-- sidebar-search  -->
             <div class="sidebar-menu">
