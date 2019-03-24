@@ -90,33 +90,37 @@
                 ?>
 
             <div class="table-responsive">
-                <table class="table">
-                    <tr>
-                        <th>ID</th>
-                        <th>Tanggal</th>
-                        <th>Jumlah</th>
-                        <th>Tipe</th>
-                        <th>Metode</th>
-                        <th>Deskripsi</th>
-                    </tr>
+                <table id="paymentHistoryTable" class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tanggal</th>
+                            <th>Jumlah</th>
+                            <th>Tipe</th>
+                            <th>Metode</th>
+                            <th>Deskripsi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($trx as $val) {
+                            ?>
 
-                    <?php
-                    foreach ($trx as $val) {
-                        ?>
+                        <tr>
+                            <td><?= $val->id ?></td>
+                            <td><?= $val->tanggal ?></td>
+                            <td><?= rupiah($val->jumlah) ?></td>
+                            <td><?= $val->tipe ?></td>
+                            <td><?= $val->metode ?></td>
+                            <td><?= $val->deskripsi ?></td>
+                        </tr>
 
-                    <tr>
-                        <td><?= $val->id ?></td>
-                        <td><?= $val->tanggal ?></td>
-                        <td><?= rupiah($val->jumlah) ?></td>
-                        <td><?= $val->tipe ?></td>
-                        <td><?= $val->metode ?></td>
-                        <td><?= $val->deskripsi ?></td>
-                    </tr>
+                        <?php
 
-                    <?php
+                    }
+                    ?>
 
-                }
-                ?>
+                    </tbody>
                 </table>
             </div>
 
@@ -132,9 +136,17 @@
     <!-- Content End -->
 
     <?php include "../component/siswa/sidebarclose.php" ?>
-
-
     <?php include "../component/scripts.php" ?>
+
+    <script>
+        $(document).ready(function() {
+            $('#paymentHistoryTable').DataTable({
+                "order": [
+                    [1, "desc"]
+                ]
+            });
+        });
+    </script>
 </body>
 
 </html> 

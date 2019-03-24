@@ -10,7 +10,9 @@
 
 <link rel="stylesheet" href="<?=$up?>styles/bootstrap.css" > 
 <link rel="stylesheet" href="<?=$up?>styles/bootstrapfix.css">
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/r-2.2.2/sc-2.0.0/datatables.min.css"/>
+
 <link rel="stylesheet" href="<?=$up?>styles/main.css">
 <link rel="stylesheet" href="<?=$up?>styles/sidebar.css">
-
-
+ 
