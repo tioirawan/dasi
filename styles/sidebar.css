@@ -499,3 +499,53 @@ body {
 .chiller-theme .sidebar-footer > a:last-child {
   border-right: none;
 }
+
+/*-----------------------------donation-theme-------------------------------------------------*/
+
+/*.list ul {
+    display: flex;
+    flex: wrap;
+    justify-content: space-between;
+}
+
+.money span {
+    color: #b8bfce;
+}
+
+.topup span {
+    color: rgb(0, 0, 0);
+}
+
+.bgmoney {
+    padding: 5px;
+}
+
+.bgtopup {
+    cursor: pointer;
+    padding: 5px 10px;
+    background: linear-gradient(270deg, gold, white, gold);
+    background-size: 1000%;
+    border-radius: 5px;
+}
+
+.bgtopup:hover {
+    box-shadow: 0 0 10px gold;
+    animation-name: side;
+    animation-duration: 1s;
+}
+
+@keyframes side {
+    0% {
+        background-position: 0% 50%;
+        box-shadow: none;
+    }
+    50% {
+        background-position: 100% 50%;
+        box-shadow: 0 0 10px white;
+    }
+    100% {
+        background-position: 0% 50%;
+        box-shadow: 0 0 10px gold;
+    }
+}
+>>>>>>> add "saldo & topup" in sidebar */
