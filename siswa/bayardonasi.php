@@ -35,12 +35,14 @@
 
     <?php
     if (!$res) {
-        echo "<h1>Tidak dapat menemukan donasi 404</h1>";
-    }
+        echo "<h1>Tidak dapat menemukan donasi 404</h1>
+        <a href='donasi.php' role='button' class='btn btn-primary btn-lg mt-3'>Kembali ke halaman list donasi</a>";
+    } else { // else open
 
-    $mindonation = $data["saldo"] >= 1000 ? 1000 : $data["saldo"];
-    $percentage = number_format(($res->terkumpul / $res->target_donasi) * 100, 2, '.', '')
-    ?>
+        $mindonation = $data["saldo"] >= 1000 ? 1000 : $data["saldo"] < 0 ? 0 : $data["saldo"];
+        $maxdonation = $data["saldo"] > 0 ? $data["saldo"] : 0;
+        $percentage = number_format(($res->terkumpul / $res->target_donasi) * 100, 2, '.', '')
+        ?>
 
     <div class="row">
         <div class="col-sm-7">
@@ -71,9 +73,9 @@
 
                     <form action="../actions/pay_donation.php" method="post" class="mt-3" id="donation-form">
                         <div class="form-group">
-                            <label for="jumlah_donasi">Donasikan sedikut uangmu (<?= rupiah($mindonation) ?> - <?= rupiah($data["saldo"]) ?>)<br>
+                            <label for="jumlah_donasi">Donasikan sedikut uangmu (<?= rupiah($mindonation) ?> - <?= rupiah($maxdonation) ?>)<br>
                                 <span class="font-weight-bold" id="jmess"></span></label>
-                            <input type="number" class="form-control" name="jumlah_donasi" id="jumlah_donasi" value="<?= $mindonation ?>" required>
+                            <input type="number" class="form-control" name="jumlah_donasi" id="jumlah_donasi" step="100" value="<?= $mindonation ?>" required>
                         </div>
 
                         <div class="form-group">
@@ -147,7 +149,7 @@
                     <?php
 
                 } else {
-                    echo "<p class='card-text'>Tidak ada donatur untuk saat ini, jadilah yang pertama!</p>";
+                    echo "<p class='card-text'>Belum ada donatur untuk saat ini, jadilah yang pertama!</p>";
                 }
                 ?>
 
@@ -155,19 +157,22 @@
             </div>
         </div>
 
-
+        <!-- Else CLose -->
+        <?php 
+    } ?>
     </div>
     </div>
 
     <?php include "../component/siswa/sidebarclose.php" ?>
     <?php include "../component/scripts.php" ?>
 
+    <?php if ($res) { ?>
     <script>
         $('#donation-form').submit(function() {
             const jumlahdonasi = $("#jumlah_donasi");
             const jd = Number(jumlahdonasi.val())
 
-            if (jd < <?= $mindonation ?> || jd > <?= $data["saldo"] ?>) {
+            if (jd < <?= $mindonation ?> || jd > <?= $maxdonation ?>) {
                 $("#jmess").text(`Jumlah donasi terlalu ${jd < <?= $mindonation ?> ? "kecil" : "besar"}`);
                 jumlahdonasi.focus();
                 return false;
@@ -178,6 +183,7 @@
 
         $(".table-scroll-v").height($("#card-wrapper").height() - 200 + "px");
     </script>
+    <?php } ?>
 </body>
 
 </html> 
