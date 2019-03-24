@@ -34,8 +34,6 @@ if (isset($_POST["donationid"])) {
 </head>
 
 <body>
-    <?php include "../component/siswa/sidebaropen.php" ?>
-
     <div class="card">
         <div class="card-body">
             <h1 class="card-title">Donasi <?= $validated ? 'Sukses!' : 'Gagal' ?></h1>
@@ -47,14 +45,15 @@ if (isset($_POST["donationid"])) {
             <?php 
         } else if (!$validated) { ?>
             <p class="card-text">Terjadi kesalahan autentikasi</p>
+            <a href="../siswa/bayardonasi.php?payment_success=0&id_donasi=<?= $donationid ?>" role="button" class="btn btn-primary btn-lg">Kembali ke halaman donasi</a>
+            <?php 
+        } else { ?>
             <a href="../siswa/bayardonasi.php?payment_success=1&id_donasi=<?= $donationid ?>" role="button" class="btn btn-primary btn-lg">Kembali ke halaman donasi</a>
             <?php 
         } ?>
 
         </div>
     </div>
-
-    <?php include "../component/siswa/sidebarclose.php" ?>
     <?php include "../component/scripts.php" ?>
 
     <script>
@@ -64,4 +63,4 @@ if (isset($_POST["donationid"])) {
     </script>
 </body>
 
-</html> 
+</html>
