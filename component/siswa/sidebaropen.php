@@ -28,10 +28,10 @@
             <div class="sidebar-header">
                 <div class="list">
                     <ul>
-                        <li class="money">
-                            <div class="bgmoney">
-                                <span><?=rupiah($data["saldo"])?></span>
-                            </div>
+                        <li class="header-menu">
+                            <!--<div class="bgmoney">
+                            </div>-->
+                            <span><?=rupiah($data["saldo"])?></span>
                         </li>
                         <!--<li class="topup">
                             <div class="bgtopup">
