@@ -501,8 +501,8 @@ body {
 }
 
 /*-----------------------------donation-theme-------------------------------------------------*/
-
-/*.list ul {
+/*
+.list ul {
     display: flex;
     flex: wrap;
     justify-content: space-between;
@@ -547,5 +547,4 @@ body {
         background-position: 0% 50%;
         box-shadow: 0 0 10px gold;
     }
-}
->>>>>>> add "saldo & topup" in sidebar */
+}*/
