@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-sm bg-dark navbar-dark navbar-fixed">
+<nav class="navbar fixed-top navbar-expand-sm bg-primary navbar-dark navbar-fixed">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active">
 
@@ -9,7 +9,7 @@
 </nav> 
 
 <div class="page-wrapper chiller-theme">
-    <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+    <a id="show-sidebar" class="btn btn-sm text-white" href="#">
         <i class="fas fa-bars"></i>
     </a>
     <nav id="sidebar" class="sidebar-wrapper">
@@ -47,9 +47,9 @@
                     </li>
 
                     <li>
-                        <a href="buka_donasi.php">
+                        <a href="donasi.php">
                             <i class="fas fa-book"></i>
-                            <span>Buka Donasi</span>
+                            <span>Donasi</span>
                         </a>
                     </li>
                      

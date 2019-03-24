@@ -411,11 +411,11 @@ body {
 /*-----------------------------chiller-theme-------------------------------------------------*/
 
 .chiller-theme .sidebar-wrapper {
-    background: #31353D;
+    background: #2C3E50;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-header, .chiller-theme .sidebar-wrapper .sidebar-search, .chiller-theme .sidebar-wrapper .sidebar-menu {
-    border-top: 1px solid #3a3f48;
+    border-top: 1px solid #2d303659;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu, .chiller-theme .sidebar-wrapper .sidebar-search .input-group-text {
@@ -424,19 +424,19 @@ body {
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-header .user-info .user-role, .chiller-theme .sidebar-wrapper .sidebar-header .user-info .user-status, .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu, .chiller-theme .sidebar-wrapper .sidebar-search .input-group-text, .chiller-theme .sidebar-wrapper .sidebar-brand>a, .chiller-theme .sidebar-wrapper .sidebar-menu ul li a, .chiller-theme .sidebar-footer>a {
-    color: #818896;
+    color: #dbdbdb;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-menu ul li:hover>a, .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active>a, .chiller-theme .sidebar-wrapper .sidebar-header .user-info, .chiller-theme .sidebar-wrapper .sidebar-brand>a:hover, .chiller-theme .sidebar-footer>a:hover i {
-    color: #b8bfce;
+    color: #dddbdb;
 }
 
 .page-wrapper.chiller-theme.toggled #close-sidebar {
-    color: #bdbdbd;
+    color: #dddbdb;
 }
 
 .page-wrapper.chiller-theme.toggled #close-sidebar:hover {
-    color: #ffffff;
+    color: #dddbdb;
 }
 
 .chiller-theme .sidebar-wrapper ul li:hover a i, .chiller-theme .sidebar-wrapper .sidebar-dropdown .sidebar-submenu li a:hover:before, .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu:focus+span, .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active a i {
@@ -445,7 +445,7 @@ body {
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-menu ul li a i, .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown div, .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu, .chiller-theme .sidebar-wrapper .sidebar-search .input-group-text {
-    background: #3a3f48;
+    background: inherit;
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-menu .header-menu span {
@@ -453,9 +453,8 @@ body {
 }
 
 .chiller-theme .sidebar-footer {
-    background: #3a3f48;
-    box-shadow: 0px -1px 5px #282c33;
-    border-top: 1px solid #464a52;
+    background: inherit;
+    border-top: 1px solid #3a3f48;
 }
 
 .chiller-theme .sidebar-footer>a:first-child {
