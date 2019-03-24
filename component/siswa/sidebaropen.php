@@ -25,10 +25,13 @@
                     <span class="user-role"><?=$data["level"]?></span>
                 </div>
             </div>
-            <div class="sidebar-header">
+            <div class="sidebar-menu">
                     <ul>
                         <li class="header-menu">
-                            <span><?=rupiah($data["saldo"])?></span>
+                            <span>Saldo Sekarang</span>
+                        </li>
+                        <li>
+                            <a><span><?=rupiah($data["saldo"])?></span></a>
                         </li>
                         <!--<li class="topup">
                             <div class="bgtopup">
