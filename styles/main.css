@@ -58,3 +58,7 @@ footer {
 #saldo {
     font-size: 2.2em;
 }
+
+.navbar-brand > img {
+    width: 40px;
+}

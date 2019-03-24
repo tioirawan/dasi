@@ -1,11 +1,9 @@
 <nav class="navbar fixed-top navbar-expand-sm bg-primary navbar-dark navbar-fixed">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active">
-
         </li>
     </ul>
-    <a class="navbar-brand" href="#">Dasi</a>
-
+    <a class="navbar-brand" href="#"><img src="../assets/dasi_white.svg" alt="">Dasi</a>
 </nav> 
 
 <div class="page-wrapper chiller-theme">
