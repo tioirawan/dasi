@@ -26,11 +26,8 @@
                 </div>
             </div>
             <div class="sidebar-header">
-                <div class="list">
                     <ul>
                         <li class="header-menu">
-                            <!--<div class="bgmoney">
-                            </div>-->
                             <span><?=rupiah($data["saldo"])?></span>
                         </li>
                         <!--<li class="topup">
@@ -39,7 +36,6 @@
                             </div>
                         </li>-->
                     </ul>
-                </div>
             </div>
             
             <!-- sidebar-search  -->
