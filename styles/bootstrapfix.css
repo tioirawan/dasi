@@ -1,24 +1,19 @@
-.button{
-    margin-top: 20px;
+.button {
+  margin-top: 20px;
 }
 
 .container {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
-.input{
-    margin-top:20px;
-    width: 200px;
-    height: 20px;
-}
-
-.btn {
-    /* margin: 10px 0; */
+.input {
+  margin-top: 20px;
+  width: 200px;
+  height: 20px;
 }
 
 .form-check {
-    width: 50%;
-    margin: 0;
-    padding: 0;
+  width: 50%;
+  margin: 0;
+  padding: 0;
 }
-

@@ -3,7 +3,7 @@
         <li class="nav-item active">
         </li>
     </ul>
-    <a class="navbar-brand" href="#"><img src="../assets/dasi_white.svg" alt="">Dasi</a>
+    <a class="navbar-brand mr-xs-0" href="#"><img src="../assets/dasi_white.svg" alt="">Dasi</a>
 </nav> 
 
 <div class="page-wrapper chiller-theme">
