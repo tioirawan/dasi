@@ -39,7 +39,7 @@
         <a href='donasi.php' role='button' class='btn btn-primary btn-lg mt-3'>Kembali ke halaman list donasi</a>";
     } else { // else open
 
-        $mindonation = $data["saldo"] >= 1000 ? 1000 : $data["saldo"] < 0 ? 0 : $data["saldo"];
+        $mindonation = $data["saldo"] >= 1000 ? 1000 : ($data["saldo"] < 0 ? 0 : $data["saldo"]);
         $maxdonation = $data["saldo"] > 0 ? $data["saldo"] : 0;
         $percentage = number_format(($res->terkumpul / $res->target_donasi) * 100, 2, '.', '')
         ?>

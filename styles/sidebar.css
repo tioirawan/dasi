@@ -86,9 +86,8 @@ body {
 #show-sidebar {
     position: fixed;
     left: 0;
-    top: 10px;
-    border-radius: 0 4px 4px 0px;
-    width: 35px;
+    top: 14px;
+    width: 50px;
     transition-delay: 0.3s;
     z-index: 1031;
 }
