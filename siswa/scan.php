@@ -12,6 +12,42 @@
             min-height: 30vw;
             border: 1px solid black
         }
+
+        .qrcode-stream__camera,
+        .qrcode-stream__pause-frame {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            background-size: cover;
+            max-width: inherit !important;
+            max-height: inherit !important;
+        }
+
+        .qrcode-stream__inner-wrapper {
+            position: inherit !important;
+            max-width: inherit !important;
+            max-height: inherit !important;
+            z-index: inherit !important;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .qrcode-stream__camera,
+            .qrcode-stream__pause-frame {
+                right: -20vw;
+            }
+        }
+
+        @media only screen and (max-width: 350px) {
+
+            .qrcode-stream__camera,
+            .qrcode-stream__pause-frame {
+                right: -55vw;
+            }
+        }
     </style>
 
     <title>Scan QR Code</title>
@@ -21,17 +57,7 @@
     <?php include "../process/getLoginData.php" ?>
     <?php include "../component/siswa/sidebaropen.php" ?>
 
-    <h1>Scan</h1>
-
     <div id="app">
-        <p>
-            Last result: <b>{{ decodedContent }}</b>
-        </p>
-
-        <p class="error">
-            {{ errorMessage }}
-        </p>
-
         <qrcode-stream @decode="onDecode" @init="onInit"></qrcode-stream>
     </div>
 
@@ -89,4 +115,4 @@
     </script>
 </body>
 
-</html>
+</html> 
