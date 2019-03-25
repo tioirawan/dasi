@@ -3,7 +3,7 @@
 
 <head>
     <?php include "../component/helmet.php" ?>
-    <title>Document</title>
+    <title>Login</title>
 </head>
 
 <body>

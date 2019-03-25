@@ -7,12 +7,11 @@
         foreach ($res as $r) {
             ?>
 
-    <div class='col-sm-4 mt-2'>
+    <div class='col-sm-4 mt-3 mb-3'>
         <div class='card'>
             <div class='card-body'>
                 <h3 class='card-title'><?= $r->judul ?></h3>
                 <p class='card-text'><?= substr($r->deskripsi, 0, 150) ?>...</p>
-
 
                 <div class="table-responsive mb-1">
                     <table class='table'>
