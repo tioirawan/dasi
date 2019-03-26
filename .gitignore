@@ -1,0 +1,5 @@
+# exclude everything
+qrcodes/*
+
+# exception to the rule
+!qrcodes/.gitkeep

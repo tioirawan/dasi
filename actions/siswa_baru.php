@@ -14,4 +14,4 @@ $pass = $db->register(
     $_POST["saldo"]
 )[1];
 
-echo "Password: $pass";
+echo "Password: $pass<br/>Harap Diingat";

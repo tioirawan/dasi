@@ -38,9 +38,16 @@
                     </li>
 
                     <li>
-                        <a href="siswa_baru.php">
+                        <a href="siswa.php">
                             <i class="fas fa-book"></i>
-                            <span>Siswa Baru</span>
+                            <span>Siswa</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="toko.php">
+                            <i class="fas fa-store"></i>
+                            <span>Toko</span>
                         </a>
                     </li>
 
