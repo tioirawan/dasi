@@ -528,6 +528,25 @@ class Database
         }
     }
 
+    public function getQR($uniqueid, $rettype)
+    {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT * FROM qrcode WHERE unique_id=:unid"
+            );
+
+            $query->bindParam("unid", $uniqueid, PDO::PARAM_STR);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return $query->fetch($rettype);
+            }
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
     public function getQRCodeToko($id, $rettype)
     {
         try {

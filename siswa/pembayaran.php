@@ -12,21 +12,27 @@
 
     <?php
     $qrid = $_GET["qrid"];
-    $amout = 0;
 
-    if (isset($_GET["amount"])) {
-        $amount = $_GET["amount"];
-    }
+    $detailPembayaran = $db->getQR($qrid, PDO::FETCH_OBJ);
     ?>
 
-    <div class="jumbotron text-center">
-        <h1 class="display-6">Pembayaran QR Code</h1>
+    <div class="text-center">
+        <h1 class="display-6"><?= $detailPembayaran->judul ?></h1>
         <p class="lead"><?= $qrid ?></p>
 
         <form action="" method="post" class="mt-3" id="donation-form">
             <div class="form-group">
                 <label for="nominal_pembayaran">Nominal Pembayaran</label><br>
-                <input type="number" class="form-control" value="<?= $amount ?>" id="nominal_pembayaran">
+
+                <?php
+                if ($detailPembayaran->tetap) {
+                    ?>
+                <h3><?=rupiah($detailPembayaran->nilai)?></h3>
+                <?php 
+            } else { ?>
+                <input type="number" class="form-control" value="<?=$detailPembayaran->nilai?>" id="nominal_pembayaran">
+                <?php 
+            } ?>
             </div>
 
             <input type="submit" class="btn btn-primary btn-lg" value="Bayar">
