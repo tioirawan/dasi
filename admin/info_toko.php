@@ -73,6 +73,7 @@
                                 <th>Unique ID</th>
                                 <th>Tetap</th>
                                 <th>Nilai</th>
+                                <th></th>
                             </tr>
 
                             <?php
@@ -84,6 +85,7 @@
                                 <td><?= $q->unique_id ?></td>
                                 <td><?= $q->tetap ? "ya" : "tidak" ?></td>
                                 <td><?= $q->nilai ?></td>
+                                <td><a href="<?= "../actions/printqr.php?qrdata=$q->unique_id&judul=$q->judul&toko=$toko->nama&idtoko=$toko->id" ?>">Print</a></td>
                             </tr>
 
                             <?php
