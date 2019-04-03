@@ -17,10 +17,10 @@
     ?>
 
     <div class="text-center">
-        <h1 class="display-6"><?= $detailPembayaran->judul ?></h1>
-        <p class="lead"><?= $qrid ?></p>
+        <h1 class="display-6 mb-0"><?= $detailPembayaran->judul ?></h1>
+        <p class="lead text-muted pt-0"><?= $qrid ?></p>
 
-        <form action="" method="post" class="mt-3" id="donation-form">
+        <form action="../actions/pay.php" method="post" class="mt-3">
             <div class="form-group">
                 <label for="nominal_pembayaran">Nominal Pembayaran</label><br>
 
@@ -28,12 +28,23 @@
                 if ($detailPembayaran->tetap) {
                     ?>
                 <h3><?=rupiah($detailPembayaran->nilai)?></h3>
+                <input type="hidden" name="nominal" value="<?= $detailPembayaran->nilai ?>">
                 <?php 
             } else { ?>
-                <input type="number" class="form-control" value="<?=$detailPembayaran->nilai?>" id="nominal_pembayaran">
+             <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Rp</span>
+                                </div>
+                                <input type="number" class="form-control" name="nominal" value="<?=$detailPembayaran->nilai?>" id="nominal_pembayaran">
+                                
+                            </div>
                 <?php 
             } ?>
             </div>
+
+            <input type="hidden" name="uniqueid" value="<?= $qrid ?>">
+            <input type="hidden" name="userid" value="<?= $data["id"] ?>">
+            <input type="hidden" name="judul" value="<?= $detailPembayaran->judul ?>">
 
             <input type="submit" class="btn btn-primary btn-lg" value="Bayar">
         </form>

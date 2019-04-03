@@ -30,27 +30,62 @@ if (isset($_POST["donationid"])) {
 
 <head>
     <?php include "../component/helmet.php" ?>
+
+    <style>
+        @-webkit-keyframes zoomIn {
+            from {
+                opacity: 0;
+                -webkit-transform: scale3d(0.3, 0.3, 0.3);
+                transform: scale3d(0.3, 0.3, 0.3);
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                -webkit-transform: scale3d(0.3, 0.3, 0.3);
+                transform: scale3d(0.3, 0.3, 0.3);
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .zoomIn {
+            -webkit-animation-name: zoomIn;
+            animation: zoomIn 200ms ease-in-out;
+        }
+    </style>
+
     <title>Donasi Sukses</title>
 </head>
 
 <body>
-    <div class="card">
-        <div class="card-body">
-            <h1 class="card-title">Donasi <?= $validated ? 'Sukses!' : 'Gagal' ?></h1>
-            <p class="card-text">Donasi kamu untuk "<?= $donationame ?>" <?= $validated ? 'senilai ' . rupiah($amount) : '' ?> telah <?= $validated ? 'sukses!' : 'gagal' ?>!</p>
+    <div class="container text-center mt-2">
+        <div class="p-2 pt-4">
+            <h1 class="card-title">Donasi <?= $validated ?'Sukses!' : 'Gagal' ?></h1>
+            <p class="card-text">Donasi kamu <?= $donationame ? "untuk $donationame" : "" ?> <?= $validated ?'senilai ' . rupiah($amount) : '' ?> telah <?= $validated ?'sukses!' : 'gagal' ?>!</p>
+
+            <i class="zoomIn fas fa-<?= $validated ?"check" : "times" ?> text-<?= $validated ?"success" : "danger" ?> fa-9x m-5"></i>
+            <br />
 
             <?php if (!isset($_POST["donationid"])) { ?>
-            <p class="card-text">Sepertinya donasi kamu sudah masuk, kamu bisa meninggalkan halaman ini</p>
-            <a href="../siswa/donasi.php" role="button" class="btn btn-primary btn-lg">Kembali ke halaman list donasi</a>
-            <?php 
-        } else if (!$validated) { ?>
-            <p class="card-text">Terjadi kesalahan autentikasi</p>
-            <a href="../siswa/bayardonasi.php?payment_success=0&id_donasi=<?= $donationid ?>" role="button" class="btn btn-primary btn-lg">Kembali ke halaman donasi</a>
-            <?php 
-        } else { ?>
-            <a href="../siswa/bayardonasi.php?payment_success=1&id_donasi=<?= $donationid ?>" role="button" class="btn btn-primary btn-lg">Kembali ke halaman donasi</a>
-            <?php 
-        } ?>
+                <p class="card-text">Sepertinya donasi kamu sudah masuk, kamu bisa meninggalkan halaman ini</p>
+                <a href="../siswa/donasi.php" role="button" class="btn btn-primary btn-lg">Kembali ke halaman list donasi</a>
+                                                                                                                                        <?php
+            } else if (!$validated) { ?>
+                <p class="card-text">Terjadi kesalahan autentikasi</p>
+                <a href="../siswa/bayardonasi.php?payment_success=0&id_donasi=<?= $donationid ?>" role="button" class="btn btn-primary btn-lg">Kembali ke halaman donasi</a>
+                                                                                                                                                <?php
+            } else { ?>
+                <a href="../siswa/bayardonasi.php?payment_success=1&id_donasi=<?= $donationid ?>" role="button" class="btn btn-primary btn-lg">Kembali ke halaman donasi</a>
+                                                                                                                                                <?php
+            } ?>
 
         </div>
     </div>

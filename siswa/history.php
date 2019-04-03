@@ -26,7 +26,9 @@
                         <tr>
                             <th>ID</th>
                             <th>Tanggal</th>
-                            <th>Jumlah</th>
+                            <th>Jenis</th>
+                            <th>Debit</th>
+                            <th>Kredit</th>
                             <th>Tipe</th>
                             <th>Metode</th>
                             <th>Deskripsi</th>
@@ -40,10 +42,12 @@
                         <tr>
                             <td><?= $val->id ?></td>
                             <td><?= $val->tanggal ?></td>
-                            <td><?= rupiah($val->jumlah) ?></td>
+                            <td><?= ucwords($val->jenis) ?></td>
+                            <td><?= rupiah($val->debit) ?></td>
+                            <td><?= rupiah($val->kredit) ?></td>
                             <td><?= $val->tipe ?></td>
                             <td><?= $val->metode ?></td>
-                            <td><?= $val->deskripsi ?></td>
+                            <td><?= ucwords($val->deskripsi) ?></td>
                         </tr>
 
                         <?php

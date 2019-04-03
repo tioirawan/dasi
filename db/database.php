@@ -496,6 +496,59 @@ class Database
         }
     }
 
+    public function payToko($userid, $uniqueid, $amount) {
+        try {
+            $QR = $this->getQR($uniqueid, PDO::FETCH_OBJ);
+
+            $query = $this->cont->prepare(
+                "UPDATE toko
+                SET saldo = saldo + :amount
+                WHERE id=:idtoko"
+            );
+
+            $query->bindParam("idtoko", $QR->id_toko, PDO::PARAM_STR);
+            $query->bindParam("amount", $amount, PDO::PARAM_INT);
+
+            $query->execute();
+
+            if ($query->rowCount() < 0) {
+                return false;
+            }
+
+            $query = $this->cont->prepare(
+                "UPDATE users
+                SET saldo = saldo - :amount
+                WHERE id=:userid"
+            );
+
+            $query->bindParam("userid", $userid, PDO::PARAM_STR);
+            $query->bindParam("amount", $amount, PDO::PARAM_INT);
+
+
+            $query->execute();
+
+            if ($query->rowCount() < 0) {
+                return false;
+            }
+
+            $query = $this->cont->prepare(
+                "INSERT INTO toko_transaction(toko_id, user_id, qr_id, jumlah) 
+                VALUES (:tokoid,:userid,:qrid,:jumlah)"
+            );
+
+            $query->bindParam("tokoid", $QR->id_toko, PDO::PARAM_INT);
+            $query->bindParam("userid", $userid, PDO::PARAM_INT);
+            $query->bindParam("qrid", $amount, PDO::PARAM_STR);
+            $query->bindParam("jumlah", $amount, PDO::PARAM_INT);
+
+            $query->execute();
+
+            return $this->cont->lastInsertId();
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
     public function newQr($judul, $nilai, $tetap, $id_admin, $id_toko)
     {
         try {

@@ -31,6 +31,13 @@
             color: rgba(255, 255, 255, 0.9) padding-top: 10px;
             /* font-size: 13px; */
         }
+
+        @media print {
+            .no-print,
+            .no-print * {
+                display: none !important;
+            }
+        }
     </style>
 
     <?php
@@ -51,28 +58,34 @@
 <body>
     <?php include "../process/getAdminLoginData.php" ?>
 
-    <div class="p-5">
-        <div class="card text-center">
-        <div class=" card-body">
-            <small><?= $judul ?></small><br />
-            <img src="../qrcodes/<?= $qr ?>.png">
-            <small><?= $qr ?></small>
-        </div>
-        <div class="card-footer">
-            <span class="left"><?= $toko ?></span>
-            <img src="../assets/dasi_white.svg" alt="">Dasi
-        </div>
+    <a class="no-print btn btn-primary ml-5 mt-5" href="../admin/info_toko.php?id=<?= $_GET["idtoko"] ?>">kembali</a>
+
+    <div class="row">
+
+        <?php for ($i = 0; $i < 4; $i++) { ?>
+            <div class="col-6 p-5">
+                <div class="card text-center">
+                    <div class=" card-body">
+                        <small><?= $judul ?></small><br />
+                        <img src="../qrcodes/<?= $qr ?>.png">
+                        <small><?= $qr ?></small>
+                        </div>
+                        <div class="card-footer">
+                            <span class="left"><?= $toko ?></span>
+                        <img src="../assets/dasi_white.svg" alt="">Dasi
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+
     </div>
-    </div>
+
+    <a class="no-print btn btn-primary ml-5" href="../admin/info_toko.php?id=<?= $_GET["idtoko"] ?>">kembali</a>
 
     <script>
         window.print();
-
-        window.onafterprint = function() {
-            window.location.href = "../admin/info_toko.php?id=<?= $_GET["idtoko"] ?>";
-        };
     </script>
 
 </body>
 
-</html> 
+</html>
