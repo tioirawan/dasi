@@ -10,8 +10,11 @@ if ($trx) {
     <div class="card-body">
         <h5 class="card-title"><?= $val->deskripsi ?></h5>
         <p class="card-text"><?= indonesian_date($val->tanggal) ?></p>
-        <p class="card-text font-weight-bold float-right text-<?= $val->jenis == "masuk" ? "success" : "danger" ?>">
-            <?= $val->jenis == "masuk" ? "+" : "-" ?> <?= rupiah($val->jumlah) ?>
+        <h4 class="card-text mb-2 font-weight-bold float-sm-left text-<?= $val->jenis == "masuk" ? "success" : "danger" ?> mb-0">
+            <?= $val->jenis == "masuk" ? "+" : "-" ?> <?= rupiah($val->kredit) ?>
+        </h4>
+        <p class="card-text font-weight-bold float-sm-right text-muted mb-0">
+                <?= rupiah($val->debit) ?>
         </p>
     </div>
 </div>
