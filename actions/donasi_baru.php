@@ -9,3 +9,7 @@ $db->createDonation(
     $_POST["target"],
     $_POST["idposter"]
 );
+
+
+header("Location: ../admin/donasi.php");
+die();

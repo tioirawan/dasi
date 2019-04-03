@@ -83,53 +83,8 @@
         <div class="card-body">
             <h5 class="card-title">Riwayat Transaksi</h5>
 
-            <?php 
-            $trx = $db->getUserTransactionHistory($data["id"], PDO::FETCH_OBJ);
+            <?php include "../component/siswa/riwayat.php" ?>
 
-            if ($trx) {
-                ?>
-
-            <div class="table-responsive">
-                <table id="paymentHistoryTable" class="table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tanggal</th>
-                            <th>Jumlah</th>
-                            <th>Tipe</th>
-                            <th>Metode</th>
-                            <th>Deskripsi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($trx as $val) {
-                            ?>
-
-                        <tr>
-                            <td><?= $val->id ?></td>
-                            <td><?= $val->tanggal ?></td>
-                            <td><?= rupiah($val->jumlah) ?></td>
-                            <td><?= $val->tipe ?></td>
-                            <td><?= $val->metode ?></td>
-                            <td><?= $val->deskripsi ?></td>
-                        </tr>
-
-                        <?php
-
-                    }
-                    ?>
-
-                    </tbody>
-                </table>
-            </div>
-
-            <?php
-
-        } else {
-            echo "<p class='card-text'>Kamu belum melakukan transaksi apapun</p>";
-        }
-        ?>
         </div>
     </div>
 

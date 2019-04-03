@@ -19,7 +19,7 @@ if (isset($_POST["donationid"])) {
 
     if ($validated) {
         if ($db->fundDonation($donationid, $userid, $amount, $private)) {
-            $db->addTransaction($amount, "donation", $userid, "direct", "Pembayaran Donasi");
+            $db->addTransaction($amount, "donation", "keluar", $userid, "direct", "Donasi $donationame");
         }
     }
 }
