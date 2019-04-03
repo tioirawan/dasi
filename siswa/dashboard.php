@@ -27,7 +27,7 @@
         </div>
         <div class="card-body">
             <h5 class="card-title">Jumlah Saldomu</h5>
-            <p class="card-text" id="saldo"><?= rupiah($saldo) ?></p>
+            <p class="card-text text-<?=$saldo > 50000 ? "success" : "warning" ?> font-weight-bold" id="saldo"><?= rupiah($saldo) ?></p>
         </div>
     </div>
 

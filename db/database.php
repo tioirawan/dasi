@@ -404,16 +404,18 @@ class Database
         }
     }
 
-    public function addTransaction($amount, $type, $jenis, $userid, $method, $description)
+    public function addTransaction($kredit, $type, $jenis, $userid, $method, $description)
     {
         try {
             $query = $this->cont->prepare(
-                "INSERT INTO users_transaction(jumlah, tipe, jenis, user_id, metode, deskripsi) 
-                VALUES (:jumlah,:tipe,:jenis,:userid,:metode,:deskripsi)"
+                "INSERT INTO users_transaction(kredit, debit, tipe, jenis, user_id, metode, deskripsi) 
+                VALUES (:kredit,:debit,:tipe,:jenis,:userid,:metode,:deskripsi)"
             );
 
+            $debit = $this->getUserById($userid, PDO::FETCH_OBJ)->saldo;
 
-            $query->bindParam("jumlah", $amount, PDO::PARAM_INT);
+            $query->bindParam("kredit", $kredit, PDO::PARAM_INT);
+            $query->bindParam("debit", $debit, PDO::PARAM_INT);
             $query->bindParam("tipe", $type, PDO::PARAM_STR);
             $query->bindParam("jenis", $jenis, PDO::PARAM_STR);
             $query->bindParam("userid", $userid, PDO::PARAM_STR);
