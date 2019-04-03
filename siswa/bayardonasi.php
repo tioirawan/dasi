@@ -74,8 +74,15 @@
                     <form action="../actions/pay_donation.php" method="post" class="mt-3" id="donation-form">
                         <div class="form-group">
                             <label for="jumlah_donasi">Donasikan sedikut uangmu (<?= rupiah($mindonation) ?> - <?= rupiah($maxdonation) ?>)<br>
-                                <span class="font-weight-bold" id="jmess"></span></label>
-                            <input type="number" class="form-control" name="jumlah_donasi" id="jumlah_donasi" step="100" value="<?= $mindonation ?>" required>
+                                <span class="font-weight-bold" id="jmess"></span>
+                            </label>
+
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Rp</span>
+                                </div>
+                                <input type="number" class="form-control" name="jumlah_donasi" id="jumlah_donasi" step="100" value="<?= $mindonation ?>" required>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -183,7 +190,8 @@
 
         $(".table-scroll-v").height($("#card-wrapper").height() - 200 + "px");
     </script>
-    <?php } ?>
+    <?php 
+} ?>
 </body>
 
 </html> 
