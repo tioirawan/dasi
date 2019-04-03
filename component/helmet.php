@@ -2,6 +2,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+<link rel="shortcut icon" type="image/x-icon" href="<?=__DIR__?>/../favicon.ico"/>
+
 <?php 
     $up = file_exists('styles/bootstrap.css') ? '' : '../';
 ?>

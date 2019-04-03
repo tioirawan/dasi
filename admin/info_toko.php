@@ -83,7 +83,7 @@
                             <tr>
                                 <td><?= $q->judul ?></td>
                                 <td><?= $q->unique_id ?></td>
-                                <td><?= $q->tetap ? "ya" : "tidak" ?></td>
+                                <td class="pl-4"><?= $q->tetap ? "&check;" : "X" ?></td>
                                 <td><?= $q->nilai ?></td>
                                 <td><a href="<?= "../actions/printqr.php?qrdata=$q->unique_id&judul=$q->judul&toko=$toko->nama&idtoko=$toko->id" ?>">Print</a></td>
                             </tr>
