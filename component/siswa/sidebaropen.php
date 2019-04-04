@@ -92,5 +92,5 @@
         </div>
     </nav>
     <!-- sidebar-wrapper  -->
-    <main class="page-content"> 
+    <main class="page-content fadeInRight"> 
     <div class="container-fluid" id="mainbody">

@@ -430,6 +430,28 @@ class Database
         }
     }
 
+    public function getTransaction($id, $rettype) {
+        try {
+            try {
+                $query = $this->cont->prepare(
+                    "SELECT * FROM users_transaction WHERE id=:id"
+                );
+    
+                $query->bindParam("id", $id, PDO::PARAM_STR);
+    
+                $query->execute();
+    
+                if ($query->rowCount() > 0) {
+                    return $query->fetch($rettype);
+                }
+            } catch (PDOException $e) {
+                exit($e->getMessage());
+            }
+        }catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
     public function registerToko($nama, $deskripsi)
     {
         try {

@@ -31,37 +31,6 @@ if (isset($_POST["donationid"])) {
 <head>
     <?php include "../component/helmet.php" ?>
 
-    <style>
-        @-webkit-keyframes zoomIn {
-            from {
-                opacity: 0;
-                -webkit-transform: scale3d(0.3, 0.3, 0.3);
-                transform: scale3d(0.3, 0.3, 0.3);
-            }
-
-            50% {
-                opacity: 1;
-            }
-        }
-
-        @keyframes zoomIn {
-            from {
-                opacity: 0;
-                -webkit-transform: scale3d(0.3, 0.3, 0.3);
-                transform: scale3d(0.3, 0.3, 0.3);
-            }
-
-            50% {
-                opacity: 1;
-            }
-        }
-
-        .zoomIn {
-            -webkit-animation-name: zoomIn;
-            animation: zoomIn 200ms ease-in-out;
-        }
-    </style>
-
     <title>Donasi Sukses</title>
 </head>
 
@@ -69,10 +38,12 @@ if (isset($_POST["donationid"])) {
     <div class="container text-center mt-2">
         <div class="p-2 pt-4">
             <h1 class="card-title">Donasi <?= $validated ?'Sukses!' : 'Gagal' ?></h1>
-            <p class="card-text">Donasi kamu <?= $donationame ? "untuk $donationame" : "" ?> <?= $validated ?'senilai ' . rupiah($amount) : '' ?> telah <?= $validated ?'sukses!' : 'gagal' ?>!</p>
+            <p class="card-text">Donasi kamu <?= $donationame ? "untuk $donationame" : "" ?> <?= $validated ?'senilai ' . boldGreen(rupiah($amount)) : '' ?> telah <?= $validated ?'sukses!' : 'gagal' ?>!</p>
 
-            <i class="zoomIn fas fa-<?= $validated ?"check" : "times" ?> text-<?= $validated ?"success" : "danger" ?> fa-9x m-5"></i>
-            <br />
+            <?php 
+                $satusState = $validated;
+                include "../component/statusIcon.php";
+            ?>
 
             <?php if (!isset($_POST["donationid"])) { ?>
                 <p class="card-text">Sepertinya donasi kamu sudah masuk, kamu bisa meninggalkan halaman ini</p>

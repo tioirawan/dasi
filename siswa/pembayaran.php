@@ -10,13 +10,15 @@
     <?php include "../process/getLoginData.php" ?>
     <?php include "../component/siswa/sidebaropen.php" ?>
 
+    <div class="text-center">
+
     <?php
     $qrid = $_GET["qrid"];
 
     $detailPembayaran = $db->getQR($qrid, PDO::FETCH_OBJ);
-    ?>
 
-    <div class="text-center">
+    if($detailPembayaran) {
+    ?>
         <h1 class="display-6 mb-0"><?= $detailPembayaran->judul ?></h1>
         <p class="lead text-muted pt-0"><?= $qrid ?></p>
 
@@ -31,13 +33,12 @@
                 <input type="hidden" name="nominal" value="<?= $detailPembayaran->nilai ?>">
                 <?php 
             } else { ?>
-             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">Rp</span>
-                                </div>
-                                <input type="number" class="form-control" name="nominal" value="<?=$detailPembayaran->nilai?>" id="nominal_pembayaran">
-                                
-                            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Rp</span>
+                </div>
+                <input type="number" class="form-control" name="nominal" min="500" value="<?=$detailPembayaran->nilai?>" id="nominal_pembayaran" required>
+            </div>
                 <?php 
             } ?>
             </div>
@@ -48,6 +49,21 @@
 
             <input type="submit" class="btn btn-primary btn-lg" value="Bayar">
         </form>
+    <?php
+    } else {
+    ?>
+
+    <h1>QR Code tidak ditemukan</h1>
+ 
+    <?php 
+        $satusState = false;
+        include "../component/statusIcon.php";
+    ?>
+
+    <a href="scan.php" role="button" class="btn btn-primary btn-lg">Kembali ke halaman pemindai</a>
+
+    <?php } ?>
+
     </div>
 
     <?php include "../component/siswa/sidebarclose.php" ?>

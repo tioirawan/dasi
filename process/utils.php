@@ -4,6 +4,11 @@ function rupiah($angka)
     $hasil_rupiah = "Rp " . number_format($angka, 2, ',', '.');
     return $hasil_rupiah;
 }
+
+function boldGreen($str) {
+    return "<span class='lead text-success'>$str</span>";
+}
+
 function indonesian_date($timestamp = '', $date_format = 'd F Y', $suffix = '')
 {
     if ($timestamp == null)
