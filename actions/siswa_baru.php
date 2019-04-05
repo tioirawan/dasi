@@ -5,6 +5,7 @@ $db = new Database();
 
 $pass = $db->register(
     $_POST["nama"],
+    $_POST["idsekolah"],
     $_POST["kelamin"],
     $_POST["email"],
     $_POST["tingkatan"],

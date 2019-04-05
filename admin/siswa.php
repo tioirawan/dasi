@@ -43,12 +43,12 @@
                             <div class="form-group">
                                 <label for="tingkatan">Tingkatan Siswa</label>
                                 <select class="form-control" id="tingkatan" name="tingkatan" required>
-                                    <option value="I">I</option>
+                                    <!-- <option value="I">I</option>
                                     <option value="II">II</option>
                                     <option value="III">III</option>
                                     <option value="IV">IV</option>
                                     <option value="V">V</option>
-                                    <option value="VI">VI</option>
+                                    <option value="VI">VI</option> -->
                                     <option value="VII">VII</option>
                                     <option value="VIII">VIII</option>
                                     <option value="IV">IV</option>
@@ -80,10 +80,12 @@
 
                             <div class="form-group">
                                 <label for="saldo_awal_siswa">Sadlo Awal Siswa</label>
-                                <input type="number" class="form-control" name="saldo" id="saldo_awal_siswa" value="0" required>
+                                <input type="number" class="form-control uang" name="saldo" id="saldo_awal_siswa" value="0" required>
                             </div>
                         </div>
                     </div>
+
+                    <input type="hidden" name="idsekolah" value="<?=$data["id_sekolah"]?>">
 
                     <input type="submit" class="btn btn-primary" value="Masukan">
                 </form>
@@ -91,7 +93,7 @@
 
             <div class="card card-body">
                 <?php 
-                $users = $db->getAllUsers();
+                $users = $db->getAllUsers($data["id_sekolah"]);
 
                 if ($users) {
                     ?>
@@ -107,6 +109,7 @@
                                 <th>Kelas</th>
                                 <th>NISN</th>
                                 <th>Saldo</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -122,6 +125,7 @@
                                 <td><?= "$siswa->tingkatan $siswa->jurusan $siswa->kelas" ?></td>
                                 <td><?= $siswa->nisn ?></td>
                                 <td><?= rupiah($siswa->saldo) ?></td>
+                                <td><a href="detail_siswa.php?id=<?=$siswa->id?>" class="btn btn-primary">Detail</a></td>
                             </tr>
 
                             <?php

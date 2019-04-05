@@ -81,7 +81,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Rp</span>
                                 </div>
-                                <input type="number" class="form-control" name="jumlah_donasi" id="jumlah_donasi" step="100" value="<?= $mindonation ?>" required>
+                                <input type="number" class="form-control uang" name="jumlah_donasi" id="jumlah_donasi" step="100" value="<?= $mindonation ?>" required>
                             </div>
                         </div>
 

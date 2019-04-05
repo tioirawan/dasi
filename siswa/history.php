@@ -42,9 +42,9 @@
                         <tr>
                             <td><?= $val->id ?></td>
                             <td><?= $val->tanggal ?></td>
-                            <td><?= ucwords($val->jenis) ?></td>
-                            <td><?= rupiah($val->debit) ?></td>
-                            <td><?= rupiah($val->kredit) ?></td>
+                            <td class="text-<?=$val->jenis == "masuk" ? "success" : "danger" ?>"><?= ucwords($val->jenis) ?></td>
+                            <td class="text-muted"><?= rupiah($val->debit) ?></td>
+                            <td class="text-<?=$val->jenis == "masuk" ? "success" : "danger" ?>"><?= rupiah($val->kredit) ?></td>
                             <td><?= $val->tipe ?></td>
                             <td><?= $val->metode ?></td>
                             <td><?= ucwords($val->deskripsi) ?></td>

@@ -6,7 +6,7 @@
     <a class="navbar-brand" href="#"><img src="../assets/dasi_white.svg" alt="">Dasi</a>
 </nav> 
 
-<div class="page-wrapper chiller-theme">
+<div class="page-wrapper toggled chiller-theme">
     <a id="show-sidebar" class="btn btn-sm text-white" href="#">
         <i class="fas fa-bars"></i>
     </a>

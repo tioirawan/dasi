@@ -75,10 +75,12 @@
 
                 <div class="form-group">
                     <label for="saldo_awal_siswa">Sadlo Awal Siswa</label>
-                    <input type="number" class="form-control" name="saldo" id="saldo_awal_siswa" value="0" required>
+                    <input type="number" class="form-control uang" name="saldo" id="saldo_awal_siswa" value="0" required>
                 </div>
             </div>
         </div>
+
+        <input type="hidden" name="idsekolah" value="<?=$data["id_sekolah"]?>">
 
         <input type="submit" class="btn btn-primary" value="Masukan">
     </form>

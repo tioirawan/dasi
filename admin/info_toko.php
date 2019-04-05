@@ -69,6 +69,7 @@
                     <div class="table-responsive">
                         <table class="table">
                             <tr>
+                                <th>ID</th>
                                 <th>Judul</th>
                                 <th>Unique ID</th>
                                 <th>Tetap</th>
@@ -81,6 +82,7 @@
                                 ?>
 
                             <tr>
+                                <td><?= $q->id ?></td>
                                 <td><?= $q->judul ?></td>
                                 <td><?= $q->unique_id ?></td>
                                 <td class="pl-4"><?= $q->tetap ? "&check;" : "X" ?></td>
@@ -132,7 +134,7 @@
                             <tr>
                                 <td><?= $d->id ?></td>
                                 <td><?= $d->qr_id ?></td>
-                                <td><a href="info_siswa.php?id_siswa=<?= $d->user_id ?>"><?= $d->user_id ?></a></td>
+                                <td><a href="detail_siswa.php?id=<?= $d->user_id ?>"><?= $d->user_id ?></a></td>
                                 <td><?= $d->tanggal ?></td>
                                 <td><?= rupiah($d->jumlah) ?></td>
                             </tr>
@@ -168,7 +170,7 @@
 
                     <div class="form-group">
                         <label for="nilai">Nilai</label>
-                        <input type="number" class="form-control" name="nilai" id="nilai" value="0" required>
+                        <input type="number" class="form-control uang" name="nilai" id="nilai" value="0" required>
                         <small class="form-text text-muted">Harga yang harus dibayarkan oleh pembeli.</small>
                     </div>
 
@@ -192,7 +194,7 @@
                 <form action="../actions/toko_baru.php" method="post">
                     <div class="form-group">
                         <label for="jumlah_penarikan">Jumlah Penarikan</label>
-                        <input type="number" class="form-control" name="saldo" id="jumlah_penarikan" value="0" required>
+                        <input type="number" class="form-control uang" name="saldo" id="jumlah_penarikan" value="0" required>
                     </div>
 
                     <div class="form-group">

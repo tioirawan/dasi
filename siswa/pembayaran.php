@@ -37,7 +37,7 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Rp</span>
                 </div>
-                <input type="number" class="form-control" name="nominal" min="500" value="<?=$detailPembayaran->nilai?>" id="nominal_pembayaran" required>
+                <input type="number" class="form-control uang" name="nominal" min="500" value="<?=$detailPembayaran->nilai?>" id="nominal_pembayaran" required>
             </div>
                 <?php 
             } ?>

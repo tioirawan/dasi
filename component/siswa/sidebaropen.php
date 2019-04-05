@@ -1,3 +1,10 @@
+<?php
+    $sekolah = $db->getSchoolData($data["id_sekolah"], PDO::FETCH_OBJ);
+
+    $cp = explode(".", basename($_SERVER["SCRIPT_FILENAME"]))[0];
+?>
+
+
 <nav class="navbar fixed-top navbar-expand-sm bg-primary navbar-dark navbar-fixed">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active">
@@ -6,7 +13,7 @@
     <a class="navbar-brand mr-xs-0" href="dashboard.php"><img src="../assets/dasi_white.svg" alt="">Dasi</a>
 </nav> 
 
-<div class="page-wrapper chiller-theme">
+<div class="page-wrapper toggled chiller-theme">
     <a id="show-sidebar" class="btn btn-sm text-white" href="#">
         <i class="fas fa-bars"></i>
     </a>
@@ -18,20 +25,20 @@
                     <i class="fas fa-times"></i>
                 </div>
             </div>
-            <div class="sidebar-header">
+            <div class="sidebar-header">                
                 <div class="user-info">
                     <span class="user-name"><?=ucwords($data["nama"])?></span>
                     <span class="user-id"><?=$data["nisn"]?></span>
-                    <span class="user-role"><?=$data["level"]?></span>
+                    <span class="user-role"><?=$sekolah->nama_sekolah?></span>
                 </div>
             </div>
             <div class="sidebar-menu">
                     <ul>
                         <li class="header-menu">
-                            <span>Saldo Sekarang</span>
+                            <span>Saldo</span>
                         </li>
                         <li>
-                            <a><span><?=rupiah($data["saldo"])?></span></a>
+                            <a><?=boldGreen(rupiah($data["saldo"]))?></a>
                         </li>
                         <!--<li class="topup">
                             <div class="bgtopup">
@@ -49,31 +56,31 @@
                     </li>
                     <li>
                         <a href="dashboard.php">
-                            <i class="fa fa-book"></i>
+                            <i class="fas fa-tachometer-alt <?= $cp == "dashboard" ? "tab-active" : ""?>"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
                     <li>
                         <a href="spp.php">
-                            <i class="fa fa-book"></i>
+                            <i class="fas fa-book <?= $cp == "spp" ? "tab-active" : ""?>"></i>
                             <span>Pembayaran SPP</span>
                         </a>
                     </li>
                     <li>
                         <a href="kirim.php">
-                            <i class="fa fa-calendar"></i>
-                            <span>Kirim Uang</span>
+                            <i class="fas fa-money-check-alt <?= $cp == "kirim" ? "tab-active" : ""?>"></i>
+                            <span>Transfer</span>
                         </a>
                     </li>
                     <li>
                         <a href="donasi.php">
-                            <i class="fa fa-calendar"></i>
+                            <i class="fas fa-hand-holding-usd <?= $cp == "donasi" ? "tab-active" : ""?>"></i>
                             <span>Donasi</span>
                         </a>
                     </li>
                     <li>
                         <a href="history.php">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-history <?= $cp == "history" ? "tab-active" : ""?>"></i>
                             <span>History</span>
                         </a>
                     </li>                    

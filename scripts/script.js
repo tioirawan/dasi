@@ -1,6 +1,21 @@
+
+    
 jQuery(function ($) {
+    if($(window).width() < 768) {
+        $(".page-wrapper").removeClass("toggled");
+    }
+
+    // $('.uang').inputmask("999.999", { 
+    //     numericInput: false, 
+    //     placeholder: '0', 
+    //     groupSeparator: ".", 
+    //     digits: 0, 
+    //     autoGroup: true, 
+    //     autoUnmask: true, 
+    //     rightAlign: false 
+    // });
+    
     $(".sidebar-dropdown > a").click(function () {
-        console.log("test");
         $(".sidebar-submenu").slideUp(200);
         if (
             $(this)
@@ -25,8 +40,8 @@ jQuery(function ($) {
     $("#close-sidebar").click(function () {
         $(".page-wrapper").removeClass("toggled");
     });
+
     $("#show-sidebar").click(function () {
-        console.log("test");
         $(".page-wrapper").addClass("toggled");
     });
 
