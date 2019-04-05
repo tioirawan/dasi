@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Apr 2019 pada 16.14
--- Versi server: 10.1.37-MariaDB
--- Versi PHP: 7.2.12
+-- Generation Time: Apr 05, 2019 at 04:27 PM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `admin`
+-- Table structure for table `admin`
 --
 
 CREATE TABLE `admin` (
@@ -38,7 +38,7 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `admin`
+-- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`id`, `id_sekolah`, `nama`, `email`, `level`, `password`) VALUES
@@ -47,7 +47,7 @@ INSERT INTO `admin` (`id`, `id_sekolah`, `nama`, `email`, `level`, `password`) V
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `donation`
+-- Table structure for table `donation`
 --
 
 CREATE TABLE `donation` (
@@ -65,7 +65,7 @@ CREATE TABLE `donation` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `qrcode`
+-- Table structure for table `qrcode`
 --
 
 CREATE TABLE `qrcode` (
@@ -83,7 +83,7 @@ CREATE TABLE `qrcode` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `schools`
+-- Table structure for table `schools`
 --
 
 CREATE TABLE `schools` (
@@ -94,10 +94,17 @@ CREATE TABLE `schools` (
   `nama_sekolah` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `schools`
+--
+
+INSERT INTO `schools` (`id`, `npsn`, `status`, `bentuk_pendidikan`, `nama_sekolah`) VALUES
+(1, '20539750', 'Negeri', 'SMK', 'SMKN 8 Malang');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `toko`
+-- Table structure for table `toko`
 --
 
 CREATE TABLE `toko` (
@@ -111,7 +118,7 @@ CREATE TABLE `toko` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `toko_transaction`
+-- Table structure for table `toko_transaction`
 --
 
 CREATE TABLE `toko_transaction` (
@@ -127,7 +134,7 @@ CREATE TABLE `toko_transaction` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -146,7 +153,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `id_sekolah`, `nama`, `kelamin`, `email`, `level`, `tingkatan`, `kelas`, `jurusan`, `nisn`, `saldo`, `password`) VALUES
@@ -162,7 +169,7 @@ INSERT INTO `users` (`id`, `id_sekolah`, `nama`, `kelamin`, `email`, `level`, `t
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users_donation`
+-- Table structure for table `users_donation`
 --
 
 CREATE TABLE `users_donation` (
@@ -178,7 +185,7 @@ CREATE TABLE `users_donation` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users_transaction`
+-- Table structure for table `users_transaction`
 --
 
 CREATE TABLE `users_transaction` (
@@ -199,14 +206,14 @@ CREATE TABLE `users_transaction` (
 --
 
 --
--- Indeks untuk tabel `admin`
+-- Indexes for table `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
--- Indeks untuk tabel `donation`
+-- Indexes for table `donation`
 --
 ALTER TABLE `donation`
   ADD PRIMARY KEY (`id`),
@@ -214,7 +221,7 @@ ALTER TABLE `donation`
   ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
--- Indeks untuk tabel `qrcode`
+-- Indexes for table `qrcode`
 --
 ALTER TABLE `qrcode`
   ADD PRIMARY KEY (`id`),
@@ -224,27 +231,27 @@ ALTER TABLE `qrcode`
   ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
--- Indeks untuk tabel `schools`
+-- Indexes for table `schools`
 --
 ALTER TABLE `schools`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `toko`
+-- Indexes for table `toko`
 --
 ALTER TABLE `toko`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
--- Indeks untuk tabel `toko_transaction`
+-- Indexes for table `toko_transaction`
 --
 ALTER TABLE `toko_transaction`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -252,7 +259,7 @@ ALTER TABLE `users`
   ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
--- Indeks untuk tabel `users_donation`
+-- Indexes for table `users_donation`
 --
 ALTER TABLE `users_donation`
   ADD PRIMARY KEY (`id`),
@@ -261,7 +268,7 @@ ALTER TABLE `users_donation`
   ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
--- Indeks untuk tabel `users_transaction`
+-- Indexes for table `users_transaction`
 --
 ALTER TABLE `users_transaction`
   ADD PRIMARY KEY (`id`),
@@ -269,82 +276,82 @@ ALTER TABLE `users_transaction`
   ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `admin`
+-- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `donation`
+-- AUTO_INCREMENT for table `donation`
 --
 ALTER TABLE `donation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `qrcode`
+-- AUTO_INCREMENT for table `qrcode`
 --
 ALTER TABLE `qrcode`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `schools`
+-- AUTO_INCREMENT for table `schools`
 --
 ALTER TABLE `schools`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `toko`
+-- AUTO_INCREMENT for table `toko`
 --
 ALTER TABLE `toko`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `toko_transaction`
+-- AUTO_INCREMENT for table `toko_transaction`
 --
 ALTER TABLE `toko_transaction`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT untuk tabel `users_donation`
+-- AUTO_INCREMENT for table `users_donation`
 --
 ALTER TABLE `users_donation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `users_transaction`
+-- AUTO_INCREMENT for table `users_transaction`
 --
 ALTER TABLE `users_transaction`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `admin`
+-- Constraints for table `admin`
 --
 ALTER TABLE `admin`
   ADD CONSTRAINT `admin_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `donation`
+-- Constraints for table `donation`
 --
 ALTER TABLE `donation`
   ADD CONSTRAINT `donation_ibfk_1` FOREIGN KEY (`posted_by`) REFERENCES `admin` (`id`),
   ADD CONSTRAINT `donation_ibfk_2` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `qrcode`
+-- Constraints for table `qrcode`
 --
 ALTER TABLE `qrcode`
   ADD CONSTRAINT `qrcode_ibfk_1` FOREIGN KEY (`id_toko`) REFERENCES `toko` (`id`),
@@ -352,25 +359,25 @@ ALTER TABLE `qrcode`
   ADD CONSTRAINT `qrcode_ibfk_3` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `toko`
+-- Constraints for table `toko`
 --
 ALTER TABLE `toko`
   ADD CONSTRAINT `toko_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `toko_transaction`
+-- Constraints for table `toko_transaction`
 --
 ALTER TABLE `toko_transaction`
   ADD CONSTRAINT `toko_transaction_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `users`
+-- Constraints for table `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `users_donation`
+-- Constraints for table `users_donation`
 --
 ALTER TABLE `users_donation`
   ADD CONSTRAINT `users_donation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
@@ -378,7 +385,7 @@ ALTER TABLE `users_donation`
   ADD CONSTRAINT `users_donation_ibfk_3` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `users_transaction`
+-- Constraints for table `users_transaction`
 --
 ALTER TABLE `users_transaction`
   ADD CONSTRAINT `users_transaction_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
