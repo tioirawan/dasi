@@ -1,13 +1,13 @@
 <div class="row">
     <?php
     $isadmin = isset($_SESSION['adminid']);
-    $res = $db->getAllDonations(PDO::FETCH_OBJ);
+    $res = $db->getAllDonations($data["id_sekolah"], PDO::FETCH_OBJ);
 
     if ($res) {
         foreach ($res as $r) {
             ?>
 
-    <div class='col-sm-4 mt-3 mb-3'>
+    <div class='col-sm-6 mt-3 mb-3'>
         <div class='card'>
             <div class='card-body'>
                 <h3 class='card-title'><?= $r->judul ?></h3>

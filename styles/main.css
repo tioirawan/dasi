@@ -67,3 +67,7 @@ footer {
     margin-right: 0;
   }
 }
+
+.pointer {
+  cursor: pointer;
+}

@@ -31,12 +31,30 @@ class Database
         return $this->cont;
     }
 
-    public function registerAdmin($nama, $email, $password)
+    public function getSchoolData($id, $rettype) {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT * FROM schools WHERE id=:id"
+            );
+
+            $query->bindParam("id", $id, PDO::PARAM_STR);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return $query->fetch($rettype);
+            }
+        }catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function registerAdmin($nama, $email, $password, $id_sekolah)
     {
         try {
             $query = $this->cont->prepare(
-                "INSERT INTO admin(nama, email, level, password) 
-                VALUES (:nama,:email,'admin',:password)"
+                "INSERT INTO admin(nama, email, level, password, id_sekolah) 
+                VALUES (:nama,:email,'admin',:password,:idsekolah)"
             );
 
             $enc_password = hash('sha256', $password);
@@ -44,6 +62,7 @@ class Database
             $query->bindParam("nama", $nama, PDO::PARAM_STR);
             $query->bindParam("email", $email, PDO::PARAM_STR);
             $query->bindParam("password", $enc_password, PDO::PARAM_STR);
+            $query->bindParam("idsekolah", $id_sekolah, PDO::PARAM_INT);
 
             $query->execute();
 
@@ -80,12 +99,38 @@ class Database
         }
     }
 
+    public function validateAdminPassword($id, $password)
+    {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT id FROM admin 
+                WHERE id=:id
+                AND password=:password"
+            );
+
+            $enc_password = hash('sha256', $password);
+
+            $query->bindParam("id", $id, PDO::PARAM_STR);
+            $query->bindParam("password", $enc_password, PDO::PARAM_STR);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
 
     public function getAdminById($id, $rettype)
     {
         try {
             $query = $this->cont->prepare(
-                "SELECT id, nama, email, level
+                "SELECT id, nama, email, level, id_sekolah
                 FROM admin WHERE id=:id"
             );
 
@@ -101,12 +146,14 @@ class Database
         }
     }
 
-    public function getAllUsers()
+    public function getAllUsers($idsekolah)
     {
         try {
             $stmt = $this->cont->prepare(
                 "SELECT id, nama, kelamin, email, level, tingkatan, kelas, jurusan, nisn, saldo 
-                FROM users ORDER BY id ASC");
+                FROM users WHERE id_sekolah=:idsekolah ORDER BY id ASC");
+
+            $stmt->bindParam("idsekolah", $idsekolah, PDO::PARAM_INT);
 
             $stmt->execute();
 
@@ -118,12 +165,12 @@ class Database
         }
     }
 
-    public function register($nama, $kelamin, $email, $tingkatan, $kelas, $jurusan, $nisn, $saldo)
+    public function register($nama, $id_sekolah, $kelamin, $email, $tingkatan, $kelas, $jurusan, $nisn, $saldo)
     {
         try {
             $query = $this->cont->prepare(
-                "INSERT INTO users(nama, kelamin, email, level, tingkatan, kelas, jurusan, nisn, saldo, password) 
-                VALUES (:nama,:kelamin,:email,'siswa',:tingkatan,:kelas,:jurusan,:nisn,:saldo,:password)"
+                "INSERT INTO users(nama, id_sekolah, kelamin, email, level, tingkatan, kelas, jurusan, nisn, saldo, password) 
+                VALUES (:nama,:idsekolah,:kelamin,:email,'siswa',:tingkatan,:kelas,:jurusan,:nisn,:saldo,:password)"
             );
 
             $password = generateRandom();
@@ -135,6 +182,7 @@ class Database
             echo $enc_password . "<br>";
 
             $query->bindParam("nama", $nama, PDO::PARAM_STR);
+            $query->bindParam("idsekolah", $id_sekolah, PDO::PARAM_INT);
             $query->bindParam("kelamin", $kelamin, PDO::PARAM_STR);
             $query->bindParam("email", $email, PDO::PARAM_STR);
             $query->bindParam("tingkatan", $tingkatan, PDO::PARAM_STR);
@@ -233,7 +281,7 @@ class Database
     {
         try {
             $query = $this->cont->prepare(
-                "SELECT id, nama, email, level, tingkatan, kelas, jurusan, nisn, saldo
+                "SELECT id, nama, email, kelamin, level, tingkatan, kelas, jurusan, nisn, saldo, id_sekolah
                 FROM users WHERE id=:id"
             );
 
@@ -243,6 +291,105 @@ class Database
 
             if ($query->rowCount() > 0) {
                 return $query->fetch($rettype);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function getUserByNISN($nisn, $rettype)
+    {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT id, nama, email, kelamin, level, tingkatan, kelas, jurusan, nisn, saldo, id_sekolah
+                FROM users WHERE nisn=:nisn"
+            );
+
+            $query->bindParam("nisn", $nisn, PDO::PARAM_STR);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return $query->fetch($rettype);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function userDeposit($userid, $amount) {
+        try {
+            $query = $this->cont->prepare(
+                "UPDATE users
+                SET saldo = saldo + :amount
+                WHERE id=:userid"
+            );
+
+            $query->bindParam("userid", $userid, PDO::PARAM_STR);
+            $query->bindParam("amount", $amount, PDO::PARAM_INT);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return true;
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function userWithdrawal($userid, $amount) {
+        try {
+            $query = $this->cont->prepare(
+                "UPDATE users
+                SET saldo = saldo - :amount
+                WHERE id=:userid"
+            );
+
+            $query->bindParam("userid", $userid, PDO::PARAM_STR);
+            $query->bindParam("amount", $amount, PDO::PARAM_INT);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return true;
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function transferByNISN($userid, $nisn, $amount) {
+        try {
+            $query = $this->cont->prepare(
+                "UPDATE users
+                SET saldo = saldo - :amount
+                WHERE id=:userid"
+            );
+
+            $query->bindParam("userid", $userid, PDO::PARAM_STR);
+            $query->bindParam("amount", $amount, PDO::PARAM_INT);
+
+            $query->execute();
+
+            if ($query->rowCount() < 0) {
+                return false;
+            }
+
+            $query = $this->cont->prepare(
+                "UPDATE users
+                SET saldo = saldo + :amount
+                WHERE nisn=:nisn"
+            );
+
+            $query->bindParam("nisn", $nisn, PDO::PARAM_STR);
+            $query->bindParam("amount", $amount, PDO::PARAM_INT);
+
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return true;
             }
         } catch (PDOException $e) {
             exit($e->getMessage());
@@ -275,14 +422,18 @@ class Database
     {
         try {
             $query = $this->cont->prepare(
-                "INSERT INTO donation(judul, deskripsi, posted_by, target_donasi) 
-                VALUES (:judul,:deskripsi,:idposter,:tgt)"
+                "INSERT INTO donation(judul, deskripsi, posted_by, target_donasi, id_sekolah) 
+                VALUES (:judul,:deskripsi,:idposter,:tgt,:idsekolah)"
             );
 
             $query->bindParam("judul", $judul, PDO::PARAM_STR);
             $query->bindParam("deskripsi", $deskripsi, PDO::PARAM_STR);
             $query->bindParam("tgt", $target, PDO::PARAM_INT);
             $query->bindParam("idposter", $idposter, PDO::PARAM_STR);
+            $query->bindParam("idsekolah", 
+                $this->getAdminById($idposter, PDO::FETCH_OBJ)->id_sekolah, 
+                PDO::PARAM_INT
+            );
 
             $query->execute();
 
@@ -335,12 +486,14 @@ class Database
         }
     }
 
-    public function getAllDonations($rettype)
+    public function getAllDonations($id_sekolah, $rettype)
     {
         try {
             $query = $this->cont->prepare(
-                "SELECT * FROM donation"
+                "SELECT * FROM donation WHERE id_sekolah=:idsekolah"
             );
+
+            $query->bindParam("idsekolah", $id_sekolah, PDO::PARAM_INT);
 
             $query->execute();
 
@@ -387,14 +540,15 @@ class Database
             }
 
             $query = $this->cont->prepare(
-                "INSERT INTO users_donation(donation_id, user_id, jumlah, private) 
-                VALUES (:donationid,:userid,:amount,:isprivate)"
+                "INSERT INTO users_donation(donation_id, user_id, jumlah, private, id_sekolah) 
+                VALUES (:donationid,:userid,:amount,:isprivate,:idsekolah)"
             );
 
             $query->bindParam("donationid", $donation_id, PDO::PARAM_INT);
             $query->bindParam("userid", $user_id, PDO::PARAM_INT);
             $query->bindParam("amount", $amount, PDO::PARAM_INT);
             $query->bindParam("isprivate", $isprivate, PDO::PARAM_BOOL);
+            $query->bindParam("idsekolah", $this->getUserById($user_id, PDO::FETCH_OBJ)->id_sekolah, PDO::PARAM_INT);
 
             $query->execute();
 
@@ -408,8 +562,8 @@ class Database
     {
         try {
             $query = $this->cont->prepare(
-                "INSERT INTO users_transaction(kredit, debit, tipe, jenis, user_id, metode, deskripsi) 
-                VALUES (:kredit,:debit,:tipe,:jenis,:userid,:metode,:deskripsi)"
+                "INSERT INTO users_transaction(kredit, debit, tipe, jenis, user_id, metode, deskripsi, id_sekolah)
+                VALUES (:kredit,:debit,:tipe,:jenis,:userid,:metode,:deskripsi,:idsekolah)"
             );
 
             $debit = $this->getUserById($userid, PDO::FETCH_OBJ)->saldo;
@@ -421,6 +575,7 @@ class Database
             $query->bindParam("userid", $userid, PDO::PARAM_STR);
             $query->bindParam("metode", $method, PDO::PARAM_STR);
             $query->bindParam("deskripsi", $description, PDO::PARAM_STR);
+            $query->bindParam("idsekolah", $this->getUserById($userid, PDO::FETCH_OBJ)->id_sekolah, PDO::PARAM_INT);
 
             $query->execute();
 
@@ -452,16 +607,17 @@ class Database
         }
     }
 
-    public function registerToko($nama, $deskripsi)
+    public function registerToko($nama, $deskripsi, $id_sekolah)
     {
         try {
             $query = $this->cont->prepare(
-                "INSERT INTO toko(nama, deskripsi)
-                VALUES (:nama,:deskripsi)"
+                "INSERT INTO toko(nama, deskripsi, id_sekolah)
+                VALUES (:nama,:deskripsi,:idsekolah)"
             );
 
             $query->bindParam("nama", $nama, PDO::PARAM_STR);
             $query->bindParam("deskripsi", $deskripsi, PDO::PARAM_STR);
+            $query->bindParam("idsekolah", $id_sekolah, PDO::PARAM_INT);
 
             $query->execute();
 
@@ -490,9 +646,11 @@ class Database
         }
     }
 
-    public function getTokoList($rettype)
+    public function getTokoList($id_sekolah, $rettype)
     {
-        $stmt = $this->cont->prepare("SELECT * FROM toko");
+        $stmt = $this->cont->prepare("SELECT * FROM toko WHERE id_sekolah=:idsekolah");
+
+        $stmt->bindParam("idsekolah", $id_sekolah, PDO::PARAM_INT);
 
         $stmt->execute();
 
@@ -503,7 +661,7 @@ class Database
     {
         try {
             $query = $this->cont->prepare(
-                "SELECT * FROM toko_transaction WHERE toko_id=:id"
+                "SELECT * FROM toko_transaction WHERE toko_id=:id ORDER BY id DESC"
             );
 
             $query->bindParam("id", $id, PDO::PARAM_STR);
@@ -554,14 +712,15 @@ class Database
             }
 
             $query = $this->cont->prepare(
-                "INSERT INTO toko_transaction(toko_id, user_id, qr_id, jumlah) 
-                VALUES (:tokoid,:userid,:qrid,:jumlah)"
+                "INSERT INTO toko_transaction(toko_id, user_id, qr_id, jumlah, id_sekolah)
+                VALUES (:tokoid,:userid,:qrid,:jumlah,:idsekolah)"
             );
 
             $query->bindParam("tokoid", $QR->id_toko, PDO::PARAM_INT);
             $query->bindParam("userid", $userid, PDO::PARAM_INT);
-            $query->bindParam("qrid", $amount, PDO::PARAM_STR);
+            $query->bindParam("qrid", $QR->id, PDO::PARAM_STR);
             $query->bindParam("jumlah", $amount, PDO::PARAM_INT);
+            $query->bindParam("idsekolah", $this->getUserById($userid, PDO::FETCH_OBJ)->id_sekolah, PDO::PARAM_INT);
 
             $query->execute();
 
@@ -586,8 +745,8 @@ class Database
 
 
             $query = $this->cont->prepare(
-                "INSERT INTO qrcode(judul, nilai, tetap, generated_by, id_toko, unique_id)
-                VALUES (:judul,:nilai,:tetap,:id_admin,:id_toko,:id_unik)"
+                "INSERT INTO qrcode(judul, nilai, tetap, generated_by, id_toko, unique_id, id_sekolah)
+                VALUES (:judul,:nilai,:tetap,:id_admin,:id_toko,:id_unik,:idsekolah)"
             );
 
             $query->bindParam("judul", $judul, PDO::PARAM_STR);
@@ -596,7 +755,7 @@ class Database
             $query->bindParam("id_admin", $id_admin, PDO::PARAM_STR);
             $query->bindParam("id_toko", $id_toko, PDO::PARAM_STR);
             $query->bindParam("id_unik", $uniid, PDO::PARAM_STR);
-
+            $query->bindParam("idsekolah", $this->getAdminById($id_admin, PDO::FETCH_OBJ)->id_sekolah, PDO::PARAM_INT);
 
             $query->execute();
 
@@ -629,7 +788,7 @@ class Database
     {
         try {
             $query = $this->cont->prepare(
-                "SELECT * FROM qrcode WHERE id_toko=:id"
+                "SELECT * FROM qrcode WHERE id_toko=:id ORDER BY id DESC"
             );
 
             $query->bindParam("id", $id, PDO::PARAM_STR);

@@ -49,7 +49,9 @@
 
     $file = "../qrcodes/$qr.png";
 
-    QRCode::png($qr, $file, "L", 13, 1);
+    if(!file_exists($file)) {
+        QRCode::png($qr, $file, "L", 13, 1);
+    }
     ?>
 
     <title><?= $judul ?> - <?= $toko ?></title>

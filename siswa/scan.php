@@ -35,6 +35,7 @@
         }
 
         @media only screen and (max-width: 600px) {
+
             .qrcode-stream__camera,
             .qrcode-stream__pause-frame {
                 right: -20vw;
@@ -64,7 +65,7 @@
     <?php include "../component/siswa/sidebarclose.php" ?>
     <?php include "../component/scripts.php" ?>
 
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
     <script src="https://unpkg.com/vue-qrcode-reader@1.3.1/dist/vue-qrcode-reader.browser.js"></script>
 
     <script>
@@ -75,19 +76,20 @@
 
             data() {
                 return {
-                    decodedContent: '',
+                    url: '',
                     errorMessage: ''
                 }
             },
 
             methods: {
                 onDecode(content) {
-                    const cnt = content.split("|")
-
-                    if (cnt[0]) {
-                        this.decodedContent = `./pembayaran.php?qrid=${cnt[0]}${cnt[1] ? "&amount="+cnt[1]: ""}`
-                        window.location.href = this.decodedContent
+                    if (isNaN(content)) {
+                        this.url = `./pembayaran.php?qrid=${content}`
+                    } else {
+                        this.url = `./transfer.php?nisn=${content}`                        
                     }
+
+                    window.location.href = this.url
                 },
 
                 onInit(promise) {
@@ -108,6 +110,8 @@
                             } else {
                                 this.errorMessage = 'UNKNOWN ERROR: ' + error.message
                             }
+
+                            alert(this.errorMessage);
                         })
                 }
             }
@@ -115,4 +119,4 @@
     </script>
 </body>
 
-</html> 
+</html>

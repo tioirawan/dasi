@@ -1,6 +1,9 @@
 <?php 
 $trx = $db->getUserTransactionHistory($data["id"], PDO::FETCH_OBJ);
 
+$limit = 5;
+$i = 0;
+
 if ($trx) {
 
     foreach ($trx as $val) {
@@ -19,19 +22,12 @@ if ($trx) {
     </div>
 </div>
 
-<!-- <tr>
-    <td><?= $val->id ?></td>
-    <td><?= $val->tanggal ?></td>
-    <td><?= rupiah($val->jumlah) ?></td>
-    <td><?= $val->tipe ?></td>
-    <td><?= $val->metode ?></td>
-    <td><?= $val->deskripsi ?></td>
-</tr> -->
-
 <?php
+$i++;
+if($i >= $limit) break;
 }
 
 } else {
     echo "<p class='card-text'>Kamu belum melakukan transaksi apapun</p>";
 }
-?> 
+?>

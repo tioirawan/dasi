@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label for="target">Target</label>
-                    <input type="number" class="form-control" name="target" id="target" placeholder="Target Donasi" required>
+                    <input type="number" class="form-control uang" name="target" id="target" placeholder="Target Donasi" required>
                 </div>
 
                 <input type="hidden" name="idposter" value="<?= $data["id"] ?>">

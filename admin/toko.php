@@ -11,7 +11,7 @@
     <?php include "../component/admin/sidebaropen.php" ?>
 
     <?php 
-    $toko = $db->getTokoList(PDO::FETCH_OBJ);
+    $toko = $db->getTokoList($data["id_sekolah"], PDO::FETCH_OBJ);
     ?>
 
     <!-- <h1>Tambah Toko Baru</h1> -->
@@ -33,6 +33,8 @@
                         <label for="deskripsi">Deskripsi</label>
                         <textarea class="form-control" name="deskripsi" id="deskripsi" cols="30" rows="10" required></textarea>
                     </div>
+
+                    <input type="hidden" name="idsekolah" value="<?=$data["id_sekolah"]?>">
 
                     <input type="submit" class="btn btn-primary" value="Masukan">
                 </form>

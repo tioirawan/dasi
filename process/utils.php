@@ -9,6 +9,10 @@ function boldGreen($str) {
     return "<span class='lead text-success'>$str</span>";
 }
 
+function namaDepan($nama) {
+    return explode(" ", $nama)[0];
+}
+
 function indonesian_date($timestamp = '', $date_format = 'd F Y', $suffix = '')
 {
     if ($timestamp == null)
