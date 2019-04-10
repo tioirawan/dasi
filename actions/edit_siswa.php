@@ -3,7 +3,8 @@ require "../db/database.php";
 
 $db = new Database();
 
-$res = $db->register(
+$pass = $db->editUserFull(
+    $_POST["id"],
     $_POST["nama"],
     $_POST["idsekolah"],
     $_POST["kelamin"],
@@ -11,10 +12,10 @@ $res = $db->register(
     $_POST["tingkatan"],
     $_POST["kelas"],
     $_POST["jurusan"],
-    $_POST["nisn"],
-    $_POST["saldo"]
+    $_POST["nisn"]
 );
 
-$db->addAdminJournal($_POST["adminid"], "register_user", 0, $res[0]);
+$db->addAdminJournal($_POST["adminid"], "edit_user", 0, $_POST["id"]);
 
-echo "Password: $res[1]<br/>Harap Diingat";
+header("Location: ../admin/detail_siswa.php?id=".$_POST["id"]);
+die();

@@ -17,7 +17,8 @@ if (isset($_POST["userid"])) {
     if ($validated && $nominal >= 1000) {
         if ($db->userDeposit($userid, $nominal)) {
             $db->addTransaction($nominal, "topup", "masuk", $userid, "teller", $deskripsi);
-            
+            $db->addAdminJournal($adminid, "setor_tunai_siswa", $nominal, $userid);
+
             header("Location: ../admin/detail_siswa.php?ssc=Setor Tunai Sukses&id=$userid");
             die();
         }

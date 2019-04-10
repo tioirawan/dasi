@@ -40,8 +40,8 @@
                 <div class="col-sm-4 mt-2">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title"><i class="fas fa-qrcode" aria-hidden="true"></i> QR Code</h5>
-                            <p class="card-text">Bayar barang atau makanan di kantin dengan QR Code yang tersedia</p>
+                            <h5 class="card-title"><i class="fas fa-qrcode" aria-hidden="true"></i> Kode QR</h5>
+                            <p class="card-text">Bayar di kantin atau transfer saldo dengan Kode QR yang tersedia</p>
                             <a href="scan.php" class="btn btn-primary">Buka Pemindai</a>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><i class="fas fa-hand-holding-usd"></i> Donasi</h5>
                             <p class="card-text">Donasikan sedikit uang sakumu untuk yang membutuhkan</p>
-                            <a href="donasi.php" class="btn btn-primary">Sumbang!</a>
+                            <a href="donasi.php" class="btn btn-primary">Donasi!</a>
                         </div>
                     </div>
                 </div>

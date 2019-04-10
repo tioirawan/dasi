@@ -90,9 +90,11 @@
                     </div>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                         <div class="card-body">
-                            <form action="../actions/siswa_baru.php" method="post">
+                            <form action="../actions/edit_siswa.php" method="post">
+                            <p class="text-danger font-italic">*Hati-hati dan pastikan kembali jika mengubah data siswa, salah mengubah data siswa dapat menyebabkan hal yang tidak diinginkan</p>
                                 <div class="row">
                                     <div class="col-sm-6">
+
                                         <div class="form-group">
                                             <label for="nama_siswa">Nama Siswa</label>
                                             <input type="text" value="<?= $siswa->nama ?>" class="form-control" name="nama" id="nama_siswa" placeholder="Hafizh Beckham" required>
@@ -100,9 +102,9 @@
 
                                         <div class="form-group">
                                             <label for="kelamin">Kelamin Siswa</label>
-                                            <select class="form-control" value="<?= $siswa->kelamin ?>" id="kelamin" name="kelamin" required>
-                                                <option value="laki-laki">Laki-Laki</option>
-                                                <option value="perempuan">Perempuan</option>
+                                            <select class="form-control" id="kelamin" name="kelamin" required>
+                                                <option value="laki-laki" <?=$siswa->kelamin == "laki-laki" ? "selected" : "" ?>>Laki-Laki</option>
+                                                <option value="perempuan" <?=$siswa->kelamin == "perempuan" ? "selected" : "" ?>>Perempuan</option>
                                             </select>
                                         </div>
                                     </div>
@@ -115,20 +117,20 @@
 
                                         <div class="form-group">
                                             <label for="tingkatan">Tingkatan Siswa</label>
-                                            <select class="form-control" value="<?= $siswa->tingkatan ?>" id="tingkatan" name="tingkatan" required>
+                                            <select class="form-control" id="tingkatan" name="tingkatan" required>
                                                 <!-- <option value="I">I</option>
                                             <option value="II">II</option>
                                             <option value="III">III</option>
                                             <option value="IV">IV</option>
                                             <option value="V">V</option>
                                             <option value="VI">VI</option> -->
-                                                <option value="VII">VII</option>
-                                                <option value="VIII">VIII</option>
-                                                <option value="IV">IV</option>
-                                                <option value="X" selected>X</option>
-                                                <option value="XI">XI</option>
-                                                <option value="XII">XII</option>
-                                                <option value="XIII">XIII</option>
+                                                <option value="VII" <?= $siswa->tingkatan == "VII" ? "selected" : "" ?>>VII</option>
+                                                <option value="VIII" <?= $siswa->tingkatan == "VIII" ? "selected" : "" ?>>VIII</option>
+                                                <option value="IV" <?= $siswa->tingkatan == "IV" ? "selected" : "" ?>>IV</option>
+                                                <option value="X" <?= $siswa->tingkatan == "X" ? "selected" : "" ?>>X</option>
+                                                <option value="XI" <?= $siswa->tingkatan == "XI" ? "selected" : "" ?>>XI</option>
+                                                <option value="XII" <?= $siswa->tingkatan == "XII" ? "selected" : "" ?>>XII</option>
+                                                <option value="XIII" <?= $siswa->tingkatan == "XIII" ? "selected" : "" ?>>XIII</option>
                                             </select>
                                         </div>
                                     </div>
@@ -154,6 +156,8 @@
                                 </div>
 
                                 <input type="hidden" name="idsekolah" value="<?= $data["id_sekolah"] ?>">
+                                <input type="hidden" name="id" value="<?= $siswa->id ?>">
+                                <input type="hidden" name="adminid" value="<?= $data["id"] ?>">
 
                                 <input type="submit" class="btn btn-primary" value="Update">
                             </form>
@@ -236,7 +240,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
                                 </div>
                             </div>
                         </div>
@@ -289,7 +293,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp</span>
                             </div>
-                            <input type="number" class="form-control uang" name="nominal_tarik" id="jumlah_penarikan" min="100000" value="10000" required>
+                            <input type="number" class="form-control uang" name="nominal_tarik" id="jumlah_penarikan" min="1" max="<?=$siswa->saldo?>" value="10000" required>
                         </div>
                     </div>
 

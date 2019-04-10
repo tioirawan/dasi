@@ -11,6 +11,8 @@ $res = $db->newQr(
     $_POST["tokoid"]
 );
 
-header("Location: printqr.php?qrdata=$res&toko=".$_POST["namatoko"]."&judul=".$_POST["judul"]."&idtoko=".$_POST["tokoid"]);
+$db->addAdminJournal($_POST["adminid"], "generate_qr_toko", 0, $res);
+
+header("Location: ../admin/info_toko.php?id=".$_POST["tokoid"]);
 die();
  

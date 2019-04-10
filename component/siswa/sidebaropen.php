@@ -61,6 +61,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="scan.php">
+                            <i class="fas fa-search <?= $cp == "scan" ? "tab-active" : ""?>"></i>
+                            <span>Scan</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="spp.php">
                             <i class="fas fa-book <?= $cp == "spp" ? "tab-active" : ""?>"></i>
                             <span>Pembayaran SPP</span>

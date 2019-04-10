@@ -11,6 +11,8 @@ if($res) {
     $_SESSION['adminid'] = $res;
     $_SESSION['level'] = "admin";
 
+    $db->addAdminJournal($res, "login", 0);
+
     header("Location: ../admin/dashboard.php");
     die();
 } else {

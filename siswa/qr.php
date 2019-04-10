@@ -3,7 +3,7 @@
 
 <head>
     <?php include "../component/helmet.php" ?>
-    <title>QR Code</title>
+    <title>Kode QR</title>
 </head>
 
 <body>
@@ -29,7 +29,7 @@
             <small><?= $data["nisn"] ?></small>
         </div>
         <div class="card-footer">
-            <a class="btn btn-primary w-100" href="kirim.php">Kembali</a>
+            <button class="btn btn-primary w-100" onclick="history.back()">Kembali</button>
         </div>
     </div>
 

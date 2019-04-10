@@ -65,6 +65,10 @@ function generateRandom($length = 10)
     return $randomString;
 }
 
+function saltHash($str) {
+    return hash("md5", "tlas".hash("sha256", "x3".hash("ripemd160", "dasi{$str}isda")."3x")."salt");
+}
+
 function sendMail($mto, $msubject, $mbody)
 {
     /* Source: http://www.apphp.com/index.php?snippet=php-get-remote-ip-address */

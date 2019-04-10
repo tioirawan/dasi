@@ -57,13 +57,13 @@
                 <div class="card-body mt-2">
                     <!-- <h1 class="display-4">Terkumpul <?= rupiah($res->terkumpul) ?></h1> -->
 
-                    <h3 class="card-title">Saat ini, sudah terkumpul <?= rupiah($res->terkumpul) ?> dari target <?= rupiah($res->target_donasi) ?></h3>
+                    <h4 class="card-title">Saat ini, sudah terkumpul <?= rupiah($res->terkumpul) ?> dari target <?= rupiah($res->target_donasi) ?></h4>
 
                     <div class="progress mb-3" style="height: 25px;">
                         <div class="progress-bar" role="progressbar" style="width: <?= $percentage ?>%;"><?= $percentage ?>%</div>
                     </div>
 
-                    <p class="lead">Ayo, bantu berdonasi! sedekah tidaklah mengurangi harta <i class="fas fa-smile-wink"></i></p>
+                    <p class="lead">Ayo, bantu berdonasi!</p>
                 </div>
             </div>
 
@@ -108,7 +108,7 @@
                             </div>
 
                             <div>
-                                <input type="submit" class="btn btn-primary" value="Donasikan!">
+                                <input type="submit" class="btn btn-primary" value="Donasi Sekarang!">
                             </div>
                         </div>
                     </form>

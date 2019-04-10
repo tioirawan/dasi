@@ -49,9 +49,29 @@
                 right: -55vw;
             }
         }
+
+        .overlay {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            background-size: cover;
+            max-width: inherit !important;
+            max-height: inherit !important;
+            z-index: 1029;
+        }
+
+        .qrbutton {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
     </style>
 
-    <title>Scan QR Code</title>
+    <title>Scan Kode QR</title>
 </head>
 
 <body>
@@ -59,6 +79,9 @@
     <?php include "../component/siswa/sidebaropen.php" ?>
 
     <div id="app">
+        <div class="overlay">
+            <a href="qr.php" class="btn btn-primary btn-lg qrbutton "><i class="fas fa-qrcode"></i> Kode QRmu</a>
+        </div>
         <qrcode-stream @decode="onDecode" @init="onInit"></qrcode-stream>
     </div>
 
@@ -83,13 +106,15 @@
 
             methods: {
                 onDecode(content) {
-                    if (isNaN(content)) {
-                        this.url = `./pembayaran.php?qrid=${content}`
-                    } else {
-                        this.url = `./transfer.php?nisn=${content}`                        
-                    }
+                    if (content) {
+                        if (isNaN(content)) {
+                            this.url = `./pembayaran.php?qrid=${content}`
+                        } else {
+                            this.url = `./transfer.php?nisn=${content}`
+                        }
 
-                    window.location.href = this.url
+                        window.location.href = this.url
+                    }
                 },
 
                 onInit(promise) {
