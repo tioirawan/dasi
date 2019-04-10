@@ -344,11 +344,7 @@ class Database
 
             $password = generateRandom();
 
-
             $enc_password = saltHash($password);
-
-            echo $password . "<br>";
-            echo $enc_password . "<br>";
 
             $query->bindParam("nama", $nama, PDO::PARAM_STR);
             $query->bindParam("idsekolah", $id_sekolah, PDO::PARAM_INT);
@@ -373,11 +369,7 @@ class Database
                 $queryspp .= "('$id_sekolah', '$id_siswa', '$b')" . ($b != "desember" ? "," : "");
             }
 
-            echo $queryspp;
-
-            $query = $this->cont->prepare($queryspp);
-
-            $query->execute();
+            $this->cont->prepare($queryspp)->execute();
 
             return array($id_siswa, $password);
         } catch (PDOException $e) {
