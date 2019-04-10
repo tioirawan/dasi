@@ -3,7 +3,7 @@
         <li class="nav-item active">
         </li>
     </ul>
-    <a class="navbar-brand" href="#"><img src="../assets/dasi_white.svg" alt="">Dasi</a>
+    <a class="navbar-brand" href="dashboard.php"><img src="../assets/dasi_white.svg" alt="">Dasi</a>
 </nav> 
 
 <div class="page-wrapper toggled chiller-theme">
@@ -32,14 +32,14 @@
                     </li>
                     <li>
                         <a href="dashboard.php">
-                            <i class="fas fa-book"></i>
+                            <i class="fas fa-tachometer-alt"></i>
                             <span>Dashboard</span>
                         </a>
                     </li>
 
                     <li>
                         <a href="siswa.php">
-                            <i class="fas fa-book"></i>
+                            <i class="fas fa-user"></i>
                             <span>Siswa</span>
                         </a>
                     </li>
@@ -53,7 +53,7 @@
 
                     <li>
                         <a href="donasi.php">
-                            <i class="fas fa-book"></i>
+                            <i class="fas fa-hand-holding-usd"></i>
                             <span>Donasi</span>
                         </a>
                     </li>

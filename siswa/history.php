@@ -17,6 +17,8 @@
             <?php 
             $trx = $db->getUserTransactionHistory($data["id"], PDO::FETCH_OBJ);
 
+            // print_r($trx);
+
             if ($trx) {
                 ?>
 
@@ -24,7 +26,6 @@
                 <table id="paymentHistoryTable" class="table">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Tanggal</th>
                             <th>Jenis</th>
                             <th>Debit</th>
@@ -40,7 +41,6 @@
                             ?>
 
                         <tr>
-                            <td><?= $val->id ?></td>
                             <td><?= $val->tanggal ?></td>
                             <td class="text-<?=$val->jenis == "masuk" ? "success" : "danger" ?>"><?= ucwords($val->jenis) ?></td>
                             <td class="text-muted"><?= rupiah($val->debit) ?></td>
@@ -75,8 +75,22 @@
         $(document).ready(function() {
             $('#paymentHistoryTable').DataTable({
                 "order": [
-                    [1, "desc"]
-                ]
+                    [0, "desc"]
+                ],
+                "language": {
+                    "lengthMenu": "Tampilkan _MENU_ riwayat per halaman",
+                    "zeroRecords": "Maaf, tidak dapat menemukan apapun",
+                    "info": "Menampilkan halaman _PAGE_ dari _PAGES_ halaman",
+                    "infoEmpty": "Tidak ada riwayat yang dapat ditampilkan",
+                    "infoFiltered": "(tersaring dari _MAX_ total riwayat)",
+                    "search": "Cari:",
+                    "paginate": {
+                        "first":      "Pertama",
+                        "last":       "Terakhir",
+                        "next":       "Berikutnya",
+                        "previous":   "Sebelumnya"
+                    },
+                }
             });
         });
     </script>

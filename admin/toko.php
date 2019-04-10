@@ -35,6 +35,7 @@
                     </div>
 
                     <input type="hidden" name="idsekolah" value="<?=$data["id_sekolah"]?>">
+                    <input type="hidden" name="adminid" value="<?=$data["id"]?>">
 
                     <input type="submit" class="btn btn-primary" value="Masukan">
                 </form>

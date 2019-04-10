@@ -1,7 +1,19 @@
-<?php
+<!DOCTYPE html>
+<html lang="en">
 
-include "../process/utils.php";
+<head>
+    <?php include "../component/helmet.php" ?>
+    <title>SPP</title>
+</head>
 
-sendMail("tioirawan063@gmail.com", "dasi", "selamat bergabung di dasi!");
+<body>
+    <?php include "../process/getLoginData.php" ?>
+    <?php include "../component/siswa/sidebaropen.php" ?>
 
-?>
+    ini spp
+
+    <?php include "../component/siswa/sidebarclose.php" ?>
+    <?php include "../component/scripts.php" ?>
+</body>
+
+</html> 

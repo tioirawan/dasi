@@ -14,12 +14,12 @@
         <h3 class="card-title"><i class="fas fa-file-invoice"> Pembayaran SPP</i></h3>
         <p>Pembayaran SPP sekarang tidak perlu ribet lagi, tinggal klik 'selesai' beres deh :)</p>
     </div>
-    <?
+    <?php
         $spp = 1;
     ?>
     <div class="card text-center">
-        <?
-        if ($spp == 1) {
+        <?php
+        if ($spp) {
             echo '<div class="bg-success">
                     <div class="card-body">
                         <span class="text-white lead">Selamat, SPP anda sudah lunas !</span>

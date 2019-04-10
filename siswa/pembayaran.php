@@ -53,7 +53,7 @@
     } else {
     ?>
 
-    <h1>QR Code tidak ditemukan</h1>
+    <h1>Kode QR tidak ditemukan</h1>
  
     <?php 
         $satusState = false;

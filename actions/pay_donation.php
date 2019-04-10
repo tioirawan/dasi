@@ -18,7 +18,7 @@ if (isset($_POST["donationid"])) {
 
     $validated = $db->validatePassword($userid, $pass);
 
-    if ($validated && $amount >= 1000) {
+    if ($validated && $amount >= 1000 && $amount <= $db->getUserById($userid, PDO::FETCH_OBJ)->saldo) {
         if ($db->fundDonation($donationid, $userid, $amount, $private)) {
             $db->addTransaction($amount, "donation", "keluar", $userid, "direct", "Donasi $donationame");
             $success = true;
@@ -38,7 +38,7 @@ if (isset($_POST["donationid"])) {
 
 <body>
     <div class="container text-center mt-2">
-        <div class="p-2 pt-4">
+        <div class="p-2 pt-1">
             <h1 class="card-title">Donasi <?= $success ?'Sukses!' : 'Gagal' ?></h1>
             <p class="card-text">Donasi kamu <?= $donationame ? "untuk $donationame" : "" ?> <?= $success ?'senilai ' . boldGreen(rupiah($amount)) : '' ?> telah <?= $success ?'sukses!' : 'gagal' ?>!</p>
 

@@ -12,7 +12,7 @@ if ($trx) {
 <div class="card mt-4">
     <div class="card-body">
         <h5 class="card-title"><?= $val->deskripsi ?></h5>
-        <p class="card-text"><?= indonesian_date($val->tanggal) ?></p>
+        <p class="card-text"><?= indonesian_date($val->tanggal), date('H:i:s', strtotime($val->tanggal))?></p>
         <h4 class="card-text mb-2 font-weight-bold float-sm-left text-<?= $val->jenis == "masuk" ? "success" : "danger" ?> mb-0">
             <?= $val->jenis == "masuk" ? "+" : "-" ?> <?= rupiah($val->kredit) ?>
         </h4>

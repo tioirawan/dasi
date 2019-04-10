@@ -14,9 +14,10 @@ if (isset($_POST["userid"])) {
 
     $validated = $db->validateAdminPassword($adminid, $pass);
 
-    if ($validated && $nominal >= 1000) {
+    if ($validated && $nominal >= 1000 && $nominal <= $db->getUserById($userid, PDO::FETCH_OBJ)->saldo) {
         if ($db->userWithdrawal($userid, $nominal)) {
             $db->addTransaction($nominal, "tarik", "keluar", $userid, "teller", $deskripsi);
+            $db->addAdminJournal($adminid, "tarik_tunai_siswa", $nominal, $userid);
             
             header("Location: ../admin/detail_siswa.php?ssc=Tarik Tunai Sukses&id=$userid");
             die();

@@ -38,7 +38,7 @@ if (isset($_POST["uniqueid"])) {
 
 <body>
   <div class="container text-center mt-2">
-    <div class="p-2 pt-4">
+    <div class="p-2 pt-1">
       <h1 class="card-title text-<?= $success ? "success" : "danger" ?>">Pembelian <?= $success ?'Sukses!' : 'Gagal' ?></h1>
       <p class="card-text lead"><?= $success ? $judul : ""?></p>
       <p class="card-text"><?= $success ? $trx->tanggal : ""?></p>

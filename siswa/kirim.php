@@ -11,7 +11,7 @@
     <?php include "../component/siswa/sidebaropen.php" ?>
 
     <h1>
-        Transfer
+        Transfer <small class="text-muted"><?=$data["nisn"]?></small>
     </h1>
 
     <h5 class="card-title">Jumlah Saldomu</h5>
@@ -21,36 +21,24 @@
         <div class="col-sm-6 mb-3">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title"><i class="fas fa-qrcode" aria-hidden="true"></i> QR Code</h5>
-                    <p class="card-text">Transer lebih cepat dengan QR Code</p>
+                    <h5 class="card-title"><i class="fas fa-qrcode" aria-hidden="true"></i> Kode QR</h5>
+                    <p class="card-text">Transer lebih cepat dengan Kode QR</p>
 
-                    <a href="qr.php" class="btn btn-primary">QR Code mu</a>
+                    <a href="qr.php" class="btn btn-primary">Kode QRmu</a>
                     <a href="scan.php" class="btn btn-primary">Buka Pemindai</a>
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
-            <form action="../actions/transfer_saldo.php" method="post">
+            <form action="transfer.php" method="get">
                 <div class="form-group">
                     <label for="nisn_transfer">NISN Tujuan</label>
-                    <input type="text" class="form-control" name="nisn" value="" required>
+                    <input type="number" class="form-control" name="nisn" min="0" max="99999999999" value="" required>
                 </div>
 
-                <div class="form-group">
-                    <label for="jumlah_transfer">Nominar Transfer</label>
+                <input type="hidden" name="metode" value="manual"/>
 
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Rp</span>
-                        </div>
-                        <input type="number" class="form-control uang" name="nominal" id="jumlah_transfer" min="500" value="10000" required>
-                    </div>
-                </div>
-
-                <input type="hidden" name="metode" value="manual">
-                <input type="hidden" name="userid" value="<?= $data["id"] ?>">
-
-                <input type="submit" class="btn btn-primary" value="transfer">
+                <input type="submit" class="btn btn-primary" value="ok">
             </form>
         </div>
 

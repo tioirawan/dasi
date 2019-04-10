@@ -86,6 +86,7 @@
                     </div>
 
                     <input type="hidden" name="idsekolah" value="<?=$data["id_sekolah"]?>">
+                    <input type="hidden" name="adminid" value="<?=$data["id"]?>">
 
                     <input type="submit" class="btn btn-primary" value="Masukan">
                 </form>
@@ -94,7 +95,6 @@
             <div class="card card-body">
                 <?php 
                 $users = $db->getAllUsers($data["id_sekolah"]);
-
                 if ($users) {
                     ?>
 
@@ -103,6 +103,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Tanggal Pendaftaran</th>
                                 <th>Nama</th>
                                 <th>Kelamin</th>
                                 <th>Email</th>
@@ -119,6 +120,7 @@
 
                             <tr>
                                 <td><?= $siswa->id ?></td>
+                                <td><?= $siswa->tanggal_pendaftaran ?></td>
                                 <td><?= ucwords($siswa->nama) ?></td>
                                 <td><?= $siswa->kelamin ?></td>
                                 <td><?= $siswa->email ?></td>
@@ -140,7 +142,7 @@
                 <?php
 
             } else {
-                echo "<p class='card-text'>Kamu belum melakukan transaksi apapun</p>";
+                echo "<p class='card-text'>Tidak ada siswa yang dapat ditampilkan</p>";
             }
             ?>
             </div>
@@ -153,7 +155,25 @@
 
     <script>
         $(document).ready(function() {
-            $('#listSiswa').DataTable();
+            $('#listSiswa').DataTable({
+                "order": [
+                    [1, "desc"]
+                ],
+                "language": {
+                    "lengthMenu": "Tampilkan _MENU_ siswa per halaman",
+                    "zeroRecords": "Maaf, tidak dapat menemukan apapun",
+                    "info": "Menampilkan halaman _PAGE_ dari _PAGES_ halaman",
+                    "infoEmpty": "Tidak ada siswa yang dapat ditampilkan",
+                    "infoFiltered": "(tersaring dari _MAX_ total siswa)",
+                    "search": "Cari:",
+                    "paginate": {
+                        "first": "Pertama",
+                        "last": "Terakhir",
+                        "next": "Berikutnya",
+                        "previous": "Sebelumnya"
+                    },
+                }
+            });
         });
     </script>
 </body>

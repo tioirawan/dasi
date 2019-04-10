@@ -48,6 +48,7 @@
                 <div class="card-body">
                     <h1 class="card-title"><?= ucwords($res->judul) ?></h1>
                     <p class="card-text"><?= $res->deskripsi ?></p>
+                    <a href="donasi.php" role="button" class="btn btn-primary">Kembali ke List Donasi</a>
                 </div>
             </div>
 
@@ -58,9 +59,34 @@
                     <div class="progress mb-3" style="height: 25px;">
                         <div class="progress-bar" role="progressbar" style="width: <?= $percentage ?>%;"><?= $percentage ?>%</div>
                     </div>
-
-                    <a href="donasi.php" role="button" class="btn btn-primary">Kembali ke List Donasi</a>
                 </div>
+            </div>
+
+            <div class="card p-4 mt-3" id="tarik_tunai">
+                <h3>Pencairan Dana</h3>
+
+                <form action="../actions/pencairan_donasi.php" method="post">
+
+                    <div class="form-group">
+                        <label for="jumlah_penarikan">Jumlah Pencairan</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Rp</span>
+                            </div>
+                            <input type="number" class="form-control uang" name="nominal" id="jumlah_penarikan" min="1" max="<?= $res->terkumpul ?>" value="<?= $res->terkumpul ?>" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password Admin</label>
+                        <input type="password" class="form-control" name="password" required>
+                    </div>
+
+                    <input type="hidden" name="iddonasi" value="<?= $res->id ?>">
+                    <input type="hidden" name="adminid" value="<?= $data["id"] ?>">
+
+                    <input type="submit" class="btn btn-primary" value="Tarik">
+                </form>
             </div>
 
         </div>
