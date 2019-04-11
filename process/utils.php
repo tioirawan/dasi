@@ -13,6 +13,17 @@ function namaDepan($nama) {
     return explode(" ", $nama)[0];
 }
 
+function bulanToNum($b) {
+    $bulan = array('juli','agustus','september','oktober','november','desember','januari','februari','maret','april','mei','juni');
+    return array_search($b, $bulan) + 1;
+}
+
+function getBulan() {
+    $bulan = array('januari','februari','maret','april','mei','juni', 'juli','agustus','september','oktober','november','desember');
+
+    return $bulan[date('m') - 1];
+}
+
 function indonesian_date($timestamp = '', $date_format = 'd F Y', $suffix = '')
 {
     if ($timestamp == null)

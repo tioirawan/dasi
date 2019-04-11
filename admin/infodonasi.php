@@ -117,7 +117,7 @@
                             <tr>
                                 <td><?= $d->private ? "-" : $d->nama ?></td>
                                 <td><?= $d->private ? "-" : "$d->tingkatan $d->jurusan $d->kelas" ?></td>
-                                <td><?= rupiah($d->jumlah) ?></td>
+                                <td data-sort="<?=$d->jumlah?>"><?= rupiah($d->jumlah) ?></td>
                             </tr>
 
                             <?php

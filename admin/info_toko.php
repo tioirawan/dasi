@@ -156,7 +156,7 @@
                                         <td><?= $d->qr_id ?></td>
                                         <td><a href="detail_siswa.php?id=<?= $d->user_id ?>"><?= $d->user_id ?></a></td>
                                         <td><?= $d->tanggal ?></td>
-                                        <td><?= rupiah($d->jumlah) ?></td>
+                                        <td data-sort="<?=$d->jumlah?>"><?= rupiah($d->jumlah) ?></td>
                                     </tr>
 
                                 <?php

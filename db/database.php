@@ -64,6 +64,20 @@ class Database
     public function getSchoolTotalBalance($id) {
         try {
             $query = $this->cont->prepare(
+                "SELECT saldo FROM schools WHERE id=:id"
+            );
+
+            $query->bindParam("id", $id, PDO::PARAM_STR);
+
+            $query->execute();
+
+            if ($query->rowCount() < 0) {
+                return false;
+            }
+
+            $schoolBalance = $query->fetch(PDO::FETCH_OBJ)->saldo;
+
+            $query = $this->cont->prepare(
                 "SELECT SUM(saldo) AS total FROM users WHERE id_sekolah=:id"
             );
 
@@ -105,7 +119,13 @@ class Database
 
             $donation = $query->fetch(PDO::FETCH_OBJ)->total;
 
-            return (object) ["siswa" => $usersBalance, "toko" => $tokoBalance, "donasi" => $donation, "total" => $usersBalance + $tokoBalance + $donation];
+            return (object) [
+                "sekolah" => $schoolBalance,
+                "siswa" => $usersBalance, 
+                "toko" => $tokoBalance, 
+                "donasi" => $donation, 
+                "total" => $usersBalance + $tokoBalance + $donation
+            ];
         }catch (PDOException $e) {
             exit($e->getMessage());
         }
@@ -547,6 +567,75 @@ class Database
             if ($query->rowCount() > 0) {
                 return $query->fetch($rettype);
             }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function getUserSPP($id, $rettype)
+    {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT * FROM spp WHERE id_siswa=:id"
+            );
+
+            $query->bindParam("id", $id, PDO::PARAM_STR);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return $query->fetchAll($rettype);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function paySPP($userid, $schoolid, $sppid) {
+        try {
+            $sekolah = $this->getSchoolData($schoolid, PDO::FETCH_OBJ);
+            $jumlah = $sekolah->biaya_spp;
+
+            $query = $this->cont->prepare(
+                "UPDATE schools
+                SET saldo = saldo + :amount
+                WHERE id=:idsekolah"
+            );
+
+            $query->bindParam("idsekolah", $schoolid, PDO::PARAM_STR);
+            $query->bindParam("amount", $jumlah, PDO::PARAM_INT);
+
+            $query->execute();
+
+            if ($query->rowCount() < 0) {
+                return false;
+            }
+
+            $query = $this->cont->prepare(
+                "UPDATE users
+                SET saldo = IF(:amount <= saldo, saldo - :amount, saldo)
+                WHERE id=:userid"
+            );
+
+            $query->bindParam("userid", $userid, PDO::PARAM_STR);
+            $query->bindParam("amount", $jumlah, PDO::PARAM_INT);
+
+            $query->execute();
+
+
+            if ($query->rowCount() < 0) {
+                return false;
+            }
+
+            $query = $this->cont->prepare(
+                "UPDATE spp SET status_pembayaran=1, tanggal_pembayaran=now() WHERE id=:id"
+            );
+
+            $query->bindParam("id", $sppid, PDO::PARAM_INT);
+
+            $query->execute();
+
+            return $query->rowCount();
         } catch (PDOException $e) {
             exit($e->getMessage());
         }

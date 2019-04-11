@@ -126,7 +126,7 @@
                                 <td><?= $siswa->email ?></td>
                                 <td><?= "$siswa->tingkatan $siswa->jurusan $siswa->kelas" ?></td>
                                 <td><?= $siswa->nisn ?></td>
-                                <td><?= rupiah($siswa->saldo) ?></td>
+                                <td data-sort="<?=$siswa->saldo?>"><?= rupiah($siswa->saldo) ?></td>
                                 <td><a href="detail_siswa.php?id=<?=$siswa->id?>" class="btn btn-primary">Detail</a></td>
                             </tr>
 
