@@ -89,3 +89,11 @@ footer {
   -ms-transform: translate(-50%,-50%);
   text-align: center;
 }
+
+.circle {
+  border-radius: 50%;
+}
+
+textarea {
+  border-radius: 20px !important;
+}

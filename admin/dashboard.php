@@ -25,19 +25,36 @@
     <h1>Dashobard</h1>
 
     <div class="row mt-3">
-        <div class="col-sm-4 my-2">
+        <div class="col-sm-7 my-2">
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title"><i class="fas fa-school pr-1"></i> <?= $sekolah->nama_sekolah ?> <span class="text-muted lead"><?= $sekolah->npsn ?></span></h3>
-                    <p class="card-text lead">Siswa : <?= boldGreen(rupiah($stats->balance->siswa)) ?></p>
-                    <p class="card-text lead">Toko : <?= boldGreen(rupiah($stats->balance->toko)) ?></p>
-                    <p class="card-text lead">Dana Sosial : <?= boldGreen(rupiah($stats->balance->donasi)) ?></p>
-                    <p class="card-text lead">Total : <?= boldGreen(rupiah($stats->balance->total)) ?></p>
+
+                    <table class="table">
+                        <tr>
+                            <th>Sekolah</th>
+                            <th>Siswa</th>
+                            <th>Toko</th>
+                            <th>Dansos</th>
+                        </tr>
+                        
+                        <tr>
+                            <td><?= boldGreen(rupiah($stats->balance->sekolah)) ?></td>
+                            <td><?= boldGreen(rupiah($stats->balance->siswa)) ?></td>
+                            <td><?= boldGreen(rupiah($stats->balance->toko)) ?></td>
+                            <td><?= boldGreen(rupiah($stats->balance->donasi))?></td>
+                        </tr>
+
+                        <tr>
+                            <th colspan="3">Total</th>
+                            <td><?= boldGreen(rupiah($stats->balance->total)) ?></th>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
 
-        <div class="col-sm-8 my-2">
+        <div class="col-sm-5 my-2">
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">Jumlah Akun Siswa</h3>
@@ -102,8 +119,8 @@
                                     <td><a href="detail_siswa.php?id=<?= $val->user_id ?>"><?= $val->user_id ?></a></td>
                                     <td><?= $val->tanggal ?></td>
                                     <td class="text-<?= $val->jenis == "masuk" ? "success" : "danger" ?>"><?= ucwords($val->jenis) ?></td>
-                                    <td class="text-muted"><?= rupiah($val->debit) ?></td>
-                                    <td class="text-<?= $val->jenis == "masuk" ? "success" : "danger" ?>"><?= rupiah($val->kredit) ?></td>
+                                    <td class="text-muted" data-sort="<?=$val->debit?>"><?= rupiah($val->debit) ?></td>
+                                    <td class="text-<?= $val->jenis == "masuk" ? "success" : "danger" ?>" data-sort="<?=$val->kredit?>"><?= rupiah($val->kredit) ?></td>
                                     <td><?= $val->tipe ?></td>
                                     <td><?= $val->metode ?></td>
                                     <td><?= ucwords($val->deskripsi) ?></td>
@@ -153,7 +170,7 @@
                                     <td><?= $val->id ?></td>
                                     <td><?= $val->tanggal ?></td>
                                     <td><?= $val->code ?></td>
-                                    <td><?= $ext1donation ? $val->nilai : rupiah($val->nilai) ?></td>
+                                    <td data-sort="<?=$val->nilai?>"><?= $ext1donation ? $val->nilai : rupiah($val->nilai) ?></td>
                                     <td>
                                         <?php if (count($ext1siswa)) { ?>
                                             <a href='detail_siswa.php?id=<?= $val->ext_1 ?>'><?= $val->ext_1 ?></a>

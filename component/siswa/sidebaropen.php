@@ -69,7 +69,7 @@
                     <li>
                         <a href="spp.php">
                             <i class="fas fa-book <?= $cp == "spp" ? "tab-active" : ""?>"></i>
-                            <span>Pembayaran SPP</span>
+                            <span>SPP</span>
                         </a>
                     </li>
                     <li>

@@ -43,8 +43,8 @@
                         <tr>
                             <td><?= $val->tanggal ?></td>
                             <td class="text-<?=$val->jenis == "masuk" ? "success" : "danger" ?>"><?= ucwords($val->jenis) ?></td>
-                            <td class="text-muted"><?= rupiah($val->debit) ?></td>
-                            <td class="text-<?=$val->jenis == "masuk" ? "success" : "danger" ?>"><?= rupiah($val->kredit) ?></td>
+                            <td class="text-muted" data-sort="<?=$val->debit?>"><?= rupiah($val->debit) ?></td>
+                            <td class="text-<?=$val->jenis == "masuk" ? "success" : "danger" ?>" data-sort="<?=$val->kredit?>"><?= rupiah($val->kredit) ?></td>
                             <td><?= $val->tipe ?></td>
                             <td><?= $val->metode ?></td>
                             <td><?= ucwords($val->deskripsi) ?></td>

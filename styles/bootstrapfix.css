@@ -23,15 +23,73 @@
 }
 
 .page-item.disabled .page-link {
-  background-color: #2C3E50;
+  background-color: #2c3e50;
 }
 
 .page-link {
   background-color: #fff;
-  color: #2C3E50;
+  color: #2c3e50;
 }
 
 .page-link:hover {
-  background-color: #2C3E50;
+  background-color: #2c3e50;
   color: #fff;
+}
+
+.btn,
+.form-control,
+.progress {
+  border-radius: 30px;
+}
+
+.btn:hover {
+  -webkit-box-shadow: 1px 3px 23px -11px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 3px 23px -11px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 3px 23px -11px rgba(0, 0, 0, 0.75);
+}
+
+.card,
+.card-overlay,
+.modal-content {
+  border-radius: 10px !important;
+  -webkit-box-shadow: 1px 3px 13px -11px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 3px 13px -11px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 3px 13px -11px rgba(0, 0, 0, 0.75);
+}
+
+.card-header:first-child {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.input-group > .input-group-prepend > .btn,
+.input-group > .input-group-prepend > .input-group-text,
+.input-group > .input-group-append:not(:last-child) > .btn,
+.input-group > .input-group-append:not(:last-child) > .input-group-text,
+.input-group
+  > .input-group-append:last-child
+  > .btn:not(:last-child):not(.dropdown-toggle),
+.input-group
+  > .input-group-append:last-child
+  > .input-group-text:not(:last-child) {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.page-item:first-child .page-link {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  margin-left: 10px;
+}
+
+.page-item:last-child .page-link {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  margin-right: 10px;
+}
+
+.green-shadow {
+  -webkit-box-shadow: 0px 0px 14px -5px rgba(24, 188, 156, 1);
+  -moz-box-shadow: 0px 0px 14px -5px rgba(24, 188, 156, 1);
+  box-shadow: 0px 0px 14px -5px rgba(24, 188, 156, 1);
 }

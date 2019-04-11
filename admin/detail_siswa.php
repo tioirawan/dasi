@@ -217,8 +217,8 @@
                                                         <td><?= $val->id ?></td>
                                                     <td><?= $val->tanggal ?></td>
                                                     <td><?= ucwords($val->jenis) ?></td>
-                                                    <td><?= rupiah($val->debit) ?></td>
-                                                    <td><?= rupiah($val->kredit) ?></td>
+                                                    <td data-sort="<?=$val->debit?>"><?= rupiah($val->debit) ?></td>
+                                                    <td data-sort="<?=$val->kredit?>"><?= rupiah($val->kredit) ?></td>
                                                     <td><?= $val->tipe ?></td>
                                                     <td><?= $val->metode ?></td>
                                                     <td><?= ucwords($val->deskripsi) ?></td>

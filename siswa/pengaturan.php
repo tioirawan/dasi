@@ -10,7 +10,7 @@
     <?php include "../process/getLoginData.php" ?>
     <?php include "../component/siswa/sidebaropen.php" ?>
 
-    ini pengaturan
+    <a href="./ubah_password.php" class="btn btn-primary">Ubah Password</a>
 
     <?php include "../component/siswa/sidebarclose.php" ?>
     <?php include "../component/scripts.php" ?>
