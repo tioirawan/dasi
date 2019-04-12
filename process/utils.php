@@ -14,6 +14,11 @@ function namaDepan($nama) {
 }
 
 function bulanToNum($b) {
+    $bulan = array('januari','februari','maret','april','mei','juni', 'juli','agustus','september','oktober','november','desember');
+    return array_search($b, $bulan) + 1;
+}
+
+function bulanSekolahToNum($b) {
     $bulan = array('juli','agustus','september','oktober','november','desember','januari','februari','maret','april','mei','juni');
     return array_search($b, $bulan) + 1;
 }

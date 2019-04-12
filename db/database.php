@@ -189,6 +189,70 @@ class Database
         }
     }
 
+    public function getSchoolSPPTransactions($id) {
+        try {
+            try {
+                $query = $this->cont->prepare(
+                    "SELECT * FROM users_transaction WHERE id_sekolah=:id AND tipe='spp'"
+                );
+    
+                $query->bindParam("id", $id, PDO::PARAM_STR);
+    
+                $query->execute();
+    
+                if ($query->rowCount() > 0) {
+                    return $query->fetchAll(PDO::FETCH_OBJ);
+                }
+            } catch (PDOException $e) {
+                exit($e->getMessage());
+            }
+        }catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function sppWithdrawal($id_sekolah, $amount) {
+        try {
+            $query = $this->cont->prepare(
+                "UPDATE schools
+                SET saldo = IF(:amount <= saldo, saldo - :amount, saldo)
+                WHERE id=:id"
+            );
+
+            $query->bindParam("id", $id_sekolah, PDO::PARAM_STR);
+            $query->bindParam("amount", $amount, PDO::PARAM_INT);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return true;
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function changeSchoolBiayaSPP($id_sekolah, $biaya) {
+        try {
+            $query = $this->cont->prepare(
+                "UPDATE schools
+                SET biaya_spp=:biaya
+                WHERE id=:id"
+            );
+
+            $query->bindParam("id", $id_sekolah, PDO::PARAM_STR);
+            $query->bindParam("biaya", $biaya, PDO::PARAM_INT);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return true;
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
     public function getSchoolStats($id) {
         $balance = $this->getSchoolTotalBalance($id);
         $users = $this->getSchoolUsersStats($id);
@@ -566,6 +630,25 @@ class Database
 
             if ($query->rowCount() > 0) {
                 return $query->fetch($rettype);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function getUserSPPBill($id, $rettype)
+    {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT * FROM spp WHERE id_siswa=:id AND status_pembayaran=0"
+            );
+
+            $query->bindParam("id", $id, PDO::PARAM_STR);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return $query->fetchAll($rettype);
             }
         } catch (PDOException $e) {
             exit($e->getMessage());

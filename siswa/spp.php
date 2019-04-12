@@ -86,36 +86,50 @@
 
             <?php
                 foreach($tagihanSPP as $spp) {
-                $tenggang = bulanToNum($spp->bulan) < bulanToNum(getBulan());
+                $tenggang = bulanSekolahToNum($spp->bulan) < bulanSekolahToNum(getBulan());
             ?>
                 <div class="col-sm-4 my-3">
-                    <div class="card">
-                        <h3 class="card-header  
-                        <?=!$spp->status_pembayaran && $tenggang ? "bg-danger text-white" : ""?>
-                        <?=$spp->status_pembayaran ? "bg-success text-white" : "" ?>
-                        <?=$spp->bulan == getBulan() ? "bg-primary text-white": "" ?>"
-                    >
-                        <?=ucwords($spp->bulan)?>
-                    </h3>
-                        <div class="card-body">
+                    <div class="card" id="<?=$spp->bulan?>">
+                        <div class="card-body <?=$spp->bulan == getBulan()? "pb-0" :"pb-4"?>">
+                            <h3 class="card-title">
+                                <?=ucwords($spp->bulan)?>
+                            </h3>
+
                             <?php if($spp->status_pembayaran) { ?>
-                                <p>SPP bulan ini sudah dibayar pada tanggal</p>
+                                <p>Yeay! SPP bulan ini sudah kamu bayar pada tanggal</p>
                                 <p><?=indonesian_date($spp->tanggal_pembayaran), date('H:i:s', strtotime($spp->tanggal_pembayaran))?></p>
                             <?php } else { ?>
-                                <p>Belum dibayar</p>
-                                
-                                <button 
-                                    class="btn btn-primary <?=bulanToNum($spp->bulan) < bulanToNum(getBulan()) ? ($spp->status_pembayaran ? "btn-success" : "btn-danger")." text-white": "btn-primary" ?>" 
-                                    type="button" 
-                                    data-toggle="modal" 
-                                    data-target="#confirmmodal"
-                                    data-idspp="<?=$spp->id?>"
-                                    data-bulanspp="<?=$spp->bulan?>"
-                                >
-                                    Bayar
-                                </button>
+                                <p>Kamu belum membayar SPP bulan ini, yuk segera bayar</p>
+
+                                <div class="right-left">
+                                <div>
+                                    <h5 class="card-text pt-2 font-weight-bold float-sm-left mb-0">
+                                        <?=boldGreen(rupiah($sekolah->biaya_spp))?>
+                                    </h5>
+                                </div>
+
+                                <div>
+                                    <button 
+                                        class="btn btn-primary mb-2 <?=bulanSekolahToNum($spp->bulan) < bulanSekolahToNum(getBulan()) ? ($spp->status_pembayaran ? "btn-success" : "btn-danger")." text-white": "btn-primary" ?>" 
+                                        type="button" 
+                                        id="btn-<?=$spp->bulan?>"
+                                        data-toggle="modal" 
+                                        data-target="#confirmmodal"
+                                        data-idspp="<?=$spp->id?>"
+                                        data-bulanspp="<?=$spp->bulan?>"
+                                    >
+                                        Bayar
+                                    </button>
+                                </div>
+                            </div>
+
                             <?php } ?>
+
+                            
                         </div>
+                        <?php if($spp->bulan == getBulan()) { ?>
+                            <div class="card-footer bg-primary"></div>        
+                        <?php } ?>
                     </div>
                 </div>
             <?php
@@ -134,7 +148,20 @@
             $('#confirmmodal').on('shown.bs.modal', function(e) {
                 $('#idspp').val($(e.relatedTarget).data("idspp"));
                 $('#bulanspp').val($(e.relatedTarget).data("bulanspp"));
-            }) ;
+            });
+
+            <?php if(isset($_GET["focus"])) { ?>
+                setTimeout(() => {
+                    $('html, body').animate(
+                        {
+                            scrollTop: $('#<?=$_GET["focus"]?>').offset().top - 200
+                        },
+                        1000
+                    );
+
+                    $("#btn-<?=$_GET["focus"]?>").focus();
+                }, 400)
+            <?php } ?>
         });
     </script>
 </body>

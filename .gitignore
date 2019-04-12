@@ -3,3 +3,4 @@ qrcodes/*
 
 # exception to the rule
 !qrcodes/.gitkeep
+!qrcodes/index.php

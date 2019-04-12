@@ -1,4 +1,5 @@
 <?php
+require "checkpost.php";
 require "../db/database.php";
 
 $validated = false;
@@ -20,7 +21,7 @@ if (isset($_POST["idspp"])) {
 
     if ($validated && $user->saldo >= $school->biaya_spp) {
         if ($db->paySPP($idsiswa, $idsekolah, $idspp)) {
-            $db->addTransaction($school->biaya_spp, "spp", "keluar", $idsiswa, "spp payment", "Pembayaran SPP Bulan ".ucwords($bulan));
+            $db->addTransaction($school->biaya_spp, "spp", "keluar", $idsiswa, "direct", "Pembayaran SPP Bulan ".ucwords($bulan));
             $success = true;
         }
     }

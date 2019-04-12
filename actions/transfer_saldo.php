@@ -1,4 +1,5 @@
 <?php
+require "checkpost.php";
 require "../db/database.php";
 
 $success = false;

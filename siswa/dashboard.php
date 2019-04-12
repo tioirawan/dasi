@@ -71,9 +71,54 @@
     <br />
 
     <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Tagihan</h5>
-            <p class="card-text">Yay! kamu tidak memiliki tagihan sama sekali</p>
+        <div class="card-body pt-0">
+            <div class="pointer pt-3" data-toggle="collapse" data-target="#list-tagihan">
+                <h5 class="card-title">Tagihan</h5>
+                <small class="text-muted" id="tagihan-help">*Klik untuk menampilkan tagihan</small>
+            </div>
+
+            <?php
+                $semuaTagihan = $db->getUserSPPBill($data["id"], PDO::FETCH_OBJ);
+            ?>
+
+            <div class="row collapse" id="list-tagihan">
+                <?php 
+                if(!$semuaTagihan) {
+                    echo '<p class="card-text mx-3">Yay! kamu tidak memiliki tagihan sama sekali</p>';
+                } else {
+                    $tagihan = array_filter($semuaTagihan, function($t) {
+                        return !$t->status_pembayaran && $t->bulan <= bulanToNum(getBulan());
+                    });
+                    foreach($tagihan as $t) { 
+                        if(bulanSekolahToNum($t->bulan) > bulanSekolahToNum(getBulan())) continue;
+                ?>
+
+                <div class="col-sm-4 mt-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">SPP Bulan <?=ucwords($t->bulan)?></h5>
+                            <p class="card-text">
+                                Kamu belum malakukan pembayaran SPP bulan <?=ucwords($t->bulan)?>    
+                            </p>
+
+                            <div class="right-left">
+                                <div>
+                                    <h5 class="card-text pt-2 font-weight-bold float-sm-left mb-0">
+                                        <?=boldGreen(rupiah($sekolah->biaya_spp))?>
+                                    </h5>
+                                </div>
+
+                                <div>
+                                    <a href="spp.php?focus=<?=$t->bulan?>" class="btn btn-primary">Bayar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <?php } } ?>
+            </div>
+
         </div>
     </div>
 
@@ -94,11 +139,20 @@
     <?php include "../component/scripts.php" ?>
 
     <script>
-        $(document).ready(function() {
+         $(document).ready(function() {
             $('#paymentHistoryTable').DataTable({
                 "order": [
                     [1, "desc"]
                 ]
+            });
+
+            
+            $('#list-tagihan').on('show.bs.collapse', function(e) {
+                $('#tagihan-help').hide();
+            });
+
+            $('#list-tagihan').on('hide.bs.collapse', function(e) {
+                setTimeout(() => $('#tagihan-help').fadeIn('slow'), 100);
             });
         });
     </script>

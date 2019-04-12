@@ -57,6 +57,27 @@
                             <span>Donasi</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a href="spp.php">
+                            <i class="fas fa-book"></i>
+                            <span>SPP</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="transaksi.php">
+                            <i class="fas fa-history"></i>
+                            <span>Transaksi Siswa</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="jurnal.php">
+                            <i class="fas fa-journal-whills"></i>
+                            <span>Jurnal Admin</span>
+                        </a>
+                    </li>
                      
                 </ul>
             </div>

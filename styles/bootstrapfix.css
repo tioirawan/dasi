@@ -62,6 +62,11 @@
   border-top-right-radius: 10px;
 }
 
+.card-footer:last-child {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
 .input-group > .input-group-prepend > .btn,
 .input-group > .input-group-prepend > .input-group-text,
 .input-group > .input-group-append:not(:last-child) > .btn,

@@ -22,7 +22,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="nama_siswa">Nama Siswa</label>
-                                <input type="text" class="form-control" name="nama" id="nama_siswa" placeholder="Hafizh Beckham" required>
+                                <input type="text" class="form-control" name="nama" id="nama_siswa" required>
                             </div>
 
                             <div class="form-group">
@@ -37,7 +37,7 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="email_siswa">Email Siswa</label>
-                                <input type="email" class="form-control" name="email" id="email_siswa" placeholder="hafizh@beckham.me" required>
+                                <input type="email" class="form-control" name="email" id="email_siswa" required>
                             </div>
 
                             <div class="form-group">
@@ -63,19 +63,19 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="kelas_siswa">Kelas Siswa</label>
-                                <input type="text" class="form-control" name="kelas" id="kelas_siswa" placeholder="A/B/C" required>
+                                <input type="text" class="form-control" name="kelas" id="kelas_siswa" required>
                             </div>
 
                             <div class="form-group">
                                 <label for="jurusan_siswa">Jurusan Siswa</label>
-                                <input type="text" class="form-control" name="jurusan" id="jurusan_siswa" placeholder="RPL" required>
+                                <input type="text" class="form-control" name="jurusan" id="jurusan_siswa" required>
                             </div>
                         </div>
 
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="nisn_siswa">NISN Siswa</label>
-                                <input type="text" class="form-control" name="nisn" id="nisn_siswa" placeholder="1234567890" required>
+                                <input type="text" class="form-control" name="nisn" id="nisn_siswa" required>
                             </div>
 
                             <div class="form-group">
