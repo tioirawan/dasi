@@ -98,7 +98,7 @@
                         <div class="card-body">
                             <h5 class="card-title">SPP Bulan <?=ucwords($t->bulan)?></h5>
                             <p class="card-text">
-                                Kamu belum malakukan pembayaran SPP bulan <?=ucwords($t->bulan)?>    
+                                Kamu belum melakukan pembayaran SPP bulan <?=ucwords($t->bulan)?>    
                             </p>
 
                             <div class="right-left">
