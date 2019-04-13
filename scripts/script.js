@@ -4,7 +4,7 @@ jQuery(function ($) {
     if($(window).width() < 768) {
         $(".page-wrapper").removeClass("toggled");
     }
-
+    
     // $('.uang').inputmask("999.999", { 
     //     numericInput: false, 
     //     placeholder: '0', 

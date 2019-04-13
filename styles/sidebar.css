@@ -102,11 +102,12 @@ body {
 
 #show-sidebar {
   position: fixed;
-  left: 0;
+  left: 10px;
   top: 14px;
-  width: 50px;
+  width: 35px;
   transition-delay: 0.3s;
   z-index: 1031;
+  background-color: #2C3E50;
 }
 
 .page-wrapper.toggled #show-sidebar {
@@ -436,6 +437,9 @@ body {
 
 .chiller-theme .sidebar-wrapper {
   background: #2c3e50;
+  -webkit-box-shadow: 1px 3px 13px -3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 1px 3px 13px -3px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 3px 13px -3px rgba(0, 0, 0, 0.75);
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-header,
