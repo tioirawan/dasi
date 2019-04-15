@@ -39,7 +39,7 @@
             </div>
         </div>
     </center>
-    <?php include "../component/siswa/footer.php" ?>
+    
 </body>
 
 </html> 

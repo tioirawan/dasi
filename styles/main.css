@@ -38,13 +38,6 @@ hr {
   background-image: -o-linear-gradient(left, white, black, white);
 }
 
-footer {
-  text-align: center;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
 .right-left div:nth-child(1) {
   float: left;
   margin-left: 5px;

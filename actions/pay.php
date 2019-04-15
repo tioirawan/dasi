@@ -63,7 +63,7 @@ if (isset($_POST["uniqueid"])) {
     </div>
   </div>
   <?php include "../component/scripts.php" ?>
-  <?php include "../component/siswa/footer.php" ?>
+  
 
   <script>
     if (window.history.replaceState) {
