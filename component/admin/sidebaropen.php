@@ -1,4 +1,4 @@
-<nav class="navbar fixed-top navbar-expand-sm bg-primary navbar-dark navbar-fixed">
+<nav class="navbar hide-small fixed-top navbar-expand-sm bg-primary navbar-dark navbar-fixed">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active">
         </li>

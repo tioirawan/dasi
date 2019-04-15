@@ -20,10 +20,11 @@
 
     <h1>Dashobard</h1>
 
-    
+
     <div class="card my-4">
         <div class="card-body">
             <h3 class="card-title"><?= $sekolah->nama_sekolah ?> <span class="text-muted lead"><?= $sekolah->npsn ?></span></h3>
+            <?= $sekolah->kode ? "<p>Kode Sekolah Pendaftaran Siswa: $sekolah->kode</p>" : "" ?>
 
             <div class="row">
                 <div class="col-sm-4 my-2">
@@ -57,7 +58,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title"><i class="fas fa-school" aria-hidden="true"></i> Sekolah</h4>
-                            <p class="card-text"><?=  boldGreen(rupiah($stats->balance->sekolah)) ?></p>
+                            <p class="card-text"><?= boldGreen(rupiah($stats->balance->sekolah)) ?></p>
                         </div>
                     </div>
                 </div>

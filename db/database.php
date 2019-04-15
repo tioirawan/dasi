@@ -31,19 +31,76 @@ class Database
         return $this->cont;
     }
 
-    public function query($query) {
+    public function query($query)
+    {
         try {
             $query = $this->cont->prepare($query);
 
             $query->execute();
 
             return $query;
-        }catch (PDOException $e) {
+        } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
 
-    public function getSchoolData($id, $rettype) {
+    public function registerSchool($nama, $npsn, $status, $bentuk, $alamat, $email, $dengan_kode = false)
+    {
+        try {
+            $kode = "";
+
+            if ($dengan_kode) {
+                do {
+                    $kode = generateRandom();
+
+                    $chk = $this->cont->prepare("SELECT * FROM schools WHERE kode=:kode");
+                    $chk->bindParam("kode", $kode);
+                    $chk->execute();
+                } while ($chk->rowCount() > 0);
+            }
+
+            $query = $this->cont->prepare(
+                "INSERT INTO schools(npsn, status, bentuk_pendidikan, nama_sekolah, email, alamat, kode, saldo)
+                VALUES (:npsn,:status,:bentuk_pendidikan,:nama_sekolah,:email,:alamat,:kode,0)"
+            );
+
+            $query->bindParam("npsn", $npsn, PDO::PARAM_INT);
+            $query->bindParam("status", $status, PDO::PARAM_STR);
+            $query->bindParam("bentuk_pendidikan", $bentuk, PDO::PARAM_STR);
+            $query->bindParam("nama_sekolah", $nama, PDO::PARAM_STR);
+            $query->bindParam("email", $email, PDO::PARAM_STR);
+            $query->bindParam("alamat", $alamat, PDO::PARAM_STR);
+            $query->bindParam("kode", $kode, PDO::PARAM_STR);
+
+            $query->execute();
+
+            return $this->cont->lastInsertId();
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function getSchoolByCode($code, $rettype)
+    {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT * FROM schools WHERE kode=:code"
+            );
+
+            $query->bindParam("code", $code, PDO::PARAM_STR);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return $query->fetch($rettype);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
+    public function getSchoolData($id, $rettype)
+    {
         try {
             $query = $this->cont->prepare(
                 "SELECT * FROM schools WHERE id=:id"
@@ -56,12 +113,13 @@ class Database
             if ($query->rowCount() > 0) {
                 return $query->fetch($rettype);
             }
-        }catch (PDOException $e) {
+        } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
 
-    public function getSchoolTotalBalance($id) {
+    public function getSchoolTotalBalance($id)
+    {
         try {
             $query = $this->cont->prepare(
                 "SELECT saldo FROM schools WHERE id=:id"
@@ -119,19 +177,20 @@ class Database
 
             $donation = $query->fetch(PDO::FETCH_OBJ)->total;
 
-            return (object) [
+            return (object)[
                 "sekolah" => $schoolBalance,
-                "siswa" => $usersBalance, 
-                "toko" => $tokoBalance, 
-                "donasi" => $donation, 
-                "total" => $usersBalance + $tokoBalance + $donation
+                "siswa" => $usersBalance,
+                "toko" => $tokoBalance,
+                "donasi" => $donation,
+                "total" => $usersBalance + $tokoBalance + $donation + $schoolBalance
             ];
-        }catch (PDOException $e) {
+        } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
 
-    public function getSchoolUsersStats($id) {
+    public function getSchoolUsersStats($id)
+    {
         try {
             $query = $this->cont->prepare(
                 "SELECT COUNT(id) AS jumlah FROM users WHERE kelamin='laki-laki' AND id_sekolah=:id"
@@ -161,57 +220,60 @@ class Database
 
             $jumlah_perempuan = $query->fetch(PDO::FETCH_OBJ)->jumlah;
 
-            return (object) ["laki" => $jumlah_laki, "perempuan" => $jumlah_perempuan, "total" => $jumlah_laki + $jumlah_perempuan];
-        }catch (PDOException $e) {
+            return (object)["laki" => $jumlah_laki, "perempuan" => $jumlah_perempuan, "total" => $jumlah_laki + $jumlah_perempuan];
+        } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
 
-    public function getSchoolTransactions($id) {
+    public function getSchoolTransactions($id)
+    {
         try {
             try {
                 $query = $this->cont->prepare(
                     "SELECT * FROM users_transaction WHERE id_sekolah=:id"
                 );
-    
+
                 $query->bindParam("id", $id, PDO::PARAM_STR);
-    
+
                 $query->execute();
-    
+
                 if ($query->rowCount() > 0) {
                     return $query->fetchAll(PDO::FETCH_OBJ);
                 }
             } catch (PDOException $e) {
                 exit($e->getMessage());
             }
-        }catch (PDOException $e) {
+        } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
 
-    public function getSchoolSPPTransactions($id) {
+    public function getSchoolSPPTransactions($id)
+    {
         try {
             try {
                 $query = $this->cont->prepare(
                     "SELECT * FROM users_transaction WHERE id_sekolah=:id AND tipe='spp'"
                 );
-    
+
                 $query->bindParam("id", $id, PDO::PARAM_STR);
-    
+
                 $query->execute();
-    
+
                 if ($query->rowCount() > 0) {
                     return $query->fetchAll(PDO::FETCH_OBJ);
                 }
             } catch (PDOException $e) {
                 exit($e->getMessage());
             }
-        }catch (PDOException $e) {
+        } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
 
-    public function sppWithdrawal($id_sekolah, $amount) {
+    public function sppWithdrawal($id_sekolah, $amount)
+    {
         try {
             $query = $this->cont->prepare(
                 "UPDATE schools
@@ -232,7 +294,8 @@ class Database
         }
     }
 
-    public function changeSchoolBiayaSPP($id_sekolah, $biaya) {
+    public function changeSchoolBiayaSPP($id_sekolah, $biaya)
+    {
         try {
             $query = $this->cont->prepare(
                 "UPDATE schools
@@ -253,12 +316,13 @@ class Database
         }
     }
 
-    public function getSchoolStats($id) {
+    public function getSchoolStats($id)
+    {
         $balance = $this->getSchoolTotalBalance($id);
         $users = $this->getSchoolUsersStats($id);
         $trx = $this->getSchoolTransactions($id);
-            
-        return (object) ["balance" => $balance, "users" => $users, "trx" => $trx];
+
+        return (object)["balance" => $balance, "users" => $users, "trx" => $trx];
     }
 
     public function registerAdmin($nama, $email, $password, $id_sekolah)
@@ -364,7 +428,7 @@ class Database
             $query = $this->cont->prepare(
                 "INSERT INTO admin_journal(id_sekolah, id_admin, code, nilai, ext_1)
                 VALUES (:idsekolah,:idadmin,:code,:nilai,:ext1)"
-            );            
+            );
 
             $query->bindParam("idsekolah", $this->getAdminById($id_admin, PDO::FETCH_OBJ)->id_sekolah, PDO::PARAM_INT);
             $query->bindParam("idadmin", $id_admin, PDO::PARAM_INT);
@@ -404,7 +468,8 @@ class Database
         try {
             $stmt = $this->cont->prepare(
                 "SELECT id, id_sekolah, tanggal_pendaftaran, nama, kelamin, email, level, tingkatan, kelas, jurusan, nisn, saldo 
-                FROM users WHERE id_sekolah=:idsekolah ORDER BY id ASC");
+                FROM users WHERE id_sekolah=:idsekolah ORDER BY id ASC"
+            );
 
             $stmt->bindParam("idsekolah", $idsekolah, PDO::PARAM_INT);
 
@@ -447,9 +512,9 @@ class Database
 
             $queryspp = "INSERT INTO spp(id_sekolah, id_siswa, bulan) VALUES";
 
-            $bulan = array('januari','februari','maret','april','mei','juni','juli','agustus','september','oktober','november','desember');
+            $bulan = array('januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'desember');
 
-            foreach($bulan as $b) {
+            foreach ($bulan as $b) {
                 $queryspp .= "('$id_sekolah', '$id_siswa', '$b')" . ($b != "desember" ? "," : "");
             }
 
@@ -616,6 +681,26 @@ class Database
         }
     }
 
+    public function getUserByEmail($email, $rettype)
+    {
+        try {
+            $query = $this->cont->prepare(
+                "SELECT id, id_sekolah, tanggal_pendaftaran, nama, kelamin, email, level, tingkatan, kelas, jurusan, nisn, saldo 
+                FROM users WHERE email=:email"
+            );
+
+            $query->bindParam("email", $email, PDO::PARAM_STR);
+
+            $query->execute();
+
+            if ($query->rowCount() > 0) {
+                return $query->fetch($rettype);
+            }
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
+    }
+
     public function getUserByNISN($nisn, $rettype)
     {
         try {
@@ -674,7 +759,8 @@ class Database
         }
     }
 
-    public function paySPP($userid, $schoolid, $sppid) {
+    public function paySPP($userid, $schoolid, $sppid)
+    {
         try {
             $sekolah = $this->getSchoolData($schoolid, PDO::FETCH_OBJ);
             $jumlah = $sekolah->biaya_spp;
@@ -724,7 +810,8 @@ class Database
         }
     }
 
-    public function userDeposit($userid, $amount) {
+    public function userDeposit($userid, $amount)
+    {
         try {
             $query = $this->cont->prepare(
                 "UPDATE users
@@ -745,7 +832,8 @@ class Database
         }
     }
 
-    public function userWithdrawal($userid, $amount) {
+    public function userWithdrawal($userid, $amount)
+    {
         try {
             $query = $this->cont->prepare(
                 "UPDATE users
@@ -766,7 +854,8 @@ class Database
         }
     }
 
-    public function transferByNISN($userid, $nisn, $amount) {
+    public function transferByNISN($userid, $nisn, $amount)
+    {
         try {
             $query = $this->cont->prepare(
                 "UPDATE users
@@ -837,8 +926,9 @@ class Database
             $query->bindParam("deskripsi", $deskripsi, PDO::PARAM_STR);
             $query->bindParam("tgt", $target, PDO::PARAM_INT);
             $query->bindParam("idposter", $idposter, PDO::PARAM_STR);
-            $query->bindParam("idsekolah", 
-                $this->getAdminById($idposter, PDO::FETCH_OBJ)->id_sekolah, 
+            $query->bindParam(
+                "idsekolah",
+                $this->getAdminById($idposter, PDO::FETCH_OBJ)->id_sekolah,
                 PDO::PARAM_INT
             );
 
@@ -858,11 +948,12 @@ class Database
             );
 
             $query->bindParam("id", $id, PDO::PARAM_INT);
-            $query->bindParam("idsekolah", 
-                $this->getAdminById($adminid, PDO::FETCH_OBJ)->id_sekolah, 
+            $query->bindParam(
+                "idsekolah",
+                $this->getAdminById($adminid, PDO::FETCH_OBJ)->id_sekolah,
                 PDO::PARAM_INT
             );
-            $query->bindParam("status", $status, PDO::PARAM_STR);            
+            $query->bindParam("status", $status, PDO::PARAM_STR);
 
             $query->execute();
 
@@ -1037,24 +1128,25 @@ class Database
         }
     }
 
-    public function getTransaction($id, $rettype) {
+    public function getTransaction($id, $rettype)
+    {
         try {
             try {
                 $query = $this->cont->prepare(
                     "SELECT * FROM users_transaction WHERE id=:id"
                 );
-    
+
                 $query->bindParam("id", $id, PDO::PARAM_STR);
-    
+
                 $query->execute();
-    
+
                 if ($query->rowCount() > 0) {
                     return $query->fetch($rettype);
                 }
             } catch (PDOException $e) {
                 exit($e->getMessage());
             }
-        }catch (PDOException $e) {
+        } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
@@ -1128,7 +1220,8 @@ class Database
         }
     }
 
-    public function tokoWithdrawal($tokoid, $amount) {
+    public function tokoWithdrawal($tokoid, $amount)
+    {
         try {
             $query = $this->cont->prepare(
                 "UPDATE toko
@@ -1149,7 +1242,8 @@ class Database
         }
     }
 
-    public function payToko($userid, $uniqueid, $amount) {
+    public function payToko($userid, $uniqueid, $amount)
+    {
         try {
             $QR = $this->getQR($uniqueid, PDO::FETCH_OBJ);
 
@@ -1211,9 +1305,9 @@ class Database
             do {
                 $uniid = generateRandom();
 
-                $chk = $this->cont->prepare("SELECT * FROM qrcode WHERE unique_id=:uniid"); 
+                $chk = $this->cont->prepare("SELECT * FROM qrcode WHERE unique_id=:uniid");
                 $chk->bindParam("uniid", $uniid);
-                $chk->execute(); 
+                $chk->execute();
             } while ($chk->rowCount() > 0);
 
 
