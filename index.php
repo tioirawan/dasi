@@ -9,7 +9,10 @@
     <title>Dasi</title>
 </head>
 
-<body>
+<body id="blog">
+    <a id="move-top" class="animate-move-top" href="#blog">
+        <li class="fa fa-angle-up"></li>
+    </a>
     <?php
     session_start();
 
@@ -95,7 +98,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="fas fa-hand-holding-usd"></i> Donasi</h5>
-                                <p class="card-text">Siswa dapat berdonasi dengan dasi dengan cepat dan mudah</p>
+                                <p class="card-text">Siswa dapat berdonasi dengan cepat dan mudah menggunakan dasi</p>
                             </div>
                         </div>
                     </div>
@@ -113,7 +116,7 @@
             <div class="container py-2 text-center form-daftar-sekolah">
                 <h2 class="font-weight-light">Pendaftaran Sekolah</h2>
 
-                <p>Tertarik? daftarkan sekolah anda dan nikmati kemudahanya</p>
+                <p>Ayo, daftarkan sekolah anda dan nikmati kemudahanya!</p>
 
                 <form action="actions/daftar_sekolah.php" method="post" class="mt-4">
                     <div class="form-group">
@@ -271,6 +274,19 @@
                 1000
             );
         })
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("move-top").style.display = "block";
+            } else {
+                document.getElementById("move-top").style.display = "none";
+            }
+        }
+        $("a[href='#blog']").click(function() {
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+            return false;
+        });
     </script>
 </body>
 

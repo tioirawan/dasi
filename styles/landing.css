@@ -1,3 +1,23 @@
+.animate-move-top {
+    color: #989daa;
+    cursor: pointer;
+    background: #222;
+    text-align: center;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 10px;
+    right: 15px;
+    padding: 0 13px;
+    font-size: 30px;
+    z-index: 99;
+}
+
+.animate-move-top:hover {
+    color: deepskyblue;
+    box-shadow: 0 3px 10px black;
+    transform: scale(1.1);
+}
+
 .masthead {
     height: 100vh;
     min-height: 500px;
