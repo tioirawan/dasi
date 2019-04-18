@@ -96,6 +96,7 @@
 
     <?php include "../component/siswa/sidebarclose.php" ?>
     <?php include "../component/scripts.php" ?>
+    <?php $noback = true; require "../component/scrollTop.php" ?>
 </body>
 
 </html> 

@@ -319,6 +319,7 @@
 
     <?php include "../component/admin/sidebarclose.php" ?>
     <?php include "../component/scripts.php" ?>
+    <?php $noback = true; require "../component/scrollTop.php" ?>
 
     <script>
         <?php if (isset($_GET["ssc"])) { ?>

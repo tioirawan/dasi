@@ -4,15 +4,13 @@
 <head>
     <?php include 'component/helmet.php' ?>
 
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
     <link rel="stylesheet" href="styles/landing.css">
 
     <title>Dasi</title>
 </head>
 
 <body id="blog">
-    <a id="move-top" class="animate-move-top" href="#blog">
-        <li class="fa fa-angle-up"></li>
-    </a>
     <?php
     session_start();
 
@@ -258,6 +256,8 @@
     <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+    <?php $noback = true; require 'component/scrollTop.php'; ?>
+
     <script>
         $("#daftar-sekolah").on("click", () => {
             $('html, body').animate({
@@ -274,19 +274,6 @@
                 1000
             );
         })
-        window.onscroll = function() {scrollFunction()};
-
-        function scrollFunction() {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-                document.getElementById("move-top").style.display = "block";
-            } else {
-                document.getElementById("move-top").style.display = "none";
-            }
-        }
-        $("a[href='#blog']").click(function() {
-            $("html, body").animate({ scrollTop: 0 }, "slow");
-            return false;
-        });
     </script>
 </body>
 

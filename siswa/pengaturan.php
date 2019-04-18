@@ -16,4 +16,4 @@
     <?php include "../component/scripts.php" ?>
 </body>
 
-</html> 
+</html>

@@ -31,8 +31,14 @@
                             <label class="form-check-label" for="rememberme">Ingat Saya</label>
                         </div> -->
 
-                    <div>
-                        <button type="submit" class="btn btn-primary">Masuk</button>
+                    <div class="right-left">
+                        <div>
+                            <a href="../" class="btn btn-primary">Kembali</a>
+                        </div>
+
+                        <div>
+                            <button type="submit" class="btn btn-success">Masuk</button>                                
+                        </div>
                     </div>
                     <!-- </div> -->
                 </form>

@@ -18,7 +18,7 @@
     // print_r($trx);
     ?>
 
-    <h1>Dashobard</h1>
+    <h1>Dashboard</h1>
 
 
     <div class="card my-4">
@@ -94,6 +94,7 @@
 
     <?php include "../component/admin/sidebarclose.php" ?>
     <?php include "../component/scripts.php" ?>
+    <?php $noback = true; require "../component/scrollTop.php" ?>
 </body>
 
 </html>

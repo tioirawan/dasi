@@ -85,7 +85,7 @@
                     echo "</div></div></div>";
                 }
             } else {
-                echo "Tidak Donasi Yang di Buka";
+                echo "Tidak ada donasi yang di buka";
             }
             ?>
             </div>
