@@ -18,7 +18,7 @@ if (isset($_POST["uniqueid"])) {
   $user = $db->getUserById($userid, PDO::FETCH_OBJ);
 
   if ($amount < $user->saldo && $amount >= 500) {
-    if ($db->payToko($userid, $uniqueid, $amount)) {
+    if ($db->payKantin($userid, $uniqueid, $amount)) {
       $id = $db->addTransaction($amount, "pembelian", "keluar", $userid, "qrcode", "Pembelian $judul");
       $trx = $db->getTransaction($id, PDO::FETCH_OBJ);
       

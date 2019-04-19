@@ -9,11 +9,11 @@ $res = $db->newQr(
     $_POST["nilai"],
     isset($_POST["tetap"]) ? 1 : 0,
     $_POST["adminid"],
-    $_POST["tokoid"]
+    $_POST["kantinid"]
 );
 
-$db->addAdminJournal($_POST["adminid"], "generate_qr_toko", 0, $res);
+$db->addAdminJournal($_POST["adminid"], "generate_qr_kantin", 0, $res);
 
-header("Location: ../admin/info_toko.php?id=".$_POST["tokoid"]);
+header("Location: ../admin/info_kantin.php?id=".$_POST["kantinid"]);
 die();
  

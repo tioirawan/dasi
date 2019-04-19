@@ -25,31 +25,32 @@ if ($res) { ?>
     </head>
 
     <body>
+        <div class="container">
+            <div class="card">
+                <div class="card-body">
+                    <h1>Pengurus Sekolah</h1>
 
-        <div class="card">
-            <div class="card-body">
-                <h1>Daftarkakn Pengurus Sekolah</h1>
+                    <form action="register_admin.php" method="post" class="mt-4">
+                        <div class="form-group">
+                            <label for="nama">Nama Pengurus</label>
+                            <input type="text" name="nama" id="nama" class="form-control input-sm" required>
+                        </div>
 
-                <form action="register_admin.php" method="post" class="mt-4">
-                    <div class="form-group">
-                        <label for="nama">Nama Pengurus</label>
-                        <input type="text" name="nama" id="nama" class="form-control input-sm" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" class="form-control" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" class="form-control" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="password">Kata Sandi</label>
+                            <input type="password" name="password" id="password" class="form-control input-sm" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="password">Kata Sandi</label>
-                        <input type="password" name="password" id="password" class="form-control input-sm" required>
-                    </div>
+                        <input type="hidden" name="idsekolah" value="<?= $res ?>">
 
-                    <input type="hidden" name="idsekolah" value="<?= $res ?>">
-
-                    <input type="submit" value="Selesai" class="btn btn-primary">
-                </form>
+                        <input type="submit" value="Selesai" class="btn btn-primary">
+                    </form>
+                </div>
             </div>
         </div>
 

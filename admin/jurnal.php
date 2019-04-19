@@ -33,8 +33,8 @@
                     foreach ($journal as $val) {
 
                         preg_match('/\w(siswa|user)/', $val->code, $ext1siswa);
-                        preg_match('/generate_qr_toko/', $val->code, $ext1qr);
-                        preg_match('/tarik_tunai_toko/', $val->code, $ext1toko);
+                        preg_match('/generate_qr_kantin/', $val->code, $ext1qr);
+                        preg_match('/tarik_tunai_kantin/', $val->code, $ext1kantin);
                         preg_match('/change_donation_status/', $val->code, $ext1donation);
                         preg_match('/tarik_spp/', $val->code, $ext1admin);
 
@@ -51,11 +51,11 @@
                                 <?php } else if (count($ext1qr)) {
                                 $qr = $db->getQRById($val->ext_1, PDO::FETCH_OBJ);
                                 ?>
-                                    <a href='info_toko.php?id=<?= $qr->id_toko ?>'><?= $val->ext_1 ?></a>
+                                    <a href='info_kantin.php?id=<?= $qr->id_kantin ?>'><?= $val->ext_1 ?></a>
                                 <?php } else if (count($ext1donation)) { ?>
                                     <a href='infodonasi.php?id_donasi=<?= $val->ext_1 ?>'><?= $val->ext_1 ?></a>
-                                <?php } else if (count($ext1toko)) { ?>
-                                    <a href='info_toko.php?id=<?= $val->ext_1 ?>'><?= $val->ext_1 ?></a>
+                                <?php } else if (count($ext1kantin)) { ?>
+                                    <a href='info_kantin.php?id=<?= $val->ext_1 ?>'><?= $val->ext_1 ?></a>
                                 <?php } else { ?>
                                     <?= $val->ext_1 ?>
                                 <?php } ?>

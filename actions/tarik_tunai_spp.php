@@ -27,7 +27,7 @@ if (isset($_POST["id_sekolah"])) {
 
         if(!$validated) $errmess = "Terjadi kesalahan autentikasi";
         else if($nominal < 1000) $errmess = "Nominal penarikan terlalu kecil";
-        else if($nominal > $sekolah->saldo) $errmess = "Nominal penarikan terlalu besar melebihi saldo toko";
+        else if($nominal > $sekolah->saldo) $errmess = "Nominal penarikan terlalu besar melebihi saldo kantin";
 
         header("Location: ../admin/spp.php?ssc=$errmess&id=$id_sekolah");        
     }

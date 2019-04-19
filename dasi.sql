@@ -98,7 +98,7 @@ CREATE TABLE `qrcode` (
   `tetap` tinyint(1) NOT NULL,
   `generated_by` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_toko` int(11) NOT NULL,
+  `id_kantin` int(11) NOT NULL,
   `nilai` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -139,10 +139,10 @@ CREATE TABLE `spp` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `toko`
+-- Struktur dari tabel `kantin`
 --
 
-CREATE TABLE `toko` (
+CREATE TABLE `kantin` (
   `id` int(11) NOT NULL,
   `id_sekolah` int(11) NOT NULL,
   `nama` varchar(255) NOT NULL,
@@ -153,14 +153,14 @@ CREATE TABLE `toko` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `toko_transaction`
+-- Struktur dari tabel `kantin_transaction`
 --
 
-CREATE TABLE `toko_transaction` (
+CREATE TABLE `kantin_transaction` (
   `id` int(11) NOT NULL,
   `id_sekolah` int(11) NOT NULL,
   `tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `toko_id` int(11) NOT NULL,
+  `kantin_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `qr_id` int(11) NOT NULL,
   `jumlah` bigint(20) NOT NULL
@@ -266,7 +266,7 @@ ALTER TABLE `qrcode`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unique_id` (`unique_id`),
   ADD KEY `generated_by` (`generated_by`),
-  ADD KEY `id_toko` (`id_toko`),
+  ADD KEY `id_kantin` (`id_kantin`),
   ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
@@ -284,16 +284,16 @@ ALTER TABLE `spp`
   ADD KEY `id_siswa` (`id_siswa`);
 
 --
--- Indeks untuk tabel `toko`
+-- Indeks untuk tabel `kantin`
 --
-ALTER TABLE `toko`
+ALTER TABLE `kantin`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
--- Indeks untuk tabel `toko_transaction`
+-- Indeks untuk tabel `kantin_transaction`
 --
-ALTER TABLE `toko_transaction`
+ALTER TABLE `kantin_transaction`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_sekolah` (`id_sekolah`);
 
@@ -370,15 +370,15 @@ ALTER TABLE `spp`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `toko`
+-- AUTO_INCREMENT untuk tabel `kantin`
 --
-ALTER TABLE `toko`
+ALTER TABLE `kantin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `toko_transaction`
+-- AUTO_INCREMENT untuk tabel `kantin_transaction`
 --
-ALTER TABLE `toko_transaction`
+ALTER TABLE `kantin_transaction`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -434,7 +434,7 @@ ALTER TABLE `donation_disbursement`
 -- Ketidakleluasaan untuk tabel `qrcode`
 --
 ALTER TABLE `qrcode`
-  ADD CONSTRAINT `qrcode_ibfk_1` FOREIGN KEY (`id_toko`) REFERENCES `toko` (`id`),
+  ADD CONSTRAINT `qrcode_ibfk_1` FOREIGN KEY (`id_kantin`) REFERENCES `kantin` (`id`),
   ADD CONSTRAINT `qrcode_ibfk_2` FOREIGN KEY (`generated_by`) REFERENCES `admin` (`id`),
   ADD CONSTRAINT `qrcode_ibfk_3` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
 
@@ -446,16 +446,16 @@ ALTER TABLE `spp`
   ADD CONSTRAINT `spp_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `users` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `toko`
+-- Ketidakleluasaan untuk tabel `kantin`
 --
-ALTER TABLE `toko`
-  ADD CONSTRAINT `toko_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
+ALTER TABLE `kantin`
+  ADD CONSTRAINT `kantin_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `toko_transaction`
+-- Ketidakleluasaan untuk tabel `kantin_transaction`
 --
-ALTER TABLE `toko_transaction`
-  ADD CONSTRAINT `toko_transaction_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
+ALTER TABLE `kantin_transaction`
+  ADD CONSTRAINT `kantin_transaction_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `users`
