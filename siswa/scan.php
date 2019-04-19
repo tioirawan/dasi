@@ -20,8 +20,8 @@
             bottom: 0;
             min-width: 100%;
             min-height: 100%;
-            margin-left: auto;
-            margin-right: auto;
+            width: auto;
+            height: auto;
             background-size: cover;
             max-width: inherit !important;
             max-height: inherit !important;
@@ -82,7 +82,7 @@
         <div class="overlay">
             <a href="qr.php" class="btn btn-primary btn-lg qrbutton "><i class="fas fa-qrcode"></i> Kode QRmu</a>
         </div>
-        <qrcode-stream @decode="onDecode" @init="onInit"></qrcode-stream>
+        <qrcode-stream @decode="onDecode" :track="repaint" @init="onInit"></qrcode-stream>
     </div>
 
     <?php include "../component/siswa/sidebarclose.php" ?>
@@ -112,11 +112,35 @@
                         } else {
                             this.url = `./transfer.php?nisn=${content}`
                         }
-
+                        
                         window.location.href = this.url
                     }
                 },
+                repaint(location, ctx) {
+                    console.log("reapo")
+                    if (location !== null) {
+                        const {
+                            topLeftFinderPattern,
+                            topRightFinderPattern,
+                            bottomLeftFinderPattern
+                        } = location
 
+                        const pointArray = [
+                            topLeftFinderPattern,
+                            topRightFinderPattern,
+                            bottomLeftFinderPattern
+                        ]
+
+                        ctx.fillStyle = '#2C3E50'
+
+                        pointArray.forEach(({
+                            x,
+                            y
+                        }) => {
+                            ctx.fillRect(x - 220, y - 5, 25, 25)
+                        })
+                    }
+                },
                 onInit(promise) {
                     promise.then(() => {
                             console.log('Successfully initilized! Ready for scanning now!')

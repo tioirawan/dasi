@@ -107,4 +107,8 @@
   main {
     margin-top:  0 !important;
   }
+
+  .page-wrapper .page-content > div {
+    padding: 10px 40px !important;
+  }
 }
