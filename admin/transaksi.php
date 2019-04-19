@@ -39,7 +39,7 @@
 
                         <tr>
                             <td><?= $val->id ?></td>
-                            <td><a href="detail_siswa.php?id=<?= $val->user_id ?>"><?= $val->user_id ?></a></td>
+                            <td><a href="detail_siswa.php?id=<?= $val->siswa_id ?>"><?= $val->siswa_id ?></a></td>
                             <td><?= $val->tanggal ?></td>
                             <td class="text-<?= $val->jenis == "masuk" ? "success" : "danger" ?>"><?= ucwords($val->jenis) ?></td>
                             <td class="text-muted" data-sort="<?=$val->debit?>"><?= rupiah($val->debit) ?></td>

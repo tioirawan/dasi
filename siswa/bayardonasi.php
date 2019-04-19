@@ -100,7 +100,7 @@
 
                         <input type="hidden" name="donationid" value="<?= $donationid ?>">
                         <input type="hidden" name="donationname" value="<?= ucwords($res->judul) ?>">
-                        <input type="hidden" name="userid" value="<?= $data["id"] ?>">
+                        <input type="hidden" name="siswaid" value="<?= $data["id"] ?>">
 
                         <div class="right-left">
                             <div>

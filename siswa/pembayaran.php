@@ -44,7 +44,7 @@
             </div>
 
             <input type="hidden" name="uniqueid" value="<?= $qrid ?>">
-            <input type="hidden" name="userid" value="<?= $data["id"] ?>">
+            <input type="hidden" name="siswaid" value="<?= $data["id"] ?>">
             <input type="hidden" name="judul" value="<?= $detailPembayaran->judul ?>">
 
             <input type="submit" class="btn btn-primary btn-lg" value="Bayar">

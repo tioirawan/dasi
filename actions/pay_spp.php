@@ -16,10 +16,10 @@ if (isset($_POST["idspp"])) {
 
     $validated = $db->validatePassword($idsiswa, $pass);
 
-    $user = $db->getUserById($idsiswa, PDO::FETCH_OBJ);
-    $school = $db->getSchoolData($user->id_sekolah, PDO::FETCH_OBJ);
+    $siswa = $db->getUserById($idsiswa, PDO::FETCH_OBJ);
+    $school = $db->getSchoolData($siswa->id_sekolah, PDO::FETCH_OBJ);
 
-    if ($validated && $user->saldo >= $school->biaya_spp) {
+    if ($validated && $siswa->saldo >= $school->biaya_spp) {
         if ($db->paySPP($idsiswa, $idsekolah, $idspp)) {
             $db->addTransaction($school->biaya_spp, "spp", "keluar", $idsiswa, "direct", "Pembayaran SPP Bulan ".ucwords($bulan));
             $success = true;
@@ -50,7 +50,7 @@ if (isset($_POST["idspp"])) {
             <?php if (!isset($_POST["idspp"])) { ?>
                 <p class="card-text">Sepertinya SPP kamu sudah masuk, kamu bisa meninggalkan halaman ini</p>
                 <a href="../siswa/SPP.php" role="button" class="btn btn-primary btn-lg">Kembali ke halaman SPP</a>
-            <?php } else if ($user->saldo < $school->biaya_spp) { ?>
+            <?php } else if ($siswa->saldo < $school->biaya_spp) { ?>
                 <p class="card-text">Maaf, saldo anda tidak mencukupi untuk membayar SPP</p>
                 <a href="../siswa/spp.php?payment_success=0&id_SPP=<?= $idspp ?>" role="button" class="btn btn-primary btn-lg">Kembali ke halaman SPP</a>
             <?php } else if (!$validated) { ?>

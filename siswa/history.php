@@ -10,63 +10,59 @@
     <?php include "../process/getLoginData.php" ?>
     <?php include "../component/siswa/sidebaropen.php" ?>
 
-    <div class="card">
-        <div class="card-body">
-            <h1 class="card-title">Riwayat Transaksi</h1>
+    <h1 class="card-title">Riwayat Transaksi</h1>
 
-            <?php 
-            $trx = $db->getUserTransactionHistory($data["id"], PDO::FETCH_OBJ);
+    <?php 
+    $trx = $db->getUserTransactionHistory($data["id"], PDO::FETCH_OBJ);
 
-            // print_r($trx);
+    // print_r($trx);
 
-            if ($trx) {
-                ?>
+    if ($trx) {
+        ?>
 
-            <div class="table-responsive">
-                <table id="paymentHistoryTable" class="table">
-                    <thead>
-                        <tr>
-                            <th>Tanggal</th>
-                            <th>Jenis</th>
-                            <th>Debit</th>
-                            <th>Kredit</th>
-                            <th>Tipe</th>
-                            <th>Metode</th>
-                            <th>Deskripsi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($trx as $val) {
-                            ?>
-
-                        <tr>
-                            <td><?= $val->tanggal ?></td>
-                            <td class="text-<?=$val->jenis == "masuk" ? "success" : "danger" ?>"><?= ucwords($val->jenis) ?></td>
-                            <td class="text-muted" data-sort="<?=$val->debit?>"><?= rupiah($val->debit) ?></td>
-                            <td class="text-<?=$val->jenis == "masuk" ? "success" : "danger" ?>" data-sort="<?=$val->kredit?>"><?= rupiah($val->kredit) ?></td>
-                            <td><?= $val->tipe ?></td>
-                            <td><?= $val->metode ?></td>
-                            <td><?= ucwords($val->deskripsi) ?></td>
-                        </tr>
-
-                        <?php
-
-                    }
+    <div class="table-responsive">
+        <table id="paymentHistoryTable" class="table">
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Jenis</th>
+                    <th>Debit</th>
+                    <th>Kredit</th>
+                    <th>Tipe</th>
+                    <th>Metode</th>
+                    <th>Deskripsi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($trx as $val) {
                     ?>
 
-                    </tbody>
-                </table>
-            </div>
+                <tr>
+                    <td><?= $val->tanggal ?></td>
+                    <td class="text-<?=$val->jenis == "masuk" ? "success" : "danger" ?>"><?= ucwords($val->jenis) ?></td>
+                    <td class="text-muted" data-sort="<?=$val->debit?>"><?= rupiah($val->debit) ?></td>
+                    <td class="text-<?=$val->jenis == "masuk" ? "success" : "danger" ?>" data-sort="<?=$val->kredit?>"><?= rupiah($val->kredit) ?></td>
+                    <td><?= $val->tipe ?></td>
+                    <td><?= $val->metode ?></td>
+                    <td><?= ucwords($val->deskripsi) ?></td>
+                </tr>
 
-            <?php
+                <?php
 
-        } else {
-            echo "<p class='card-text'>Kamu belum melakukan transaksi apapun</p>";
-        }
-        ?>
-        </div>
+            }
+            ?>
+
+            </tbody>
+        </table>
     </div>
+
+    <?php
+
+} else {
+    echo "<p class='card-text'>Kamu belum melakukan transaksi apapun</p>";
+}
+?>
 
     <?php include "../component/siswa/sidebarclose.php" ?>
     <?php include "../component/scripts.php" ?>

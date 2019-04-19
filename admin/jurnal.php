@@ -32,7 +32,7 @@
                     <?php
                     foreach ($journal as $val) {
 
-                        preg_match('/\w(siswa|user)/', $val->code, $ext1siswa);
+                        preg_match('/\w(siswa|siswa)/', $val->code, $ext1siswa);
                         preg_match('/generate_qr_kantin/', $val->code, $ext1qr);
                         preg_match('/tarik_tunai_kantin/', $val->code, $ext1kantin);
                         preg_match('/change_donation_status/', $val->code, $ext1donation);

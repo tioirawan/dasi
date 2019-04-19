@@ -16,7 +16,7 @@
 
     require 'db/database.php';
 
-    if (isset($_SESSION['userid'])) {
+    if (isset($_SESSION['siswaid'])) {
         header("Location: siswa/dashboard.php");
         die();
     } else if (isset($_SESSION['adminid'])) {
@@ -113,7 +113,7 @@
             <div class="container py-2 text-center form-daftar-sekolah">
                 <h2 class="font-weight-light">Pendaftaran Sekolah</h2>
 
-                <p>Ayo, daftarkan sekolah anda dan nikmati kemudahanya!</p>
+                <p>Daftarkan sekolah anda dan nikmati kemudahanya!</p>
 
                 <form action="actions/daftar_sekolah.php" method="post" class="mt-4">
                     <div class="form-group">
@@ -155,9 +155,11 @@
                         <input type="text" name="alamat" id="alamat" class="form-control" required>
                     </div>
 
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="kode" name="kode">
-                        <label class="form-check-label" for="kode">Perbolehkan Siswa Mendaftar Sendiri</label>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="kode" name="kode">
+                            <label class="form-check-label" for="kode">Perbolehkan Siswa Mendaftar Sendiri</label>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary mt-3">Daftarkan</button>
@@ -166,6 +168,8 @@
 
             <div class="container py-2 text-center form-daftar-siswa">
                 <h2 class="font-weight-light">Pendaftaran Siswa</h2>
+
+                <p>Sekolah kamu menggunakan dasi? kamu bisa mendaftar dengan form di bawah ini!</p>
 
                 <form action="actions/register_siswa.php" method="post">
                     <div>

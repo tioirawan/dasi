@@ -6,7 +6,7 @@ require "../db/database.php";
 
 $db = new Database();
 
-$res = $db->loginAdmin($_POST["useremail"], $_POST["userpass"], "*");
+$res = $db->loginAdmin($_POST["siswaemail"], $_POST["siswapass"], "*");
 
 if($res) {
     $_SESSION['adminid'] = $res;

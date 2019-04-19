@@ -94,8 +94,8 @@
 
             <div class="card card-body">
                 <?php 
-                $users = $db->getAllUsers($data["id_sekolah"]);
-                if ($users) {
+                $siswa = $db->getSeluruhSiswa($data["id_sekolah"]);
+                if ($siswa) {
                     ?>
 
                 <div class="table-responsive">
@@ -115,7 +115,7 @@
                         </thead>
                         <tbody>
                             <?php
-                            foreach ($users as $siswa) {
+                            foreach ($siswa as $siswa) {
                                 ?>
 
                             <tr>

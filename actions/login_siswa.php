@@ -6,10 +6,10 @@ require "../db/database.php";
 
 $db = new Database();
 
-$res = $db->login($_POST["useremail"], $_POST["userpass"], "*");
+$res = $db->login($_POST["siswaemail"], $_POST["siswapass"], "*");
 
 if($res) {
-    $_SESSION['userid'] = $res;
+    $_SESSION['siswaid'] = $res;
     $_SESSION['level'] = "siswa";
 
     header("Location: ../siswa/dashboard.php");

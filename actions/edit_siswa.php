@@ -16,7 +16,7 @@ $pass = $db->editUserFull(
     $_POST["nisn"]
 );
 
-$db->addAdminJournal($_POST["adminid"], "edit_user", 0, $_POST["id"]);
+$db->addAdminJournal($_POST["adminid"], "edit_siswa", 0, $_POST["id"]);
 
 header("Location: ../admin/detail_siswa.php?id=".$_POST["id"]);
 die();

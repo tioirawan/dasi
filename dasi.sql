@@ -161,7 +161,7 @@ CREATE TABLE `kantin_transaction` (
   `id_sekolah` int(11) NOT NULL,
   `tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `kantin_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `siswa_id` int(11) NOT NULL,
   `qr_id` int(11) NOT NULL,
   `jumlah` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -169,10 +169,10 @@ CREATE TABLE `kantin_transaction` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Struktur dari tabel `siswa`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `siswa` (
   `id` int(11) NOT NULL,
   `id_sekolah` int(11) NOT NULL,
   `tanggal_pendaftaran` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -191,15 +191,15 @@ CREATE TABLE `users` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users_donation`
+-- Struktur dari tabel `siswa_donation`
 --
 
-CREATE TABLE `users_donation` (
+CREATE TABLE `siswa_donation` (
   `id` int(11) NOT NULL,
   `id_sekolah` int(11) NOT NULL,
   `tanggal` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `donation_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `siswa_id` int(11) NOT NULL,
   `jumlah` bigint(20) NOT NULL,
   `private` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -207,10 +207,10 @@ CREATE TABLE `users_donation` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users_transaction`
+-- Struktur dari tabel `siswa_transaction`
 --
 
-CREATE TABLE `users_transaction` (
+CREATE TABLE `siswa_transaction` (
   `id` bigint(20) NOT NULL,
   `id_sekolah` int(11) NOT NULL,
   `kredit` bigint(20) NOT NULL,
@@ -218,7 +218,7 @@ CREATE TABLE `users_transaction` (
   `tipe` varchar(255) NOT NULL COMMENT 'tipe transasi (spp/donasi/dll)',
   `jenis` enum('masuk','keluar') NOT NULL,
   `tanggal` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'tanggal transaksi',
-  `user_id` int(11) NOT NULL,
+  `siswa_id` int(11) NOT NULL,
   `metode` varchar(255) NOT NULL COMMENT 'metode pembayaran (transfer nisn/qrcode)',
   `deskripsi` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -298,29 +298,29 @@ ALTER TABLE `kantin_transaction`
   ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
--- Indeks untuk tabel `users`
+-- Indeks untuk tabel `siswa`
 --
-ALTER TABLE `users`
+ALTER TABLE `siswa`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nisn` (`nisn`),
   ADD UNIQUE KEY `email` (`email`),
   ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
--- Indeks untuk tabel `users_donation`
+-- Indeks untuk tabel `siswa_donation`
 --
-ALTER TABLE `users_donation`
+ALTER TABLE `siswa_donation`
   ADD PRIMARY KEY (`id`),
   ADD KEY `donation_id` (`donation_id`),
-  ADD KEY `user_id` (`user_id`),
+  ADD KEY `siswa_id` (`siswa_id`),
   ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
--- Indeks untuk tabel `users_transaction`
+-- Indeks untuk tabel `siswa_transaction`
 --
-ALTER TABLE `users_transaction`
+ALTER TABLE `siswa_transaction`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
+  ADD KEY `siswa_id` (`siswa_id`),
   ADD KEY `id_sekolah` (`id_sekolah`);
 
 --
@@ -382,21 +382,21 @@ ALTER TABLE `kantin_transaction`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT untuk tabel `siswa`
 --
-ALTER TABLE `users`
+ALTER TABLE `siswa`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `users_donation`
+-- AUTO_INCREMENT untuk tabel `siswa_donation`
 --
-ALTER TABLE `users_donation`
+ALTER TABLE `siswa_donation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `users_transaction`
+-- AUTO_INCREMENT untuk tabel `siswa_transaction`
 --
-ALTER TABLE `users_transaction`
+ALTER TABLE `siswa_transaction`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
@@ -443,7 +443,7 @@ ALTER TABLE `qrcode`
 --
 ALTER TABLE `spp`
   ADD CONSTRAINT `spp_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`),
-  ADD CONSTRAINT `spp_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `spp_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `kantin`
@@ -458,25 +458,25 @@ ALTER TABLE `kantin_transaction`
   ADD CONSTRAINT `kantin_transaction_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `users`
+-- Ketidakleluasaan untuk tabel `siswa`
 --
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
+ALTER TABLE `siswa`
+  ADD CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `users_donation`
+-- Ketidakleluasaan untuk tabel `siswa_donation`
 --
-ALTER TABLE `users_donation`
-  ADD CONSTRAINT `users_donation_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `users_donation_ibfk_2` FOREIGN KEY (`donation_id`) REFERENCES `donation` (`id`),
-  ADD CONSTRAINT `users_donation_ibfk_3` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
+ALTER TABLE `siswa_donation`
+  ADD CONSTRAINT `siswa_donation_ibfk_1` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`id`),
+  ADD CONSTRAINT `siswa_donation_ibfk_2` FOREIGN KEY (`donation_id`) REFERENCES `donation` (`id`),
+  ADD CONSTRAINT `siswa_donation_ibfk_3` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
 
 --
--- Ketidakleluasaan untuk tabel `users_transaction`
+-- Ketidakleluasaan untuk tabel `siswa_transaction`
 --
-ALTER TABLE `users_transaction`
-  ADD CONSTRAINT `users_transaction_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `users_transaction_ibfk_2` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
+ALTER TABLE `siswa_transaction`
+  ADD CONSTRAINT `siswa_transaction_ibfk_1` FOREIGN KEY (`siswa_id`) REFERENCES `siswa` (`id`),
+  ADD CONSTRAINT `siswa_transaction_ibfk_2` FOREIGN KEY (`id_sekolah`) REFERENCES `schools` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

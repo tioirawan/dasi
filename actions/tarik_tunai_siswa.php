@@ -4,10 +4,10 @@ require "../db/database.php";
 
 $validated = false;
 
-if (isset($_POST["userid"])) {
+if (isset($_POST["siswaid"])) {
     $db = new Database();
 
-    $userid = $_POST["userid"];
+    $siswaid = $_POST["siswaid"];
     $adminid = $_POST["adminid"];
     $nominal = (int)$_POST["nominal_tarik"];
     $deskripsi = $_POST["deskripsi"];
@@ -15,16 +15,16 @@ if (isset($_POST["userid"])) {
 
     $validated = $db->validateAdminPassword($adminid, $pass);
 
-    if ($validated && $nominal >= 1000 && $nominal <= $db->getUserById($userid, PDO::FETCH_OBJ)->saldo) {
-        if ($db->userWithdrawal($userid, $nominal)) {
-            $db->addTransaction($nominal, "tarik", "keluar", $userid, "teller", $deskripsi);
-            $db->addAdminJournal($adminid, "tarik_tunai_siswa", $nominal, $userid);
+    if ($validated && $nominal >= 1000 && $nominal <= $db->getUserById($siswaid, PDO::FETCH_OBJ)->saldo) {
+        if ($db->siswaWithdrawal($siswaid, $nominal)) {
+            $db->addTransaction($nominal, "tarik", "keluar", $siswaid, "teller", $deskripsi);
+            $db->addAdminJournal($adminid, "tarik_tunai_siswa", $nominal, $siswaid);
             
-            header("Location: ../admin/detail_siswa.php?ssc=Tarik Tunai Sukses&id=$userid");
+            header("Location: ../admin/detail_siswa.php?ssc=Tarik Tunai Sukses&id=$siswaid");
             die();
         }
     } else {
-        header("Location: ../admin/detail_siswa.php?ssc=Password salah atau nominal tarik terlalu kecil&id=$userid");        
+        header("Location: ../admin/detail_siswa.php?ssc=Password salah atau nominal tarik terlalu kecil&id=$siswaid");        
     }
 }
 ?>

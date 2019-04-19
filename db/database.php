@@ -136,7 +136,7 @@ class Database
             $schoolBalance = $query->fetch(PDO::FETCH_OBJ)->saldo;
 
             $query = $this->cont->prepare(
-                "SELECT SUM(saldo) AS total FROM users WHERE id_sekolah=:id"
+                "SELECT SUM(saldo) AS total FROM siswa WHERE id_sekolah=:id"
             );
 
             $query->bindParam("id", $id, PDO::PARAM_STR);
@@ -147,7 +147,7 @@ class Database
                 return false;
             }
 
-            $usersBalance = $query->fetch(PDO::FETCH_OBJ)->total;
+            $siswaBalance = $query->fetch(PDO::FETCH_OBJ)->total;
 
             $query = $this->cont->prepare(
                 "SELECT SUM(saldo) AS total FROM kantin WHERE id_sekolah=:id"
@@ -179,21 +179,21 @@ class Database
 
             return (object)[
                 "sekolah" => $schoolBalance,
-                "siswa" => $usersBalance,
+                "siswa" => $siswaBalance,
                 "kantin" => $kantinBalance,
                 "donasi" => $donation,
-                "total" => $usersBalance + $kantinBalance + $donation + $schoolBalance
+                "total" => $siswaBalance + $kantinBalance + $donation + $schoolBalance
             ];
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
     }
 
-    public function getSchoolUsersStats($id)
+    public function getSchoolsiswatats($id)
     {
         try {
             $query = $this->cont->prepare(
-                "SELECT COUNT(id) AS jumlah FROM users WHERE kelamin='laki-laki' AND id_sekolah=:id"
+                "SELECT COUNT(id) AS jumlah FROM siswa WHERE kelamin='laki-laki' AND id_sekolah=:id"
             );
 
             $query->bindParam("id", $id, PDO::PARAM_STR);
@@ -207,7 +207,7 @@ class Database
             $jumlah_laki = $query->fetch(PDO::FETCH_OBJ)->jumlah;
 
             $query = $this->cont->prepare(
-                "SELECT COUNT(id) AS jumlah FROM users WHERE kelamin='perempuan' AND id_sekolah=:id"
+                "SELECT COUNT(id) AS jumlah FROM siswa WHERE kelamin='perempuan' AND id_sekolah=:id"
             );
 
             $query->bindParam("id", $id, PDO::PARAM_STR);
@@ -231,7 +231,7 @@ class Database
         try {
             try {
                 $query = $this->cont->prepare(
-                    "SELECT * FROM users_transaction WHERE id_sekolah=:id"
+                    "SELECT * FROM siswa_transaction WHERE id_sekolah=:id"
                 );
 
                 $query->bindParam("id", $id, PDO::PARAM_STR);
@@ -254,7 +254,7 @@ class Database
         try {
             try {
                 $query = $this->cont->prepare(
-                    "SELECT * FROM users_transaction WHERE id_sekolah=:id AND tipe='spp'"
+                    "SELECT * FROM siswa_transaction WHERE id_sekolah=:id AND tipe='spp'"
                 );
 
                 $query->bindParam("id", $id, PDO::PARAM_STR);
@@ -319,10 +319,10 @@ class Database
     public function getSchoolStats($id)
     {
         $balance = $this->getSchoolTotalBalance($id);
-        $users = $this->getSchoolUsersStats($id);
+        $siswa = $this->getSchoolsiswatats($id);
         $trx = $this->getSchoolTransactions($id);
 
-        return (object)["balance" => $balance, "users" => $users, "trx" => $trx];
+        return (object)["balance" => $balance, "siswa" => $siswa, "trx" => $trx];
     }
 
     public function registerAdmin($nama, $email, $password, $id_sekolah)
@@ -463,12 +463,12 @@ class Database
         }
     }
 
-    public function getAllUsers($idsekolah)
+    public function getSeluruhSiswa($idsekolah)
     {
         try {
             $stmt = $this->cont->prepare(
                 "SELECT id, id_sekolah, tanggal_pendaftaran, nama, kelamin, email, level, tingkatan, kelas, jurusan, nisn, saldo 
-                FROM users WHERE id_sekolah=:idsekolah ORDER BY id ASC"
+                FROM siswa WHERE id_sekolah=:idsekolah ORDER BY id ASC"
             );
 
             $stmt->bindParam("idsekolah", $idsekolah, PDO::PARAM_INT);
@@ -487,7 +487,7 @@ class Database
     {
         try {
             $query = $this->cont->prepare(
-                "INSERT INTO users(nama, id_sekolah, kelamin, email, level, tingkatan, kelas, jurusan, nisn, saldo, password) 
+                "INSERT INTO siswa(nama, id_sekolah, kelamin, email, level, tingkatan, kelas, jurusan, nisn, saldo, password) 
                 VALUES (:nama,:idsekolah,:kelamin,:email,'siswa',:tingkatan,:kelas,:jurusan,:nisn,:saldo,:password)"
             );
 
@@ -530,7 +530,7 @@ class Database
     {
         try {
             $query = $this->cont->prepare(
-                "UPDATE users
+                "UPDATE siswa
                 SET nama=:nama,
                 kelamin=:kelamin,
                 email=:email,
@@ -562,7 +562,7 @@ class Database
     {
         try {
             $query = $this->cont->prepare(
-                "SELECT id FROM users 
+                "SELECT id FROM siswa 
                 WHERE email=:email
                 AND password=:password"
             );
@@ -591,7 +591,7 @@ class Database
     {
         try {
             $query = $this->cont->prepare(
-                "SELECT id FROM users 
+                "SELECT id FROM siswa 
                 WHERE id=:id
                 AND password=:password"
             );
@@ -613,7 +613,7 @@ class Database
     {
         try {
             $query = $this->cont->prepare(
-                "UPDATE users SET password=IF(password=:old_password, :new_password, password) WHERE id=:id"
+                "UPDATE siswa SET password=IF(password=:old_password, :new_password, password) WHERE id=:id"
             );
 
             $old_password = saltHash($old_password);
@@ -640,7 +640,7 @@ class Database
         try {
             $query = $this->cont->prepare(
                 "SELECT id, tanggal_pendaftaran, nama, email, level, tingkatan, kelas, jurusan, nisn, saldo
-                FROM users WHERE name LIKE '%:query%' OR email=':query' OR nisn=':query'"
+                FROM siswa WHERE name LIKE '%:query%' OR email=':query' OR nisn=':query'"
             );
 
             $query->bindParam("query", $query, PDO::PARAM_STR);
@@ -662,7 +662,7 @@ class Database
         try {
             $query = $this->cont->prepare(
                 "SELECT id, id_sekolah, tanggal_pendaftaran, nama, kelamin, email, level, tingkatan, kelas, jurusan, nisn, saldo 
-                FROM users WHERE id=:id"
+                FROM siswa WHERE id=:id"
             );
 
             $query->bindParam("id", $id, PDO::PARAM_STR);
@@ -682,7 +682,7 @@ class Database
         try {
             $query = $this->cont->prepare(
                 "SELECT id, id_sekolah, tanggal_pendaftaran, nama, kelamin, email, level, tingkatan, kelas, jurusan, nisn, saldo 
-                FROM users WHERE email=:email"
+                FROM siswa WHERE email=:email"
             );
 
             $query->bindParam("email", $email, PDO::PARAM_STR);
@@ -702,7 +702,7 @@ class Database
         try {
             $query = $this->cont->prepare(
                 "SELECT id, id_sekolah, tanggal_pendaftaran, nama, kelamin, email, level, tingkatan, kelas, jurusan, nisn, saldo 
-                FROM users WHERE nisn=:nisn"
+                FROM siswa WHERE nisn=:nisn"
             );
 
             $query->bindParam("nisn", $nisn, PDO::PARAM_STR);
@@ -755,7 +755,7 @@ class Database
         }
     }
 
-    public function paySPP($userid, $schoolid, $sppid)
+    public function paySPP($siswaid, $schoolid, $sppid)
     {
         try {
             $sekolah = $this->getSchoolData($schoolid, PDO::FETCH_OBJ);
@@ -777,12 +777,12 @@ class Database
             }
 
             $query = $this->cont->prepare(
-                "UPDATE users
+                "UPDATE siswa
                 SET saldo = IF(:amount <= saldo, saldo - :amount, saldo)
-                WHERE id=:userid"
+                WHERE id=:siswaid"
             );
 
-            $query->bindParam("userid", $userid, PDO::PARAM_STR);
+            $query->bindParam("siswaid", $siswaid, PDO::PARAM_STR);
             $query->bindParam("amount", $jumlah, PDO::PARAM_INT);
 
             $query->execute();
@@ -806,16 +806,16 @@ class Database
         }
     }
 
-    public function userDeposit($userid, $amount)
+    public function siswaDeposit($siswaid, $amount)
     {
         try {
             $query = $this->cont->prepare(
-                "UPDATE users
+                "UPDATE siswa
                 SET saldo = saldo + :amount
-                WHERE id=:userid"
+                WHERE id=:siswaid"
             );
 
-            $query->bindParam("userid", $userid, PDO::PARAM_STR);
+            $query->bindParam("siswaid", $siswaid, PDO::PARAM_STR);
             $query->bindParam("amount", $amount, PDO::PARAM_INT);
 
             $query->execute();
@@ -828,16 +828,16 @@ class Database
         }
     }
 
-    public function userWithdrawal($userid, $amount)
+    public function siswaWithdrawal($siswaid, $amount)
     {
         try {
             $query = $this->cont->prepare(
-                "UPDATE users
+                "UPDATE siswa
                 SET saldo = IF(:amount <= saldo, saldo - :amount, saldo)
-                WHERE id=:userid"
+                WHERE id=:siswaid"
             );
 
-            $query->bindParam("userid", $userid, PDO::PARAM_STR);
+            $query->bindParam("siswaid", $siswaid, PDO::PARAM_STR);
             $query->bindParam("amount", $amount, PDO::PARAM_INT);
 
             $query->execute();
@@ -850,16 +850,16 @@ class Database
         }
     }
 
-    public function transferByNISN($userid, $nisn, $amount)
+    public function transferByNISN($siswaid, $nisn, $amount)
     {
         try {
             $query = $this->cont->prepare(
-                "UPDATE users
+                "UPDATE siswa
                 SET saldo = IF(:amount <= saldo, saldo - :amount, saldo)
-                WHERE id=:userid"
+                WHERE id=:siswaid"
             );
 
-            $query->bindParam("userid", $userid, PDO::PARAM_STR);
+            $query->bindParam("siswaid", $siswaid, PDO::PARAM_STR);
             $query->bindParam("amount", $amount, PDO::PARAM_INT);
 
             $query->execute();
@@ -869,7 +869,7 @@ class Database
             }
 
             $query = $this->cont->prepare(
-                "UPDATE users
+                "UPDATE siswa
                 SET saldo = saldo + :amount
                 WHERE nisn=:nisn"
             );
@@ -893,8 +893,8 @@ class Database
         try {
             $query = $this->cont->prepare(
                 "SELECT *
-                 FROM users_transaction
-                 WHERE user_id=:id
+                 FROM siswa_transaction
+                 WHERE siswa_id=:id
                  ORDER BY tanggal DESC"
             );
 
@@ -982,11 +982,11 @@ class Database
     {
         try {
             $query = $this->cont->prepare(
-                "SELECT users.nama, users.tingkatan, users.kelas,
-                 users.jurusan, users_donation.jumlah, users_donation.private
-                 FROM users_donation INNER JOIN users
-                 ON users_donation.user_id = users.id
-                 WHERE users_donation.donation_id=:id
+                "SELECT siswa.nama, siswa.tingkatan, siswa.kelas,
+                 siswa.jurusan, siswa_donation.jumlah, siswa_donation.private
+                 FROM siswa_donation INNER JOIN siswa
+                 ON siswa_donation.siswa_id = siswa.id
+                 WHERE siswa_donation.donation_id=:id
                  ORDER BY tanggal DESC"
             );
 
@@ -1021,7 +1021,7 @@ class Database
         }
     }
 
-    public function fundDonation($donation_id, $user_id, $amount, $isprivate)
+    public function fundDonation($donation_id, $siswa_id, $amount, $isprivate)
     {
         try {
             $query = $this->cont->prepare(
@@ -1040,12 +1040,12 @@ class Database
             }
 
             $query = $this->cont->prepare(
-                "UPDATE users
+                "UPDATE siswa
                 SET saldo = IF(:amount <= saldo, saldo - :amount, saldo)
-                WHERE id=:userid"
+                WHERE id=:siswaid"
             );
 
-            $query->bindParam("userid", $user_id, PDO::PARAM_INT);
+            $query->bindParam("siswaid", $siswa_id, PDO::PARAM_INT);
             $query->bindParam("amount", $amount, PDO::PARAM_INT);
 
 
@@ -1056,15 +1056,15 @@ class Database
             }
 
             $query = $this->cont->prepare(
-                "INSERT INTO users_donation(donation_id, user_id, jumlah, private, id_sekolah) 
-                VALUES (:donationid,:userid,:amount,:isprivate,:idsekolah)"
+                "INSERT INTO siswa_donation(donation_id, siswa_id, jumlah, private, id_sekolah) 
+                VALUES (:donationid,:siswaid,:amount,:isprivate,:idsekolah)"
             );
 
             $query->bindParam("donationid", $donation_id, PDO::PARAM_INT);
-            $query->bindParam("userid", $user_id, PDO::PARAM_INT);
+            $query->bindParam("siswaid", $siswa_id, PDO::PARAM_INT);
             $query->bindParam("amount", $amount, PDO::PARAM_INT);
             $query->bindParam("isprivate", $isprivate, PDO::PARAM_BOOL);
-            $query->bindParam("idsekolah", $this->getUserById($user_id, PDO::FETCH_OBJ)->id_sekolah, PDO::PARAM_INT);
+            $query->bindParam("idsekolah", $this->getUserById($siswa_id, PDO::FETCH_OBJ)->id_sekolah, PDO::PARAM_INT);
 
             $query->execute();
 
@@ -1097,24 +1097,24 @@ class Database
         }
     }
 
-    public function addTransaction($kredit, $type, $jenis, $userid, $method, $description)
+    public function addTransaction($kredit, $type, $jenis, $siswaid, $method, $description)
     {
         try {
             $query = $this->cont->prepare(
-                "INSERT INTO users_transaction(kredit, debit, tipe, jenis, user_id, metode, deskripsi, id_sekolah)
-                VALUES (:kredit,:debit,:tipe,:jenis,:userid,:metode,:deskripsi,:idsekolah)"
+                "INSERT INTO siswa_transaction(kredit, debit, tipe, jenis, siswa_id, metode, deskripsi, id_sekolah)
+                VALUES (:kredit,:debit,:tipe,:jenis,:siswaid,:metode,:deskripsi,:idsekolah)"
             );
 
-            $debit = $this->getUserById($userid, PDO::FETCH_OBJ)->saldo;
+            $debit = $this->getUserById($siswaid, PDO::FETCH_OBJ)->saldo;
 
             $query->bindParam("kredit", $kredit, PDO::PARAM_INT);
             $query->bindParam("debit", $debit, PDO::PARAM_INT);
             $query->bindParam("tipe", $type, PDO::PARAM_STR);
             $query->bindParam("jenis", $jenis, PDO::PARAM_STR);
-            $query->bindParam("userid", $userid, PDO::PARAM_STR);
+            $query->bindParam("siswaid", $siswaid, PDO::PARAM_STR);
             $query->bindParam("metode", $method, PDO::PARAM_STR);
             $query->bindParam("deskripsi", $description, PDO::PARAM_STR);
-            $query->bindParam("idsekolah", $this->getUserById($userid, PDO::FETCH_OBJ)->id_sekolah, PDO::PARAM_INT);
+            $query->bindParam("idsekolah", $this->getUserById($siswaid, PDO::FETCH_OBJ)->id_sekolah, PDO::PARAM_INT);
 
             $query->execute();
 
@@ -1129,7 +1129,7 @@ class Database
         try {
             try {
                 $query = $this->cont->prepare(
-                    "SELECT * FROM users_transaction WHERE id=:id"
+                    "SELECT * FROM siswa_transaction WHERE id=:id"
                 );
 
                 $query->bindParam("id", $id, PDO::PARAM_STR);
@@ -1238,7 +1238,7 @@ class Database
         }
     }
 
-    public function payKantin($userid, $uniqueid, $amount)
+    public function payKantin($siswaid, $uniqueid, $amount)
     {
         try {
             $QR = $this->getQR($uniqueid, PDO::FETCH_OBJ);
@@ -1259,12 +1259,12 @@ class Database
             }
 
             $query = $this->cont->prepare(
-                "UPDATE users
+                "UPDATE siswa
                 SET saldo = IF(:amount <= saldo, saldo - :amount, saldo)
-                WHERE id=:userid"
+                WHERE id=:siswaid"
             );
 
-            $query->bindParam("userid", $userid, PDO::PARAM_STR);
+            $query->bindParam("siswaid", $siswaid, PDO::PARAM_STR);
             $query->bindParam("amount", $amount, PDO::PARAM_INT);
 
 
@@ -1275,15 +1275,15 @@ class Database
             }
 
             $query = $this->cont->prepare(
-                "INSERT INTO kantin_transaction(kantin_id, user_id, qr_id, jumlah, id_sekolah)
-                VALUES (:kantinid,:userid,:qrid,:jumlah,:idsekolah)"
+                "INSERT INTO kantin_transaction(kantin_id, siswa_id, qr_id, jumlah, id_sekolah)
+                VALUES (:kantinid,:siswaid,:qrid,:jumlah,:idsekolah)"
             );
 
             $query->bindParam("kantinid", $QR->id_kantin, PDO::PARAM_INT);
-            $query->bindParam("userid", $userid, PDO::PARAM_INT);
+            $query->bindParam("siswaid", $siswaid, PDO::PARAM_INT);
             $query->bindParam("qrid", $QR->id, PDO::PARAM_STR);
             $query->bindParam("jumlah", $amount, PDO::PARAM_INT);
-            $query->bindParam("idsekolah", $this->getUserById($userid, PDO::FETCH_OBJ)->id_sekolah, PDO::PARAM_INT);
+            $query->bindParam("idsekolah", $this->getUserById($siswaid, PDO::FETCH_OBJ)->id_sekolah, PDO::PARAM_INT);
 
             $query->execute();
 
