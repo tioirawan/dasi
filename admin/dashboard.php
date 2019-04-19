@@ -71,10 +71,10 @@
                     </div>
                 </div>
                 <div class="col-sm-3 mt-2">
-                    <div class="card pointer" onclick="location.href = 'toko.php'">
+                    <div class="card pointer" onclick="location.href = 'kantin.php'">
                         <div class="card-body">
-                            <h4 class="card-title"><i class="fas fa-store"></i> Toko</h4>
-                            <p class="card-text"><?= boldGreen(rupiah($stats->balance->toko)) ?></p>
+                            <h4 class="card-title"><i class="fas fa-store"></i> Kantin</h4>
+                            <p class="card-text"><?= boldGreen(rupiah($stats->balance->kantin)) ?></p>
                         </div>
                     </div>
                 </div>

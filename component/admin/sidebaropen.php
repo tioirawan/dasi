@@ -45,9 +45,9 @@
                     </li>
 
                     <li>
-                        <a href="toko.php">
+                        <a href="kantin.php">
                             <i class="fas fa-store"></i>
-                            <span>Toko</span>
+                            <span>Kantin</span>
                         </a>
                     </li>
 

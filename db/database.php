@@ -150,7 +150,7 @@ class Database
             $usersBalance = $query->fetch(PDO::FETCH_OBJ)->total;
 
             $query = $this->cont->prepare(
-                "SELECT SUM(saldo) AS total FROM toko WHERE id_sekolah=:id"
+                "SELECT SUM(saldo) AS total FROM kantin WHERE id_sekolah=:id"
             );
 
             $query->bindParam("id", $id, PDO::PARAM_STR);
@@ -161,7 +161,7 @@ class Database
                 return false;
             }
 
-            $tokoBalance = $query->fetch(PDO::FETCH_OBJ)->total;
+            $kantinBalance = $query->fetch(PDO::FETCH_OBJ)->total;
 
             $query = $this->cont->prepare(
                 "SELECT SUM(terkumpul) AS total FROM donation WHERE id_sekolah=:id"
@@ -180,9 +180,9 @@ class Database
             return (object)[
                 "sekolah" => $schoolBalance,
                 "siswa" => $usersBalance,
-                "toko" => $tokoBalance,
+                "kantin" => $kantinBalance,
                 "donasi" => $donation,
-                "total" => $usersBalance + $tokoBalance + $donation + $schoolBalance
+                "total" => $usersBalance + $kantinBalance + $donation + $schoolBalance
             ];
         } catch (PDOException $e) {
             exit($e->getMessage());
@@ -1151,11 +1151,11 @@ class Database
         }
     }
 
-    public function registerToko($nama, $deskripsi, $id_sekolah)
+    public function registerKantin($nama, $deskripsi, $id_sekolah)
     {
         try {
             $query = $this->cont->prepare(
-                "INSERT INTO toko(nama, deskripsi, id_sekolah)
+                "INSERT INTO kantin(nama, deskripsi, id_sekolah)
                 VALUES (:nama,:deskripsi,:idsekolah)"
             );
 
@@ -1171,11 +1171,11 @@ class Database
         }
     }
 
-    public function getToko($id, $rettype)
+    public function getKantin($id, $rettype)
     {
         try {
             $query = $this->cont->prepare(
-                "SELECT * FROM toko WHERE id=:id"
+                "SELECT * FROM kantin WHERE id=:id"
             );
 
             $query->bindParam("id", $id, PDO::PARAM_STR);
@@ -1190,9 +1190,9 @@ class Database
         }
     }
 
-    public function getTokoList($id_sekolah, $rettype)
+    public function getKantinList($id_sekolah, $rettype)
     {
-        $stmt = $this->cont->prepare("SELECT * FROM toko WHERE id_sekolah=:idsekolah");
+        $stmt = $this->cont->prepare("SELECT * FROM kantin WHERE id_sekolah=:idsekolah");
 
         $stmt->bindParam("idsekolah", $id_sekolah, PDO::PARAM_INT);
 
@@ -1201,11 +1201,11 @@ class Database
         return $stmt->fetchAll($rettype);
     }
 
-    public function getTransaksiToko($id, $rettype)
+    public function getTransaksiKantin($id, $rettype)
     {
         try {
             $query = $this->cont->prepare(
-                "SELECT * FROM toko_transaction WHERE toko_id=:id ORDER BY id DESC"
+                "SELECT * FROM kantin_transaction WHERE kantin_id=:id ORDER BY id DESC"
             );
 
             $query->bindParam("id", $id, PDO::PARAM_STR);
@@ -1220,16 +1220,16 @@ class Database
         }
     }
 
-    public function tokoWithdrawal($tokoid, $amount)
+    public function kantinWithdrawal($kantinid, $amount)
     {
         try {
             $query = $this->cont->prepare(
-                "UPDATE toko
+                "UPDATE kantin
                 SET saldo = IF(:amount <= saldo, saldo - :amount, saldo)
-                WHERE id=:tokoid"
+                WHERE id=:kantinid"
             );
 
-            $query->bindParam("tokoid", $tokoid, PDO::PARAM_STR);
+            $query->bindParam("kantinid", $kantinid, PDO::PARAM_STR);
             $query->bindParam("amount", $amount, PDO::PARAM_INT);
 
             $query->execute();
@@ -1242,18 +1242,18 @@ class Database
         }
     }
 
-    public function payToko($userid, $uniqueid, $amount)
+    public function payKantin($userid, $uniqueid, $amount)
     {
         try {
             $QR = $this->getQR($uniqueid, PDO::FETCH_OBJ);
 
             $query = $this->cont->prepare(
-                "UPDATE toko
+                "UPDATE kantin
                 SET saldo = saldo + :amount
-                WHERE id=:idtoko"
+                WHERE id=:idkantin"
             );
 
-            $query->bindParam("idtoko", $QR->id_toko, PDO::PARAM_STR);
+            $query->bindParam("idkantin", $QR->id_kantin, PDO::PARAM_STR);
             $query->bindParam("amount", $amount, PDO::PARAM_INT);
 
             $query->execute();
@@ -1279,11 +1279,11 @@ class Database
             }
 
             $query = $this->cont->prepare(
-                "INSERT INTO toko_transaction(toko_id, user_id, qr_id, jumlah, id_sekolah)
-                VALUES (:tokoid,:userid,:qrid,:jumlah,:idsekolah)"
+                "INSERT INTO kantin_transaction(kantin_id, user_id, qr_id, jumlah, id_sekolah)
+                VALUES (:kantinid,:userid,:qrid,:jumlah,:idsekolah)"
             );
 
-            $query->bindParam("tokoid", $QR->id_toko, PDO::PARAM_INT);
+            $query->bindParam("kantinid", $QR->id_kantin, PDO::PARAM_INT);
             $query->bindParam("userid", $userid, PDO::PARAM_INT);
             $query->bindParam("qrid", $QR->id, PDO::PARAM_STR);
             $query->bindParam("jumlah", $amount, PDO::PARAM_INT);
@@ -1297,7 +1297,7 @@ class Database
         }
     }
 
-    public function newQr($judul, $nilai, $tetap, $id_admin, $id_toko)
+    public function newQr($judul, $nilai, $tetap, $id_admin, $id_kantin)
     {
         try {
             $uniid = "";
@@ -1312,15 +1312,15 @@ class Database
 
 
             $query = $this->cont->prepare(
-                "INSERT INTO qrcode(judul, nilai, tetap, generated_by, id_toko, unique_id, id_sekolah)
-                VALUES (:judul,:nilai,:tetap,:id_admin,:id_toko,:id_unik,:idsekolah)"
+                "INSERT INTO qrcode(judul, nilai, tetap, generated_by, id_kantin, unique_id, id_sekolah)
+                VALUES (:judul,:nilai,:tetap,:id_admin,:id_kantin,:id_unik,:idsekolah)"
             );
 
             $query->bindParam("judul", $judul, PDO::PARAM_STR);
             $query->bindParam("nilai", $nilai, PDO::PARAM_INT);
             $query->bindParam("tetap", $tetap, PDO::PARAM_BOOL);
             $query->bindParam("id_admin", $id_admin, PDO::PARAM_STR);
-            $query->bindParam("id_toko", $id_toko, PDO::PARAM_STR);
+            $query->bindParam("id_kantin", $id_kantin, PDO::PARAM_STR);
             $query->bindParam("id_unik", $uniid, PDO::PARAM_STR);
             $query->bindParam("idsekolah", $this->getAdminById($id_admin, PDO::FETCH_OBJ)->id_sekolah, PDO::PARAM_INT);
 
@@ -1370,11 +1370,11 @@ class Database
         }
     }
 
-    public function getQRCodeToko($id, $rettype)
+    public function getQRCodeKantin($id, $rettype)
     {
         try {
             $query = $this->cont->prepare(
-                "SELECT * FROM qrcode WHERE id_toko=:id ORDER BY id DESC"
+                "SELECT * FROM qrcode WHERE id_kantin=:id ORDER BY id DESC"
             );
 
             $query->bindParam("id", $id, PDO::PARAM_STR);

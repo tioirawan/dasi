@@ -3,7 +3,7 @@
 
 <head>
     <?php include "../component/helmet.php" ?>
-    <title>Toko</title>
+    <title>Kantin</title>
 </head>
 
 <body>
@@ -11,22 +11,22 @@
     <?php include "../component/admin/sidebaropen.php" ?>
 
     <?php 
-    $toko = $db->getTokoList($data["id_sekolah"], PDO::FETCH_OBJ);
+    $kantin = $db->getKantinList($data["id_sekolah"], PDO::FETCH_OBJ);
     ?>
 
-    <!-- <h1>Tambah Toko Baru</h1> -->
+    <!-- <h1>Tambah Kantin Baru</h1> -->
 
     <div class="card">
         <div class="card-body">
-            <h1 class="card-title">Toko
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#tambah_toko">Tambah Toko</button>
+            <h1 class="card-title">Kantin
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#tambah_kantin">Tambah Kantin</button>
             </h1>
 
-            <div class="collapse" id="tambah_toko">
-                <form action="../actions/toko_baru.php" method="post">
+            <div class="collapse" id="tambah_kantin">
+                <form action="../actions/kantin_baru.php" method="post">
                     <div class="form-group">
-                        <label for="nama_toko">Nama Toko</label>
-                        <input type="text" class="form-control" name="nama" id="nama_toko" required>
+                        <label for="nama_kantin">Nama Kantin</label>
+                        <input type="text" class="form-control" name="nama" id="nama_kantin" required>
                     </div>
 
                     <div class="form-group">
@@ -43,7 +43,7 @@
 
             <div class="row">
                 <?php
-                foreach ($toko as $t) {
+                foreach ($kantin as $t) {
                     ?>
 
                 <div class="col-sm-12 col-md-6 mt-4">
@@ -52,7 +52,7 @@
                             <h5 class="card-title"><i class="fas fa-store" aria-hidden="true"></i> <?= $t->nama ?></h5>
                             <p class="card-text"><?= $t->deskripsi ?></p>
                             <p class="card-text">Saldo <?= rupiah($t->saldo) ?></p>
-                            <a href="info_toko.php?id=<?= $t->id ?>" class="btn btn-primary">Detail</a>
+                            <a href="info_kantin.php?id=<?= $t->id ?>" class="btn btn-primary">Detail</a>
                         </div>
                     </div>
                 </div>

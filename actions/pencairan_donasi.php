@@ -28,7 +28,7 @@ if (isset($_POST["iddonasi"])) {
 
         if(!$validated) $errmess = "Terjadi kesalahan autentikasi";
         else if($nominal < 1000) $errmess = "Nominal penarikan terlalu kecil";
-        else if($nominal > $saldotoko) $errmess = "Nominal penarikan terlalu besar melebihi jumlah terkumpul";
+        else if($nominal > $saldokantin) $errmess = "Nominal penarikan terlalu besar melebihi jumlah terkumpul";
 
         header("Location: ../admin/infodonasi.php?ssc=$errmess&id_donasi=$iddonasi");        
     }

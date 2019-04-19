@@ -45,7 +45,7 @@
 
     $qr = $_GET["qrdata"];
     $judul = $_GET["judul"];
-    $toko = $_GET["toko"];
+    $kantin = $_GET["kantin"];
 
     $file = "../qrcodes/$qr.png";
 
@@ -54,13 +54,13 @@
     }
     ?>
 
-    <title><?= $judul ?> - <?= $toko ?></title>
+    <title><?= $judul ?> - <?= $kantin ?></title>
 </head>
 
 <body>
     <?php include "../process/getAdminLoginData.php" ?>
 
-    <a class="no-print btn btn-primary ml-5 mt-5" href="../admin/info_toko.php?id=<?= $_GET["idtoko"] ?>">kembali</a>
+    <a class="no-print btn btn-primary ml-5 mt-5" href="../admin/info_kantin.php?id=<?= $_GET["idkantin"] ?>">kembali</a>
 
     <div class="row">
 
@@ -73,7 +73,7 @@
                         <small><?= $qr ?></small>
                         </div>
                         <div class="card-footer">
-                            <span class="left"><?= $toko ?></span>
+                            <span class="left"><?= $kantin ?></span>
                         <img src="../assets/dasi_white.svg" alt="">Dasi
                     </div>
                 </div>
@@ -82,7 +82,7 @@
 
     </div>
 
-    <a class="no-print btn btn-primary ml-5" href="../admin/info_toko.php?id=<?= $_GET["idtoko"] ?>">kembali</a>
+    <a class="no-print btn btn-primary ml-5" href="../admin/info_kantin.php?id=<?= $_GET["idkantin"] ?>">kembali</a>
 
     <script>
         window.print();
