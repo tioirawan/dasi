@@ -142,6 +142,7 @@
 
     <?php include "../component/siswa/sidebarclose.php" ?>
     <?php include "../component/scripts.php" ?>
+    <?php require "../component/scrollTop.php" ?>
 
     <script>
          $(document).ready(function () {

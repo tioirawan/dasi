@@ -16,6 +16,7 @@
 
     <?php include "../component/siswa/sidebarclose.php" ?>
     <?php include "../component/scripts.php" ?>
+    <?php require "../component/scrollTop.php" ?>
 </body>
 
 </html> 

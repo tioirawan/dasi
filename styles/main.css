@@ -59,6 +59,10 @@ hr {
   .navbar-brand {
     margin-right: 0;
   }
+
+  main {
+    margin-top: 0;
+  }
 }
 
 .pointer {

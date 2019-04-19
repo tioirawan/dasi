@@ -25,14 +25,14 @@
                         <input type="password" name="userpass" class="form-control" id="userpass" placeholder="Kata Sandi">
                     </div>
 
-                    <!-- <div class="right-left">
-                        <div class="form-check">
-                            <input type="checkbox" name="rememberme" class="form-check-input" id="rememberme">
-                            <label class="form-check-label" for="rememberme">Ingat Saya</label>
-                        </div> -->
+                    <div class="right-left">
+                        <div>
+                            <a href="../" class="btn btn-primary">Kembali</a>
+                        </div>
 
-                    <div>
-                        <button type="submit" class="btn btn-primary">Masuk</button>
+                        <div>
+                            <button type="submit" class="btn btn-success">Masuk</button>                                
+                        </div>
                     </div>
                     
                     <!-- </div> -->

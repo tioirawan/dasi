@@ -146,6 +146,7 @@
 
     <?php include "../component/admin/sidebarclose.php" ?>
     <?php include "../component/scripts.php" ?>
+    <?php $noback = true; require "../component/scrollTop.php" ?>
 
     <?php if ($res) { ?>
     <script>
