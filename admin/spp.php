@@ -77,8 +77,8 @@
                 <div class="col-sm-4 col-l-3 my-3">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title pointer text-success" onclick="location.href = 'detail_siswa.php?id=<?=$t->user_id?>'">
-                                <?=$t->user_id?>
+                            <h3 class="card-title pointer text-success" onclick="location.href = 'detail_siswa.php?id=<?=$t->siswa_id?>'">
+                                <?=$t->siswa_id?>
                                 <span class="float-right"><?=boldGreen(rupiah($t->kredit))?></span>
                             </h3>
 

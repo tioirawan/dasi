@@ -31,7 +31,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title"><i class="fas fa-male" aria-hidden="true"></i> Laki-laki</h4>
-                            <p class="card-text"><?= $stats->users->laki ?></p>
+                            <p class="card-text"><?= $stats->siswa->laki ?></p>
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title"><i class="fas fa-female"></i> Perempuan</h4>
-                            <p class="card-text"><?= $stats->users->perempuan ?></p>
+                            <p class="card-text"><?= $stats->siswa->perempuan ?></p>
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title"><i class="fas fa-male"></i><i class="fas fa-female"></i> Total</h4>
-                            <p class="card-text"><?= $stats->users->total ?></p>
+                            <p class="card-text"><?= $stats->siswa->total ?></p>
                         </div>
                     </div>
                 </div>

@@ -11,13 +11,13 @@
                 </div>
             </div>
             <div class="sidebar-header">
-                <div class="user-pic">
-                    <img class="img-responsive img-rounded" src="https://raw.githubusercontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/user.jpg" alt="User picture">
+                <div class="siswa-pic">
+                    <img class="img-responsive img-rounded" src="https://raw.githubsiswacontent.com/azouaoui-med/pro-sidebar-template/gh-pages/src/img/siswa.jpg" alt="User picture">
                 </div>
-                <div class="user-info">
-                    <span class="user-name"><?=ucwords($data["nama"])?>
+                <div class="siswa-info">
+                    <span class="siswa-name"><?=ucwords($data["nama"])?>
                     </span>
-                    <span class="user-role"><?=$data["level"]?></span>
+                    <span class="siswa-role"><?=$data["level"]?></span>
                 </div>
             </div>
             <!-- sidebar-header  -->

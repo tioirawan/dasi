@@ -275,7 +275,7 @@
                         <input type="password" class="form-control" name="password" required>
                     </div>
 
-                    <input type="hidden" name="userid" value="<?= $siswa->id ?>">
+                    <input type="hidden" name="siswaid" value="<?= $siswa->id ?>">
                     <input type="hidden" name="adminid" value="<?= $data["id"] ?>">
 
                     <input type="submit" class="btn btn-primary" value="Setor">
@@ -307,7 +307,7 @@
                         <input type="password" class="form-control" name="password" required>
                     </div>
 
-                    <input type="hidden" name="userid" value="<?= $siswa->id ?>">
+                    <input type="hidden" name="siswaid" value="<?= $siswa->id ?>">
                     <input type="hidden" name="adminid" value="<?= $data["id"] ?>">
 
                     <input type="submit" class="btn btn-primary" value="Tarik">

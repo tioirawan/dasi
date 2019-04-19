@@ -4,10 +4,10 @@ require "../db/database.php";
 
 $validated = false;
 
-if (isset($_POST["userid"])) {
+if (isset($_POST["siswaid"])) {
     $db = new Database();
 
-    $userid = $_POST["userid"];
+    $siswaid = $_POST["siswaid"];
     $adminid = $_POST["adminid"];
     $nominal = (int)$_POST["nominal_setor"];
     $deskripsi = $_POST["deskripsi"];
@@ -16,15 +16,15 @@ if (isset($_POST["userid"])) {
     $validated = $db->validateAdminPassword($adminid, $pass);
 
     if ($validated && $nominal >= 1000) {
-        if ($db->userDeposit($userid, $nominal)) {
-            $db->addTransaction($nominal, "topup", "masuk", $userid, "teller", $deskripsi);
-            $db->addAdminJournal($adminid, "setor_tunai_siswa", $nominal, $userid);
+        if ($db->siswaDeposit($siswaid, $nominal)) {
+            $db->addTransaction($nominal, "topup", "masuk", $siswaid, "teller", $deskripsi);
+            $db->addAdminJournal($adminid, "setor_tunai_siswa", $nominal, $siswaid);
 
-            header("Location: ../admin/detail_siswa.php?ssc=Setor Tunai Sukses&id=$userid");
+            header("Location: ../admin/detail_siswa.php?ssc=Setor Tunai Sukses&id=$siswaid");
             die();
         }
     } else {
-        header("Location: ../admin/detail_siswa.php?ssc=Password salah atau nominal tarik terlalu kecil&id=$userid");        
+        header("Location: ../admin/detail_siswa.php?ssc=Password salah atau nominal tarik terlalu kecil&id=$siswaid");        
     }
 }
 ?>

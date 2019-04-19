@@ -11,17 +11,17 @@ if (isset($_POST["donationid"])) {
     $db = new Database();
 
     $donationid = $_POST["donationid"];
-    $userid = $_POST["userid"];
+    $siswaid = $_POST["siswaid"];
     $pass = $_POST["password"];
     $amount = (int)$_POST["jumlah_donasi"];
     $private = (boolean)$_POST["private"];
     $donationame = $_POST["donationname"];
 
-    $validated = $db->validatePassword($userid, $pass);
+    $validated = $db->validatePassword($siswaid, $pass);
 
-    if ($validated && $amount >= 1000 && $amount <= $db->getUserById($userid, PDO::FETCH_OBJ)->saldo) {
-        if ($db->fundDonation($donationid, $userid, $amount, $private)) {
-            $db->addTransaction($amount, "donation", "keluar", $userid, "direct", "Donasi $donationame");
+    if ($validated && $amount >= 1000 && $amount <= $db->getUserById($siswaid, PDO::FETCH_OBJ)->saldo) {
+        if ($db->fundDonation($donationid, $siswaid, $amount, $private)) {
+            $db->addTransaction($amount, "donation", "keluar", $siswaid, "direct", "Donasi $donationame");
             $success = true;
         }
     }

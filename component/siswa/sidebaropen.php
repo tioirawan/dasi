@@ -26,10 +26,10 @@
                 </div>
             </div>
             <div class="sidebar-header">                
-                <div class="user-info">
-                    <span class="user-name"><?=ucwords($data["nama"])?></span>
-                    <span class="user-id"><?=$data["nisn"]?></span>
-                    <span class="user-role"><?=$sekolah->nama_sekolah?></span>
+                <div class="siswa-info">
+                    <span class="siswa-name"><?=ucwords($data["nama"])?></span>
+                    <span class="siswa-id"><?=$data["nisn"]?></span>
+                    <span class="siswa-role"><?=$sekolah->nama_sekolah?></span>
                 </div>
             </div>
             <div class="sidebar-menu">

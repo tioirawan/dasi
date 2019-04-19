@@ -11,15 +11,15 @@ if (isset($_POST["uniqueid"])) {
   $db = new Database();
 
   $judul = $_POST["judul"];
-  $userid = $_POST["userid"];
+  $siswaid = $_POST["siswaid"];
   $uniqueid = $_POST["uniqueid"];
   $amount = (int)$_POST["nominal"];
 
-  $user = $db->getUserById($userid, PDO::FETCH_OBJ);
+  $siswa = $db->getUserById($siswaid, PDO::FETCH_OBJ);
 
-  if ($amount < $user->saldo && $amount >= 500) {
-    if ($db->payKantin($userid, $uniqueid, $amount)) {
-      $id = $db->addTransaction($amount, "pembelian", "keluar", $userid, "qrcode", "Pembelian $judul");
+  if ($amount < $siswa->saldo && $amount >= 500) {
+    if ($db->payKantin($siswaid, $uniqueid, $amount)) {
+      $id = $db->addTransaction($amount, "pembelian", "keluar", $siswaid, "qrcode", "Pembelian $judul");
       $trx = $db->getTransaction($id, PDO::FETCH_OBJ);
       
       $success = true;
@@ -53,7 +53,7 @@ if (isset($_POST["uniqueid"])) {
         <p class="card-text">Sepertinya pembayaran sudah masuk, scan ulang untuk melakukan pembayaran lagi</p>
         <a href="../siswa/scan.php" role="button" class="btn btn-primary btn-lg">Kembali ke halaman pemindai</a>
       <?php } else if (!$success) { ?>
-        <p class="card-text">Terjadi kesalahan<br/><?= $amount > $user->saldo ?"Saldo anda tidak mencukupi" : ($amount < 500 ? "Minimal pembayaran adalah ".boldGreen(rupiah(500)): "") ?></p>
+        <p class="card-text">Terjadi kesalahan<br/><?= $amount > $siswa->saldo ?"Saldo anda tidak mencukupi" : ($amount < 500 ? "Minimal pembayaran adalah ".boldGreen(rupiah(500)): "") ?></p>
         <a href="../siswa/scan.php" role="button" class="btn btn-primary btn-lg">Kembali ke halaman pemindai</a>
       <?php } else { ?>
       <p class="card-text">Pembelian <?= $judul ?> <?= $success ?'senilai ' . boldGreen(rupiah($amount)) : '' ?> telah <?= $success ?'sukses!' : 'gagal' ?>!</p>

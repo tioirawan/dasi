@@ -117,7 +117,6 @@
                     }
                 },
                 repaint(location, ctx) {
-                    console.log("reapo")
                     if (location !== null) {
                         const {
                             topLeftFinderPattern,

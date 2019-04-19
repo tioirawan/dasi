@@ -40,7 +40,7 @@
            
             </div>
 
-            <input type="hidden" name="userid" value="<?= $data["id"] ?>">
+            <input type="hidden" name="siswaid" value="<?= $data["id"] ?>">
             <input type="hidden" name="nisn" value="<?= $nisn ?>">
             <input type="hidden" name="metode" value="<?=isset($_GET["metode"]) ? $_GET["metode"] : "qrcode"?>">
 
@@ -57,7 +57,7 @@
 
     <?php 
         $satusState = false;
-        $iconNo = "user-times";
+        $iconNo = "siswa-times";
         include "../component/statusIcon.php";
     ?>
 

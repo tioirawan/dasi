@@ -16,6 +16,6 @@ $res = $db->register(
     $_POST["saldo"]
 );
 
-$db->addAdminJournal($_POST["adminid"], "register_user", 0, $res[0]);
+$db->addAdminJournal($_POST["adminid"], "register_siswa", 0, $res[0]);
 
 echo "Password: $res[1]<br/>Harap Diingat";

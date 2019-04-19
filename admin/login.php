@@ -16,13 +16,13 @@
             <div class="login">
                 <form action="../actions/login_admin.php" method="POST">
                     <div class="form-group">
-                        <label for="useremail">Email</label>
-                        <input type="email" name="useremail" class="form-control" id="useremail" placeholder="Email">
+                        <label for="siswaemail">Email</label>
+                        <input type="email" name="siswaemail" class="form-control" id="siswaemail" placeholder="Email">
 
                     </div>
                     <div class="form-group">
-                        <label for="userpass">Kata Sandi</label>
-                        <input type="password" name="userpass" class="form-control" id="userpass" placeholder="Kata Sandi">
+                        <label for="siswapass">Kata Sandi</label>
+                        <input type="password" name="siswapass" class="form-control" id="siswapass" placeholder="Kata Sandi">
                     </div>
 
                     <!-- <div class="right-left"> -->

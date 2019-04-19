@@ -174,7 +174,7 @@ body {
   overflow: hidden;
 }
 
-.sidebar-wrapper .sidebar-header .user-pic {
+.sidebar-wrapper .sidebar-header .siswa-pic {
   float: left;
   width: 60px;
   padding: 2px;
@@ -183,40 +183,40 @@ body {
   overflow: hidden;
 }
 
-.sidebar-wrapper .sidebar-header .user-pic img {
+.sidebar-wrapper .sidebar-header .siswa-pic img {
   object-fit: cover;
   height: 100%;
   width: 100%;
 }
 
-.sidebar-wrapper .sidebar-header .user-name {
+.sidebar-wrapper .sidebar-header .siswa-name {
   font-size: 1.3em;
   margin: 1px;
 }
 
-.sidebar-wrapper .sidebar-header .user-info {
+.sidebar-wrapper .sidebar-header .siswa-info {
   float: left;
 }
 
-.sidebar-wrapper .sidebar-header .user-info > span {
+.sidebar-wrapper .sidebar-header .siswa-info > span {
   display: block;
 }
 
-.sidebar-wrapper .sidebar-header .user-info .user-role {
+.sidebar-wrapper .sidebar-header .siswa-info .siswa-role {
   font-size: 1em;
   margin: 1px 0;
 }
 
-.sidebar-wrapper .sidebar-header .user-info .user-id {
+.sidebar-wrapper .sidebar-header .siswa-info .siswa-id {
   font-size: 12px;
 }
 
-.sidebar-wrapper .sidebar-header .user-info .user-status {
+.sidebar-wrapper .sidebar-header .siswa-info .siswa-status {
   font-size: 11px;
   margin-top: 4px;
 }
 
-.sidebar-wrapper .sidebar-header .user-info .user-status i {
+.sidebar-wrapper .sidebar-header .siswa-info .siswa-status i {
   font-size: 8px;
   margin-right: 4px;
   color: #5cb85c;
@@ -454,8 +454,8 @@ body {
   box-shadow: none;
 }
 
-.chiller-theme .sidebar-wrapper .sidebar-header .user-info .user-role,
-.chiller-theme .sidebar-wrapper .sidebar-header .user-info .user-status,
+.chiller-theme .sidebar-wrapper .sidebar-header .siswa-info .siswa-role,
+.chiller-theme .sidebar-wrapper .sidebar-header .siswa-info .siswa-status,
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
 .chiller-theme .sidebar-wrapper .sidebar-search .input-group-text,
 .chiller-theme .sidebar-wrapper .sidebar-brand > a,
@@ -466,7 +466,7 @@ body {
 
 .chiller-theme .sidebar-wrapper .sidebar-menu ul li:hover > a,
 .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active > a,
-.chiller-theme .sidebar-wrapper .sidebar-header .user-info,
+.chiller-theme .sidebar-wrapper .sidebar-header .siswa-info,
 .chiller-theme .sidebar-wrapper .sidebar-brand > a:hover,
 .chiller-theme .sidebar-footer > a:hover i {
   color: #dddbdb;

@@ -19,8 +19,8 @@
                 </div>
             </div>
             <div class="sidebar-header">
-                <div class="user-info">
-                    <span class="user-name"><?=ucwords($data["nama"])?></span>
+                <div class="siswa-info">
+                    <span class="siswa-name"><?=ucwords($data["nama"])?></span>
                 </div>
             </div>
             
