@@ -61,7 +61,6 @@
 
     <header class="masthead">
         <div class="container h-100">
-
             <div class="row h-100 align-items-center">
                 <div class="col-12 text-left brand-container">
                     <h1 class="font-weight-light">Dasi</h1>
@@ -217,20 +216,20 @@
 
                     <div>
                         <div class="form-group">
-                            <label for="kelas_siswa">Kelas</label>
-                            <input type="text" class="form-control" name="kelas" id="kelas_siswa" required>
+                            <label for="jurusan_siswa">Jurusan</label>
+                            <input type="text" class="form-control" name="jurusan" id="jurusan_siswa" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="jurusan_siswa">Jurusan</label>
-                            <input type="text" class="form-control" name="jurusan" id="jurusan_siswa" required>
+                            <label for="kelas_siswa">Kelas</label>
+                            <input type="text" class="form-control" name="kelas" id="kelas_siswa" required>
                         </div>
                     </div>
 
                     <div>
                         <div class="form-group">
                             <label for="nisn_siswa">NISN</label>
-                            <input type="text" class="form-control" name="nisn" id="nisn_siswa" required>
+                            <input type="number" class="form-control" name="nisn" id="nisn_siswa" required>
                         </div>
                     </div>
 

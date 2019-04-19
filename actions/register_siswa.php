@@ -12,6 +12,7 @@ require "checkpost.php";
 </head>
 
 <body>
+<div class='container text-center'>
     <?php
     include "../db/database.php";
 
@@ -21,19 +22,15 @@ require "checkpost.php";
     $checkSiswa = $db->getUserByEmail($_POST["email"], PDO::FETCH_OBJ);
 
     if (!$sekolah) {
-        echo "<div class='container text-center'>";
         echo "<h1>Maaf Tidak Dapat Menemukan Kode Sekolah</h1>";
         echo "<button onclick='history.back()' class='btn btn-primary'>Kembali</button>";
-        echo "</div>";
 
         return;
     }
 
     if ($checkSiswa) {
-        echo "<div class='container text-center'>";
         echo "<h1>Maaf Email Telah Digunakan</h1>";
         echo "<button onclick='history.back()' class='btn btn-primary'>Kembali</button>";
-        echo "</div>";
 
         return;
     }
@@ -79,7 +76,7 @@ require "checkpost.php";
             </form>
         </div>
     </div>
-
+</div>
 
     <?php include "../component/scripts.php" ?>
 

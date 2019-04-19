@@ -603,11 +603,7 @@ class Database
 
             $query->execute();
 
-            if ($query->rowCount() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return $query->rowCount();
         } catch (PDOException $e) {
             exit($e->getMessage());
         }
