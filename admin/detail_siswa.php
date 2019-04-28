@@ -28,12 +28,12 @@
                 </div>
             </div>
         </div>
-        <?php
-                } ?>
+    <?php
+} ?>
 
     <?php
-                $siswa = $db->getUserById($_GET["id"], PDO::FETCH_OBJ);
-                ?>
+    $siswa = $db->getUserById($_GET["id"], PDO::FETCH_OBJ);
+    ?>
 
     <div class="row">
         <div class="col-md-5">
@@ -91,7 +91,7 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                         <div class="card-body">
                             <form action="../actions/edit_siswa.php" method="post">
-                            <p class="text-danger font-italic">*Hati-hati dan pastikan kembali jika mengubah data siswa, salah mengubah data siswa dapat menyebabkan hal yang tidak diinginkan</p>
+                                <p class="text-danger font-italic">*Hati-hati dan pastikan kembali jika mengubah data siswa, salah mengubah data siswa dapat menyebabkan hal yang tidak diinginkan</p>
                                 <div class="row">
                                     <div class="col-sm-6">
 
@@ -103,8 +103,8 @@
                                         <div class="form-group">
                                             <label for="kelamin">Kelamin Siswa</label>
                                             <select class="form-control" id="kelamin" name="kelamin" required>
-                                                <option value="laki-laki" <?=$siswa->kelamin == "laki-laki" ? "selected" : "" ?>>Laki-Laki</option>
-                                                <option value="perempuan" <?=$siswa->kelamin == "perempuan" ? "selected" : "" ?>>Perempuan</option>
+                                                <option value="laki-laki" <?= $siswa->kelamin == "laki-laki" ? "selected" : "" ?>>Laki-Laki</option>
+                                                <option value="perempuan" <?= $siswa->kelamin == "perempuan" ? "selected" : "" ?>>Perempuan</option>
                                             </select>
                                         </div>
                                     </div>
@@ -189,57 +189,58 @@
                                 <div class="modal-body">
                                     <div class="container">
                                         <?php
-                                            $trx = $db->getUserTransactionHistory($siswa->id, PDO::FETCH_OBJ);
+                                        $trx = $db->getUserTransactionHistory($siswa->id, PDO::FETCH_OBJ);
 
-                                            if ($trx) {
-                                                ?>
+                                        if ($trx) {
+                                            ?>
 
-                                                <div class="table-responsive">
-                                                    <table id="paymentHistoryTable" class="table">
-                                                        <thead>
+                                            <div class="table-responsive">
+                                                <table id="paymentHistoryTable" class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Tanggal</th>
+                                                            <th>Jenis</th>
+                                                            <th>Debit</th>
+                                                            <th>Kredit</th>
+                                                            <th>Tipe</th>
+                                                            <th>Metode</th>
+                                                            <th>Deskripsi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        foreach ($trx as $val) {
+                                                            ?>
+
                                                             <tr>
-                                                                <th>ID</th>
-                                                                <th>Tanggal</th>
-                                                                <th>Jenis</th>
-                                                                <th>Debit</th>
-                                                                <th>Kredit</th>
-                                                                <th>Tipe</th>
-                                                                <th>Metode</th>
-                                                                <th>Deskripsi</th>
+                                                                <td><?= $val->id ?></td>
+                                                                <td><?= $val->tanggal ?></td>
+                                                                <td><?= ucwords($val->jenis) ?></td>
+                                                                <td data-sort="<?= $val->debit ?>"><?= rupiah($val->debit) ?></td>
+                                                                <td data-sort="<?= $val->kredit ?>"><?= rupiah($val->kredit) ?></td>
+                                                                <td><?= $val->tipe ?></td>
+                                                                <td><?= $val->metode ?></td>
+                                                                <td><?= ucwords($val->deskripsi) ?></td>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php
-                                                foreach ($trx as $val) {
+
+                                                        <?php
+                                                    }
                                                     ?>
 
-                                                    <tr>
-                                                        <td><?= $val->id ?></td>
-                                                    <td><?= $val->tanggal ?></td>
-                                                    <td><?= ucwords($val->jenis) ?></td>
-                                                    <td data-sort="<?=$val->debit?>"><?= rupiah($val->debit) ?></td>
-                                                    <td data-sort="<?=$val->kredit?>"><?= rupiah($val->kredit) ?></td>
-                                                    <td><?= $val->tipe ?></td>
-                                                    <td><?= $val->metode ?></td>
-                                                    <td><?= ucwords($val->deskripsi) ?></td>
-                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
 
-                                                                                    <?php
-                                                }
-                                                ?>
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                                                        <?php
-                                            } else {
-                                                echo "<p class='card-text'>Belum melakukan transaksi</p>";
-                                            }
-                                            ?>
+                                        <?php
+                                    } else {
+                                        echo "<p class='card-text'>Belum melakukan transaksi</p>";
+                                    }
+                                    ?>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" onclick="printHistory()">Cetak</button>
                                     <button type="button" class="btn btn-primary" data-dismiss="modal">Tutup</button>
                                 </div>
                             </div>
@@ -293,7 +294,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Rp</span>
                             </div>
-                            <input type="number" class="form-control uang" name="nominal_tarik" id="jumlah_penarikan" min="1" max="<?=$siswa->saldo?>" value="10000" required>
+                            <input type="number" class="form-control uang" name="nominal_tarik" id="jumlah_penarikan" min="1" max="<?= $siswa->saldo ?>" value="10000" required>
                         </div>
                     </div>
 
@@ -319,7 +320,8 @@
 
     <?php include "../component/admin/sidebarclose.php" ?>
     <?php include "../component/scripts.php" ?>
-    <?php $noback = true; require "../component/scrollTop.php" ?>
+    <?php $noback = true;
+    require "../component/scrollTop.php" ?>
 
     <script>
         <?php if (isset($_GET["ssc"])) { ?>
@@ -335,6 +337,26 @@
                 ]
             });
         });
+
+        function printHistory() {
+            var centeredText = function(text, y) {
+                var textWidth = pdf.getStringUnitWidth(text) * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                var textOffset = (pdf.internal.pageSize.width - textWidth) / 2;
+                pdf.text(textOffset, y, text);
+            }
+
+            var pdf = new jsPDF('p', 'pt', 'letter');
+
+            pdf.setFontType("normal");
+
+            centeredText("Riwayat Transaksi: <?= "{$siswa->nama} - {$siswa->tingkatan} {$siswa->jurusan} {$siswa->kelas}" ?>", 30);
+
+            pdf.autoTable({
+                html: "#paymentHistoryTable"
+            });
+
+            pdf.save('history-<?= $siswa->nama ?>.pdf');
+        }
     </script>
 </body>
 
